@@ -15,16 +15,23 @@ public class Main {
 	public static void main(String[] args) {
 		cli.info("Digite o nome do arquivo, que deverá estar dentro da pasta files do projeto.");
 		String stringAnalise = "";
-		try {
-			stringAnalise = fileCli.criarStringdoArquivo(cli.read());
+		while(true) {
+			
+			try {
+				stringAnalise = fileCli.criarStringDoArquivo(cli.read());
+				cli.info("Carregada a string: "+stringAnalise);
 
-		} catch (FileNotFoundException ioe) {
-			 cli.error("Arquivo não localizado.");
-		} catch (Exception ioe) {
-			cli.error(ioe.getMessage());
+			} catch (FileNotFoundException e) {
+				 cli.error("Arquivo não localizado.");
+				 break;
+			} catch (Exception e) {
+				cli.error(e.getMessage());
+				break;
+			}
 		}
 		
-		cli.write("Fim do programa");
+		
+		cli.info("Fim do programa");
 	}
 
 }

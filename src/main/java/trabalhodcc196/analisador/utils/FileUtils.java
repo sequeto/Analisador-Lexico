@@ -16,7 +16,7 @@ public class FileUtils {
         }     
     }
 
-    public static String criarStringdoArquivo(String nomeArquivo) throws FileNotFoundException, IOException {
+    public static String criarStringDoArquivo(String nomeArquivo) throws FileNotFoundException, IOException {
         BufferedReader reader = criarBufferedReader("files/"+nomeArquivo);
         String stringLida = "";
         String readLine = reader.readLine();
@@ -31,8 +31,8 @@ public class FileUtils {
         return stringLida;
     }
     
-    public static void escreverEmArquivo(String content) throws IOException {
-    	BufferedWriter writer = new BufferedWriter(new FileWriter("files/output.txt"));
+    public static void escreverEmArquivo(String content, String fileName) throws IOException {
+    	BufferedWriter writer = new BufferedWriter(new FileWriter("output/"+fileName));
     	writer.write(content);
     	writer.close();
     }
