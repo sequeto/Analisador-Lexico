@@ -1,8 +1,10 @@
 package trabalhodcc196.analisador.utils;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class FileUtils {
@@ -27,5 +29,11 @@ public class FileUtils {
         }
         reader.close();
         return stringLida;
+    }
+    
+    public static void escreverEmArquivo(String content) throws IOException {
+    	BufferedWriter writer = new BufferedWriter(new FileWriter("files/output.txt"));
+    	writer.write(content);
+    	writer.close();
     }
 }

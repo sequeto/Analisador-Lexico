@@ -1,5 +1,6 @@
 package trabalhodcc196.analisador;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -12,13 +13,15 @@ public class Main {
 	public static FileUtils fileCli;
 
 	public static void main(String[] args) {
-		cli.write("Digite o nome do arquivo, que deverá estar dentro da pasta files do projeto.");
+		cli.info("Digite o nome do arquivo, que deverá estar dentro da pasta files do projeto.");
 		String stringAnalise = "";
 		try {
 			stringAnalise = fileCli.criarStringdoArquivo(cli.read());
 
-		} catch (IOException ioe) {
-			 cli.error(ioe.getMessage());
+		} catch (FileNotFoundException ioe) {
+			 cli.error("Arquivo não localizado.");
+		} catch (Exception ioe) {
+			cli.error(ioe.getMessage());
 		}
 		
 		cli.write("Fim do programa");

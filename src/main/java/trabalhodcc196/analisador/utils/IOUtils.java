@@ -16,6 +16,18 @@ public class IOUtils {
 		this.output.println(content);
 	}
 	
+	public void info(String info) {
+		this.output.println("[INFO]: "+info);
+	}
+	
+	public void error(String error) { 
+		this.output.println("[ERRO]: " + error);
+	}
+	
+	public void warning(String warning) { 
+		this.output.println("[AVISO]: " + warning);
+	}
+	
 	public String read() {	
 		String content = this.input.nextLine();
 		return content;
@@ -28,12 +40,10 @@ public class IOUtils {
 	public String ask(String question, String[] options) {
 		write(question);
 		for (int i = 0; i < options.length; i++) {
-			write(i + 1 + " : " + options[i]);
+			info(i + 1 + " : " + options[i]);
 		}	
 		return read();
 	}
 	
-	public void error(String error) { 
-		this.output.println("Erro! " + error);
-	}
+	
 }
