@@ -1,7 +1,5 @@
 package trabalhodcc196.analisador;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 
 import trabalhodcc196.analisador.utils.FileUtils;
@@ -9,29 +7,29 @@ import trabalhodcc196.analisador.utils.IOUtils;
 
 public class Main {
 	
-	public static IOUtils cli = new IOUtils(new Scanner(System.in), System.out);
 	public static FileUtils fileCli;
+	public static IOUtils cli = new IOUtils(new Scanner(System.in), System.out);
+	public static Scanner scanner = new Scanner(System.in);
+	public static UserInteraction userInteraction = new UserInteraction();
 
 	public static void main(String[] args) {
-		cli.info("Digite o nome do arquivo, que deverá estar dentro da pasta files do projeto.");
-		String stringAnalise = "";
+		String input;
+		// Criando Loop de Interação do Usuário
 		while(true) {
+			cli.info("Especifique uma TAG ou digite um comando:");
+			input = scanner.nextLine();
 			
-			try {
-				stringAnalise = fileCli.criarStringDoArquivo(cli.read());
-				cli.info("Carregada a string: "+stringAnalise);
-
-			} catch (FileNotFoundException e) {
-				 cli.error("Arquivo não localizado.");
-				 break;
-			} catch (Exception e) {
-				cli.error(e.getMessage());
-				break;
+			if(input.equals(":q")) {
+				break;				
 			}
+			
+			else {
+				UserInteraction.readInput(input);
+			}
+			
 		}
 		
-		
-		cli.info("Fim do programa");
+		cli.info("Fim do Programa");
 	}
 
 }
