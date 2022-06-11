@@ -7,6 +7,7 @@ import trabalhodcc196.analisador.utils.IOUtils;
 
 public class UserInteraction {
 	public static IOUtils cli = new IOUtils(new Scanner(System.in), System.out);
+	public static FileUtils fileUtils = new FileUtils();
 	
 	public static void readInput(String input) {
 		// Construir Módulos e Funções para cada Comando
@@ -22,10 +23,11 @@ public class UserInteraction {
 					break;
 				case ":o":
 					cli.warning("Especifica o caminho do arquivo de saída para a divião de tags"); // :o output.txt
-					FileUtils.definirCaminhoSaida(input.substring(2).trim());
+					fileUtils.definirCaminhoSaida(input.substring(2).trim());
 					break;
 				case ":p":
 					cli.warning("Realiza a divisão em tags da entrada informada"); // :p x=1037
+					cli.warning("Comando ainda não implementado.");
 					break;
 				case ":a":
 					cli.warning("Lista as definições formais dos autômatos em memória"); // :a

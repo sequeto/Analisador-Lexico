@@ -7,9 +7,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 public class FileUtils {
 	
-	public String output;
+	private String output;
 
     public static String criarStringDoArquivo(String nomeArquivo) throws FileNotFoundException, IOException {
         BufferedReader reader = new BufferedReader(new FileReader("files/"+nomeArquivo));
@@ -26,13 +29,13 @@ public class FileUtils {
         return stringLida;
     }
     
-    public static void escreverEmArquivo(String content, String fileName) throws IOException {
-    	BufferedWriter writer = new BufferedWriter(new FileWriter("output/"+fileName));
+    public void escreverEmArquivo(String content) throws IOException {
+    	BufferedWriter writer = new BufferedWriter(new FileWriter("output/"+this.output));
     	writer.write(content);
     	writer.close();
     }
     
-    public static void definirCaminhoSaida(String output){
+    public void definirCaminhoSaida(String output){
     	this.output = output;
     }
 }
