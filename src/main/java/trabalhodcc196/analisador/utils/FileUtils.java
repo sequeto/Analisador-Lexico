@@ -8,6 +8,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class FileUtils {
+	
+	public String output;
 
     public static String criarStringDoArquivo(String nomeArquivo) throws FileNotFoundException, IOException {
         BufferedReader reader = new BufferedReader(new FileReader("files/"+nomeArquivo));
@@ -28,5 +30,9 @@ public class FileUtils {
     	BufferedWriter writer = new BufferedWriter(new FileWriter("output/"+fileName));
     	writer.write(content);
     	writer.close();
+    }
+    
+    public static void definirCaminhoSaida(String output){
+    	this.output = output;
     }
 }

@@ -7,9 +7,7 @@ import trabalhodcc196.analisador.utils.IOUtils;
 
 public class Main {
 	
-	public static FileUtils fileCli;
 	public static IOUtils cli = new IOUtils(new Scanner(System.in), System.out);
-	public static Scanner scanner = new Scanner(System.in);
 	public static UserInteraction userInteraction = new UserInteraction();
 
 	public static void main(String[] args) {

@@ -2,6 +2,7 @@ package trabalhodcc196.analisador;
 
 import java.util.Scanner;
 
+import trabalhodcc196.analisador.utils.FileUtils;
 import trabalhodcc196.analisador.utils.IOUtils;
 
 public class UserInteraction {
@@ -10,15 +11,18 @@ public class UserInteraction {
 	public static void readInput(String input) {
 		// Construir Módulos e Funções para cada Comando
 		if(input.charAt(0) == ':') {
-			switch(input) {
+			switch(input.substring(0, 1)) {
 				case ":d":
 					cli.warning("Realiza a divisão em tags da string do arquivo informado"); // :d input.txt
+					cli.warning("Comando ainda não implementado."); 
 					break;
 				case ":c":
 					cli.warning("Carrega um arquivo com definições de tags"); // :c tags.lex
+					cli.warning("Comando ainda não implementado."); 
 					break;
 				case ":o":
 					cli.warning("Especifica o caminho do arquivo de saída para a divião de tags"); // :o output.txt
+					FileUtils.definirCaminhoSaida(input.substring(2).trim());
 					break;
 				case ":p":
 					cli.warning("Realiza a divisão em tags da entrada informada"); // :p x=1037
