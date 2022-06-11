@@ -17,7 +17,7 @@ public class Main {
 		// Criando Loop de Interação do Usuário
 		while(true) {
 			cli.info("Especifique uma TAG ou digite um comando:");
-			input = scanner.nextLine();
+			input = cli.read();
 			
 			if(input.equals(":q")) {
 				break;				

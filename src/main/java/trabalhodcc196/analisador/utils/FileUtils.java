@@ -8,16 +8,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class FileUtils {
-	public static BufferedReader criarBufferedReader(String pathArquivo) throws FileNotFoundException {
-        try {   
-            return new BufferedReader(new FileReader(pathArquivo));
-        } catch (FileNotFoundException e) {
-            throw new FileNotFoundException("Arquivo não encontrado.");
-        }     
-    }
 
     public static String criarStringDoArquivo(String nomeArquivo) throws FileNotFoundException, IOException {
-        BufferedReader reader = criarBufferedReader("files/"+nomeArquivo);
+        BufferedReader reader = new BufferedReader(new FileReader("files/"+nomeArquivo));
         String stringLida = "";
         String readLine = reader.readLine();
         while(readLine != null){
