@@ -9,7 +9,7 @@ public class UserInteraction {
 	public static IOUtils cli = new IOUtils(new Scanner(System.in), System.out);
 	public static FileUtils fileUtils = new FileUtils();
 	
-	public static void readInput(String input) {
+	public static void readInput(String input) throws Exception{
 		// Construir Módulos e Funções para cada Comando
 		if(input.charAt(0) == ':') {
 			switch(input.substring(0, 1)) {
@@ -19,10 +19,10 @@ public class UserInteraction {
 					break;
 				case ":c":
 					cli.warning("Carrega um arquivo com definições de tags"); // :c tags.lex
-					cli.warning("Comando ainda não implementado."); 
+					fileUtils.lerListaDeTagsDeArquivo(input.substring(2).trim());
 					break;
 				case ":o":
-					cli.warning("Especifica o caminho do arquivo de saída para a divião de tags"); // :o output.txt
+					cli.warning("Especifica o caminho do arquivo de saída para a divisão de tags"); // :o output.txt
 					fileUtils.definirCaminhoSaida(input.substring(2).trim());
 					break;
 				case ":p":

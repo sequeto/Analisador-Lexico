@@ -20,9 +20,12 @@ public class Main {
 			if(input.equals(":q")) {
 				break;				
 			}
-			
 			else {
-				UserInteraction.readInput(input);
+				try {
+					UserInteraction.readInput(input);
+				} catch (Exception e) {
+					cli.error(e.getMessage());
+				}
 			}
 			
 		}
