@@ -1,7 +1,6 @@
 package trabalhodcc196.analisador.utils;
 
 import java.io.PrintStream;
-import java.util.List;
 import java.util.Scanner;
 
 public class IOUtils {
