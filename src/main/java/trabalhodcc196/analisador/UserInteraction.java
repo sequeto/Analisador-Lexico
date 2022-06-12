@@ -10,12 +10,16 @@ public class UserInteraction {
 	public static FileUtils fileUtils = new FileUtils();
 	
 	public static void readInput(String input) throws Exception{
+		String [] comand = cli.getInput(input);
 		// Construir Módulos e Funções para cada Comando
-		if(input.charAt(0) == ':') {
-			switch(input.substring(0, 1)) {
+		if(comand[0].charAt(0) == ':') {
+			// Faz um switch entre os comandos
+			switch(comand[0]) {
 				case ":d":
 					cli.warning("Realiza a divisão em tags da string do arquivo informado"); // :d input.txt
-					cli.warning("Comando ainda não implementado."); 
+					cli.write(input.substring(0));
+					//fileUtils.criarStringDoArquivo(input.substring(1));
+					//cli.warning("Comando ainda não implementado."); 
 					break;
 				case ":c":
 					cli.warning("Carrega um arquivo com definições de tags"); // :c tags.lex
