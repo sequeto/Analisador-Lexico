@@ -14,10 +14,9 @@ public class Main {
 		String input;
 		ListaTags listaTags = new ListaTags();
 		// Criando Loop de Interação do Usuário
-		cli.info("Especifique uma TAG ou digite um comando:");
 		while(true) {
 			input = cli.read();
-			
+			cli.info("Especifique uma TAG ou digite um comando:");
 			if(input.equals(":q")) {
 				break;				
 			}
@@ -25,7 +24,7 @@ public class Main {
 				try {
 					UserInteraction.readInput(input, listaTags.lsTags);
 				} catch (Exception e) {
-					cli.error("Digite uma tag ou um comando:");
+					cli.error(e.getMessage());
 				}
 			}
 			

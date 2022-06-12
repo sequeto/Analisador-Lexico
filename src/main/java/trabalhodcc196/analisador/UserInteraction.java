@@ -3,6 +3,7 @@ package trabalhodcc196.analisador;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import trabalhodcc196.analisador.exceptions.InputNotExist;
 import trabalhodcc196.analisador.resources.TagsProcess;
 import trabalhodcc196.analisador.utils.FileUtils;
 import trabalhodcc196.analisador.utils.IOUtils;
@@ -16,6 +17,9 @@ public class UserInteraction {
 	public static void readInput(String input, HashMap<String,String> listaTags) throws Exception{
 		String [] comand = cli.getInput(input);
 		TagsProcess process = new TagsProcess();
+		if(comand[0].equals("")){
+			throw new InputNotExist("Insira um comando ou tag:");
+		}
 		if(comand[0].charAt(0) == ':') {
 			// Faz um switch entre os comandos
 			cli.info("Definindo comando:");
