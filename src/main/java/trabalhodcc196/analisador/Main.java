@@ -22,7 +22,7 @@ public class Main {
 			}
 			else {
 				try {
-					UserInteraction.readInput(input, listaTags.lsTags);
+					UserInteraction.readInput(input, listaTags);
 				} catch (Exception e) {
 					cli.error(e.getMessage());
 				}
