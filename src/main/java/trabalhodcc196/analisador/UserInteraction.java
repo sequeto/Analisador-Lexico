@@ -1,6 +1,7 @@
 package trabalhodcc196.analisador;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import trabalhodcc196.analisador.exceptions.InputNotExist;
@@ -51,9 +52,12 @@ public class UserInteraction {
 //				case ":a":
 //					cli.warning("Lista as definições formais dos autômatos em memória"); // :a
 //					break;
-//				case ":l":
-//					cli.warning("Lista as definições de tag válidas"); // :l
-//					break;
+				case ":l":
+					cli.info("Lista as definições de tag válidas"); // :l
+					for (Map.Entry<String, String> tags : listaTags.entrySet()) {
+					     cli.write(tags.getKey()+": "+tags.getValue());
+					}
+					break;
 				case ":s":
 					cli.warning("Salvar as tags"); // :s file.txt
 					fileUtils.definirCaminhoSaida("tags.txt");
