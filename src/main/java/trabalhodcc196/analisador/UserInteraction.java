@@ -1,9 +1,8 @@
 package trabalhodcc196.analisador;
 
-import java.util.List;
 import java.util.Scanner;
 
-import trabalhodcc196.analisador.model.Tag;
+import trabalhodcc196.analisador.model.ListaTags;
 import trabalhodcc196.analisador.utils.FileUtils;
 import trabalhodcc196.analisador.utils.IOUtils;
 
@@ -15,6 +14,7 @@ public class UserInteraction {
 	
 	public static void readInput(String input) throws Exception{
 		String [] comand = cli.getInput(input);
+		ListaTags listaTags = new ListaTags();
 		if(comand[0].charAt(0) == ':') {
 			
 			// Faz um switch entre os comandos
@@ -35,8 +35,9 @@ public class UserInteraction {
 //					break;
 				case ":o":
 					cli.warning("Especifica o caminho do arquivo de saída para a divisão de tags"); // :o output.txt
-					//fileUtils.definirCaminhoSaida(comand[1], "Teste");
-					//cli.info("Arquivo criado dentro da pasta 'files'.");
+//					fileUtils.definirCaminhoSaida(comand[1]);
+//					fileUtils.escreverArquivo("Teste");
+//					cli.info("Arquivo criado dentro da pasta 'files'.");
 					cli.warning("Comando ainda nao implementado.");
 					break;
 				case ":p":
@@ -49,14 +50,16 @@ public class UserInteraction {
 //				case ":l":
 //					cli.warning("Lista as definições de tag válidas"); // :l
 //					break;
-//				case ":s":
-//					cli.warning("Salvar as tags"); // :s file.txt
-//					break;
+				case ":s":
+					cli.warning("Salvar as tags"); // :s file.txt
+					fileUtils.definirCaminhoSaida("tags.txt");
+					fileUtils.salvarTags(listaTags.lsTags);
+					cli.info("Arquivo criado dentro da pasta 'files'.");
+					break;
 				default:
 					cli.warning("Comando nao encontrado");
 			}
 		}
-		
 		// Validar regras para definição da tag - Seção 2.1 da Especificação
 		else {
 			cli.warning("Definindo Tag");

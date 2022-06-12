@@ -1,14 +1,13 @@
 package trabalhodcc196.analisador.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+
 
 public class ListaTags {
-	public List<Tag> lsTags;
-	
-	ListaTags ()
+	public HashMap<String,String> lsTags;
+
+	public ListaTags()
 	{
-		lsTags = new ArrayList<Tag>();
+		lsTags = new HashMap<>();
 	}
-	
 }

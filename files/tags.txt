@@ -1,0 +1,3 @@
+SPACE:  
+VAR: ashdjadhaksd
+EQUAL: =

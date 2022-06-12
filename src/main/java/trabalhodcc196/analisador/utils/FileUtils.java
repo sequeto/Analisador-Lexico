@@ -10,10 +10,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import lombok.NoArgsConstructor;
-import trabalhodcc196.analisador.model.Tag;
 
 @NoArgsConstructor
 public class FileUtils {
@@ -41,22 +43,30 @@ public class FileUtils {
 		writer.close();
 	}
 
-	public void definirCaminhoSaida(String output, String divisaoTags) throws IOException {
+	public void definirCaminhoSaida(String output) throws IOException {
 		this.output = output;
-		escreverArquivo(divisaoTags);
 	}
 	
-	public List<Tag> lerArquivoDefinicaoDeTags(String input) throws ClassNotFoundException, IOException{
-		List<Tag> lista = new ArrayList();
-		File file = new File("files/"+input);
+//	public List<Tag> lerArquivoDefinicaoDeTags(String input) throws ClassNotFoundException, IOException{
+//		List<Tag> lista = new ArrayList();
+//		File file = new File("files/"+input);
+//		
+//		if (file.exists()) {
+//			ObjectInputStream objInput = new ObjectInputStream(new FileInputStream(file));
+//			lista = (List<Tag>) objInput.readObject();
+//			objInput.close();
+//		}	
+//
+//		return (lista);
+//	}
+	
+	public void salvarTags (HashMap<String,String> listaTags) throws IOException {
+		BufferedWriter writer = new BufferedWriter(new FileWriter("files/" + this.output));
 		
-		if (file.exists()) {
-			ObjectInputStream objInput = new ObjectInputStream(new FileInputStream(file));
-			lista = (List<Tag>) objInput.readObject();
-			objInput.close();
-		}	
-
-		return (lista);
+		for (Map.Entry<String, String> tags : listaTags.entrySet()) {
+		     writer.write(tags.getKey()+": "+tags.getValue()+"\n");
+		}
+		writer.close();
 	}
 	
 }
