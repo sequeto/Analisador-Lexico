@@ -1,8 +1,9 @@
 package trabalhodcc196.analisador;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
-import trabalhodcc196.analisador.model.ListaTags;
+import trabalhodcc196.analisador.resources.TagsProcess;
 import trabalhodcc196.analisador.utils.FileUtils;
 import trabalhodcc196.analisador.utils.IOUtils;
 
@@ -12,13 +13,12 @@ public class UserInteraction {
 	
 	// Módulos e Funções de cada comando
 	
-	public static void readInput(String input) throws Exception{
+	public static void readInput(String input, HashMap<String,String> listaTags) throws Exception{
 		String [] comand = cli.getInput(input);
-		ListaTags listaTags = new ListaTags();
+		TagsProcess process = new TagsProcess();
 		if(comand[0].charAt(0) == ':') {
-			
 			// Faz um switch entre os comandos
-			
+			cli.info("Definindo comando:");
 			switch(comand[0]) {
 				case ":d":
 					cli.warning("Realiza a divisao em tags da string do arquivo informado"); // :d input.txt
@@ -53,7 +53,7 @@ public class UserInteraction {
 				case ":s":
 					cli.warning("Salvar as tags"); // :s file.txt
 					fileUtils.definirCaminhoSaida("tags.txt");
-					fileUtils.salvarTags(listaTags.lsTags);
+					fileUtils.salvarTags(listaTags);
 					cli.info("Arquivo criado dentro da pasta 'files'.");
 					break;
 				default:
@@ -62,7 +62,8 @@ public class UserInteraction {
 		}
 		// Validar regras para definição da tag - Seção 2.1 da Especificação
 		else {
-			cli.warning("Definindo Tag");
+			cli.info("Definindo Tag:");
+			process.saveTags(comand, listaTags);
 		}
 		
 	}
