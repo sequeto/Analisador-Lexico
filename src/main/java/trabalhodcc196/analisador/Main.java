@@ -2,7 +2,7 @@ package trabalhodcc196.analisador;
 
 import java.util.Scanner;
 
-import trabalhodcc196.analisador.utils.FileUtils;
+import trabalhodcc196.analisador.model.ListaTags;
 import trabalhodcc196.analisador.utils.IOUtils;
 
 public class Main {
@@ -12,17 +12,17 @@ public class Main {
 
 	public static void main(String[] args) {
 		String input;
+		ListaTags listaTags = new ListaTags();
 		// Criando Loop de Interação do Usuário
 		while(true) {
-			cli.info("Especifique uma TAG ou digite um comando:");
 			input = cli.read();
-			
+			cli.info("Especifique uma TAG ou digite um comando:");
 			if(input.equals(":q")) {
 				break;				
 			}
 			else {
 				try {
-					UserInteraction.readInput(input);
+					UserInteraction.readInput(input, listaTags.lsTags);
 				} catch (Exception e) {
 					cli.error(e.getMessage());
 				}

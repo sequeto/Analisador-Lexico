@@ -10,10 +10,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import lombok.NoArgsConstructor;
-import trabalhodcc196.analisador.model.Tag;
 
 @NoArgsConstructor
 public class FileUtils {
@@ -35,27 +37,36 @@ public class FileUtils {
 		return stringLida;
 	}
 
-	public void escreverEmArquivo(String content) throws IOException {
-		BufferedWriter writer = new BufferedWriter(new FileWriter("output/" + this.output));
-		writer.write(content);
+	public void escreverArquivo(String divisaoTags) throws IOException {
+		BufferedWriter writer = new BufferedWriter(new FileWriter("files/" + this.output));
+		writer.write(divisaoTags);
 		writer.close();
 	}
 
-	public void definirCaminhoSaida(String output) {
+	public void definirCaminhoSaida(String output) throws IOException {
 		this.output = output;
 	}
 	
-	public List<Tag> lerListaDeTagsDeArquivo(String input) throws ClassNotFoundException, IOException{
-		List<Tag> lista = new ArrayList();
-		File file = new File(input);
+//	public List<Tag> lerArquivoDefinicaoDeTags(String input) throws ClassNotFoundException, IOException{
+//		List<Tag> lista = new ArrayList();
+//		File file = new File("files/"+input);
+//		
+//		if (file.exists()) {
+//			ObjectInputStream objInput = new ObjectInputStream(new FileInputStream(file));
+//			lista = (List<Tag>) objInput.readObject();
+//			objInput.close();
+//		}	
+//
+//		return (lista);
+//	}
+	
+	public void salvarTags (HashMap<String,String> listaTags) throws IOException {
+		BufferedWriter writer = new BufferedWriter(new FileWriter("files/" + this.output));
 		
-		if (file.exists()) {
-			ObjectInputStream objInput = new ObjectInputStream(new FileInputStream(file));
-			lista = (List<Tag>) objInput.readObject();
-			objInput.close();
-		}	
-
-		return (lista);
+		for (Map.Entry<String, String> tags : listaTags.entrySet()) {
+		     writer.write(tags.getKey()+": "+tags.getValue()+"\n");
+		}
+		writer.close();
 	}
 	
 }

@@ -1,6 +1,7 @@
 package trabalhodcc196.analisador.utils;
 
 import java.io.PrintStream;
+import java.util.List;
 import java.util.Scanner;
 
 public class IOUtils {
@@ -35,6 +36,11 @@ public class IOUtils {
 	
 	public Integer waitInt() {
 		return this.input.nextInt();
+	}
+	
+	public String[] getInput(String input){
+		String [] inputString = input.split(" ");		
+		return inputString;	
 	}
 	
 	public String ask(String question, String[] options) {
