@@ -35,19 +35,20 @@ public class FileUtils {
 		return stringLida;
 	}
 
-	public void escreverEmArquivo(String content) throws IOException {
-		BufferedWriter writer = new BufferedWriter(new FileWriter("output/" + this.output));
-		writer.write(content);
+	public void escreverArquivo(String divisaoTags) throws IOException {
+		BufferedWriter writer = new BufferedWriter(new FileWriter("files/" + this.output));
+		writer.write(divisaoTags);
 		writer.close();
 	}
 
-	public void definirCaminhoSaida(String output) {
+	public void definirCaminhoSaida(String output, String divisaoTags) throws IOException {
 		this.output = output;
+		escreverArquivo(divisaoTags);
 	}
 	
-	public List<Tag> lerListaDeTagsDeArquivo(String input) throws ClassNotFoundException, IOException{
+	public List<Tag> lerArquivoDefinicaoDeTags(String input) throws ClassNotFoundException, IOException{
 		List<Tag> lista = new ArrayList();
-		File file = new File(input);
+		File file = new File("files/"+input);
 		
 		if (file.exists()) {
 			ObjectInputStream objInput = new ObjectInputStream(new FileInputStream(file));

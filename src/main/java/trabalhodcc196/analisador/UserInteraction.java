@@ -1,7 +1,9 @@
 package trabalhodcc196.analisador;
 
+import java.util.List;
 import java.util.Scanner;
 
+import trabalhodcc196.analisador.model.Tag;
 import trabalhodcc196.analisador.utils.FileUtils;
 import trabalhodcc196.analisador.utils.IOUtils;
 
@@ -9,41 +11,49 @@ public class UserInteraction {
 	public static IOUtils cli = new IOUtils(new Scanner(System.in), System.out);
 	public static FileUtils fileUtils = new FileUtils();
 	
+	// Módulos e Funções de cada comando
+	
 	public static void readInput(String input) throws Exception{
 		String [] comand = cli.getInput(input);
-		// Construir Módulos e Funções para cada Comando
 		if(comand[0].charAt(0) == ':') {
+			
 			// Faz um switch entre os comandos
+			
 			switch(comand[0]) {
 				case ":d":
-					cli.warning("Realiza a divisão em tags da string do arquivo informado"); // :d input.txt
-					cli.write(input.substring(0));
-					//fileUtils.criarStringDoArquivo(input.substring(1));
-					//cli.warning("Comando ainda não implementado."); 
+					cli.warning("Realiza a divisao em tags da string do arquivo informado"); // :d input.txt
+					//String leitura = fileUtils.criarStringDoArquivo(comand[1]);
+					cli.warning("Comando ainda nao implementado.");
 					break;
-				case ":c":
-					cli.warning("Carrega um arquivo com definições de tags"); // :c tags.lex
-					fileUtils.lerListaDeTagsDeArquivo(input.substring(2).trim());
-					break;
+//				case ":c":
+//					cli.warning("Carrega um arquivo com definicoes de tags"); // :c tags.lex
+//					List<Tag> string = fileUtils.lerArquivoDefinicaoDeTags(comand[1]);
+//					for(int i=0; i<string.size(); i++) 
+//					{
+//						System.out.println(string.get(i));
+//					}
+//					break;
 				case ":o":
 					cli.warning("Especifica o caminho do arquivo de saída para a divisão de tags"); // :o output.txt
-					fileUtils.definirCaminhoSaida(input.substring(2).trim());
+					//fileUtils.definirCaminhoSaida(comand[1], "Teste");
+					//cli.info("Arquivo criado dentro da pasta 'files'.");
+					cli.warning("Comando ainda nao implementado.");
 					break;
 				case ":p":
 					cli.warning("Realiza a divisão em tags da entrada informada"); // :p x=1037
-					cli.warning("Comando ainda não implementado.");
+					cli.warning("Comando ainda nao implementado.");
 					break;
-				case ":a":
-					cli.warning("Lista as definições formais dos autômatos em memória"); // :a
-					break;
-				case ":l":
-					cli.warning("Lista as definições de tag válidas"); // :l
-					break;
-				case ":s":
-					cli.warning("Salvar as tags"); // :s file.txt
-					break;
+//				case ":a":
+//					cli.warning("Lista as definições formais dos autômatos em memória"); // :a
+//					break;
+//				case ":l":
+//					cli.warning("Lista as definições de tag válidas"); // :l
+//					break;
+//				case ":s":
+//					cli.warning("Salvar as tags"); // :s file.txt
+//					break;
 				default:
-					cli.warning("Comando não encontrado");
+					cli.warning("Comando nao encontrado");
 			}
 		}
 		
