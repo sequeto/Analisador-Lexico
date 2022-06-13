@@ -1,3 +1,14 @@
+/*
+ * Trabalho Prático: DCC146 - Aspectos Teóricos da Computação
+ * Autores:
+ * 
+ * João Pedro Sequeto Nascimento - 201776022
+ * Beatriz Cunha Rodrigues - 201776038
+ * Marcus Vinícius V. A. Cunha - 201776013
+ * Milles Joseph M e Silva - 201776026
+ */
+
+
 package trabalhodcc196.analisador;
 
 import java.util.Scanner;
@@ -15,8 +26,8 @@ public class Main {
 		ListaTags listaTags = new ListaTags();
 		// Criando Loop de Interação do Usuário
 		while(true) {
+			cli.write("Especifique uma TAG ou digite um comando:");
 			input = cli.read();
-			cli.info("Especifique uma TAG ou digite um comando:");
 			if(input.equals(":q")) {
 				break;				
 			}

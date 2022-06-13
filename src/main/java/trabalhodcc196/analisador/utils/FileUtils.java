@@ -1,23 +1,24 @@
+/*
+ * Trabalho Prático: DCC146 - Aspectos Teóricos da Computação
+ * Autores:
+ * 
+ * João Pedro Sequeto Nascimento - 201776022
+ * Beatriz Cunha Rodrigues - 201776038
+ * Marcus Vinícius V. A. Cunha - 201776013
+ * Milles Joseph M e Silva - 201776026
+ */
+
 package trabalhodcc196.analisador.utils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor
 public class FileUtils {
 
 	private String output;
