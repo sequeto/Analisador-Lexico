@@ -31,8 +31,8 @@ public class ListaTags {
 		if(this.lsTags.isEmpty()) {
 			cli.write("Lista vazia.");
 		} else {
-			for (Map.Entry<String, String> tags : this.lsTags.entrySet()) {
-			     cli.write(tags.getKey()+": "+tags.getValue());
+			for (Map.Entry<String, String> tag : this.lsTags.entrySet()) {
+			     cli.write(tag.getKey()+": "+tag.getValue());
 			}
 		}
 	}
