@@ -8,7 +8,7 @@
  * Milles Joseph M e Silva - 201776026
  */
 
-package trabalhodcc196.analisador;
+package trabalhodcc196.analisador.interaction;
 
 import java.util.Scanner;
 

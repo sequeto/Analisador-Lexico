@@ -13,8 +13,10 @@ package trabalhodcc196.analisador;
 
 import java.util.Scanner;
 
+
 import trabalhodcc196.analisador.model.ListaTags;
 import trabalhodcc196.analisador.utils.IOUtils;
+import trabalhodcc196.analisador.interaction.UserInteraction;
 
 public class Main {
 	
