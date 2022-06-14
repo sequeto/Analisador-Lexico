@@ -35,7 +35,12 @@ public class TagsProcess {
 			    	 throw new Exception ("Tag ja existente.");
 			     }
 			}
-			listaTags.put(comand[0].replace(":", ""), comand[1]);
+			
+			try {
+				listaTags.put(comand[0].replace(":", ""), comand[1]);
+			} catch (Exception e) {
+				throw new Exception ("Não foi possível incluir a tag após o processamento do input \n"+e.getMessage());
+			}
 		}
 	}
 }

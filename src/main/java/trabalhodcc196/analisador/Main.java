@@ -36,6 +36,7 @@ public class Main {
 					UserInteraction.readInput(input, listaTags);
 				} catch (Exception e) {
 					cli.error(e.getMessage());
+					e.printStackTrace();
 				}
 			}
 			
