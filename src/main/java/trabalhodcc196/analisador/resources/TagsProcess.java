@@ -13,8 +13,6 @@ package trabalhodcc196.analisador.resources;
 import java.util.HashMap;
 import java.util.Map;
 
-import trabalhodcc196.analisador.exceptions.InputNotExist;
-
 public class TagsProcess {
 
 	public void saveTags(String[] comand, HashMap<String, String> listaTags) throws Exception {

@@ -10,7 +10,6 @@
 
 package trabalhodcc196.analisador.interaction;
 
-import java.util.Map;
 import java.util.Scanner;
 
 import trabalhodcc196.analisador.exceptions.InputNotExist;
