@@ -64,8 +64,13 @@ public class UserInteraction {
 					cli.warning("Comando ainda nao implementado.");
 					break;
 				case ":l":
-					cli.info("Lista as definições de tag válidas"); // :l
-					listaTags.imprimirLista(listaTags.lsTags);
+					cli.info("Lista as definiçoes de tag validas"); // :l
+					if(listaTags.lsTags.isEmpty())
+					{
+						cli.write("Lista vazia.");
+					}else {
+						listaTags.imprimirLista(listaTags.lsTags);	
+					}
 					break;
 				case ":s":
 					cli.warning("Salvar as tags"); // :s file.txt

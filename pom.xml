@@ -11,8 +11,6 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
-
 	<build>
 		<plugins>
 			<plugin>
@@ -26,4 +24,11 @@
 			</plugin>
 		</plugins>
 	</build>
+	<dependencies>
+		<dependency>
+	      <groupId>de.jflex</groupId>
+	      <artifactId>jflex</artifactId>
+	      <version>1.5.0</version>
+	    </dependency>
+	</dependencies>
 </project>
