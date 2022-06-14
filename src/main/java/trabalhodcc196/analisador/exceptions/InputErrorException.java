@@ -10,8 +10,8 @@
 
 package trabalhodcc196.analisador.exceptions;
 
-public class InputNotExist extends Exception{
-	 public InputNotExist(String message)
+public class InputErrorException extends Exception{
+	 public InputErrorException(String message)
 	 {
 		 super(message);
 	 }

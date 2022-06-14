@@ -12,7 +12,7 @@ package trabalhodcc196.analisador.interaction;
 
 import java.util.Scanner;
 
-import trabalhodcc196.analisador.exceptions.InputNotExist;
+import trabalhodcc196.analisador.exceptions.InputErrorException;
 import trabalhodcc196.analisador.model.ListaTags;
 import trabalhodcc196.analisador.resources.TagsProcess;
 import trabalhodcc196.analisador.utils.FileUtils;
@@ -28,7 +28,7 @@ public class UserInteraction {
 		String [] comand = cli.getInput(input);
 		TagsProcess process = new TagsProcess();
 		if(comand[0].equals("")){
-			throw new InputNotExist("Insira um comando ou tag:");
+			throw new InputErrorException("Insira um comando ou tag:");
 		}
 		if(comand[0].charAt(0) == ':') {
 			// Faz um switch entre os comandos
