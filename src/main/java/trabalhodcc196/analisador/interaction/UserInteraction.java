@@ -10,6 +10,7 @@
 
 package trabalhodcc196.analisador.interaction;
 
+import java.util.Map;
 import java.util.Scanner;
 
 import trabalhodcc196.analisador.exceptions.InputNotExist;
@@ -41,12 +42,8 @@ public class UserInteraction {
 					break;
 				case ":c":
 					cli.warning("Carrega um arquivo com definicoes de tags"); // :c tags.lex
-//					List<Tag> string = fileUtils.lerArquivoDefinicaoDeTags(comand[1]);
-//					for(int i=0; i<string.size(); i++) 
-//					{
-//						System.out.println(string.get(i));
-//					}
-					cli.warning("Comando ainda nao implementado.");
+					fileUtils.definirCaminhoEntrada(comand[1]);
+					listaTags.lsTags.putAll(fileUtils.lerArquivoLex());
 					break;
 				case ":o":
 					cli.warning("Especifica o caminho do arquivo de saída para a divisão de tags"); // :o output.txt
