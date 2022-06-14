@@ -62,12 +62,7 @@ public class UserInteraction {
 					break;
 				case ":l":
 					cli.info("Lista as definiçoes de tag validas"); // :l
-					if(listaTags.lsTags.isEmpty())
-					{
-						cli.write("Lista vazia.");
-					}else {
-						listaTags.imprimirLista(listaTags.lsTags);	
-					}
+					listaTags.imprimirLista();	
 					break;
 				case ":s":
 					cli.warning("Salvar as tags"); // :s file.txt

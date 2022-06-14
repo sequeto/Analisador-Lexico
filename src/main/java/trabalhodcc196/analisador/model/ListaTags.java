@@ -26,10 +26,14 @@ public class ListaTags {
 		lsTags = new HashMap<>();
 	}
 	
-	public void imprimirLista(HashMap<String,String> listaTags)
+	public void imprimirLista()
 	{
-		for (Map.Entry<String, String> tags : listaTags.entrySet()) {
-		     cli.write(tags.getKey()+": "+tags.getValue());
+		if(this.lsTags.isEmpty()) {
+			cli.write("Lista vazia.");
+		} else {
+			for (Map.Entry<String, String> tags : this.lsTags.entrySet()) {
+			     cli.write(tags.getKey()+": "+tags.getValue());
+			}
 		}
 	}
 }
