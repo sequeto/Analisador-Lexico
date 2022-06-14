@@ -9,7 +9,7 @@
  */
 
 
-package trabalhodcc196.analisador;
+package trabalhodcc196.analisador.main;
 
 import java.util.Scanner;
 
