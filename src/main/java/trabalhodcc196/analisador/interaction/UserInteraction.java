@@ -43,6 +43,7 @@ public class UserInteraction {
 					cli.warning("Carrega um arquivo com definicoes de tags"); // :c tags.lex
 					fileUtils.definirCaminhoEntrada(comand[1]);
 					fileUtils.lerArquivoLex(listaTags.lsTags);
+					cli.info("Arquivo lido e carregado para a lista de tags.");
 					break;
 				case ":o":
 					cli.warning("Especifica o caminho do arquivo de saída para a divisão de tags"); // :o output.txt
