@@ -57,16 +57,15 @@ public class FileUtils {
 		this.input = input;
 	}
 	
-	public HashMap<String, String> lerArquivoLex() throws Exception {
+	public void lerArquivoLex(HashMap<String, String> listaTags) throws Exception {
 		Path path = Paths.get("files/" + this.input);
 		IOUtils cli = new IOUtils();
         List<String> linhasArquivo = Files.readAllLines(path);
-        HashMap<String, String> tags = new HashMap<String,String>();
         for (int i = 0; i < linhasArquivo.size(); i++) {
         	String [] linha = cli.getInput(linhasArquivo.get(i));
-        	tags.put(linha[0].replace(":", ""), linha[1]);
+        	listaTags.put(linha[0].replace(":", ""), linha[1]);
 		}
-        return tags;
+        
 	}
 	
 	public void salvarTags (HashMap<String,String> listaTags) throws IOException {
