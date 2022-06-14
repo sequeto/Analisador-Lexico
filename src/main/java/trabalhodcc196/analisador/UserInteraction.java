@@ -39,14 +39,15 @@ public class UserInteraction {
 					//String leitura = fileUtils.criarStringDoArquivo(comand[1]);
 					cli.warning("Comando ainda nao implementado.");
 					break;
-//				case ":c":
-//					cli.warning("Carrega um arquivo com definicoes de tags"); // :c tags.lex
+				case ":c":
+					cli.warning("Carrega um arquivo com definicoes de tags"); // :c tags.lex
 //					List<Tag> string = fileUtils.lerArquivoDefinicaoDeTags(comand[1]);
 //					for(int i=0; i<string.size(); i++) 
 //					{
 //						System.out.println(string.get(i));
 //					}
-//					break;
+					cli.warning("Comando ainda nao implementado.");
+					break;
 				case ":o":
 					cli.warning("Especifica o caminho do arquivo de saída para a divisão de tags"); // :o output.txt
 //					fileUtils.definirCaminhoSaida(comand[1]);
@@ -58,9 +59,10 @@ public class UserInteraction {
 					cli.warning("Realiza a divisão em tags da entrada informada"); // :p x=1037
 					cli.warning("Comando ainda nao implementado.");
 					break;
-//				case ":a":
-//					cli.warning("Lista as definições formais dos autômatos em memória"); // :a
-//					break;
+				case ":a":
+					cli.warning("Lista as definições formais dos autômatos em memória"); // :a
+					cli.warning("Comando ainda nao implementado.");
+					break;
 				case ":l":
 					cli.info("Lista as definições de tag válidas"); // :l
 					listaTags.imprimirLista(listaTags.lsTags);
@@ -72,7 +74,7 @@ public class UserInteraction {
 					cli.info("Arquivo criado dentro da pasta 'files'.");
 					break;
 				default:
-					cli.warning("Comando nao encontrado");
+					cli.error("Comando nao encontrado");
 			}
 		}
 		// Validar regras para definição da tag - Seção 2.1 da Especificação
