@@ -13,11 +13,19 @@ package trabalhodcc196.analisador.resources;
 import java.util.HashMap;
 import java.util.Map;
 
+import trabalhodcc196.analisador.exceptions.InputNotExist;
+
 public class TagsProcess {
 
 	public void saveTags(String[] comand, HashMap<String, String> listaTags) throws Exception {
 		if(listaTags.isEmpty()) {
-			listaTags.put(comand[0].replace(":", ""), comand[1]);
+			try {
+				listaTags.put(comand[0].replace(":", ""), comand[1]);
+			}
+			catch(Exception e) {
+				throw new Exception ("Não foi possível incluir a tag após o processamento do input \n"+e.getMessage());
+			}
+			
 		}else {
 			for (Map.Entry<String, String> tags : listaTags.entrySet()) {
 			     

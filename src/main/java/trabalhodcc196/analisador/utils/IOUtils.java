@@ -47,9 +47,13 @@ public class IOUtils {
 		return this.input.nextInt();
 	}
 	
-	public String[] getInput(String input){
-		String [] inputString = input.split(" ");		
-		return inputString;	
+	public String[] getInput(String input) throws Exception{
+		try {
+			String [] inputString = input.split(" ");		
+			return inputString;	
+		} catch (Exception e) {
+			throw new Exception ("Não foi possível processar a tag com o input passado. \n"+e.getMessage());
+		}	
 	}
 	
 	public String ask(String question, String[] options) {
