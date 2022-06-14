@@ -22,6 +22,10 @@ public class IOUtils {
 		this.output = output;
 	}
 	
+	public IOUtils() {
+		// construtor vazio
+	}
+	
 	public void write(String content) {
 		this.output.println(content);
 	}
@@ -52,7 +56,7 @@ public class IOUtils {
 			String [] inputString = input.split(" ");		
 			return inputString;	
 		} catch (Exception e) {
-			throw new Exception ("Não foi possível processar a tag com o input passado. \n"+e.getMessage());
+			throw new Exception ("Não foi possível processar a tag. \n"+e.getMessage());
 		}	
 	}
 	

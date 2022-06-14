@@ -16,12 +16,17 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FileUtils {
 
 	private String output;
+	private String input;
 
 	public static String criarStringDoArquivo(String nomeArquivo) throws FileNotFoundException, IOException {
 		BufferedReader reader = new BufferedReader(new FileReader("files/" + nomeArquivo));
@@ -48,18 +53,21 @@ public class FileUtils {
 		this.output = output;
 	}
 	
-//	public List<Tag> lerArquivoDefinicaoDeTags(String input) throws ClassNotFoundException, IOException{
-//		List<Tag> lista = new ArrayList();
-//		File file = new File("files/"+input);
-//		
-//		if (file.exists()) {
-//			ObjectInputStream objInput = new ObjectInputStream(new FileInputStream(file));
-//			lista = (List<Tag>) objInput.readObject();
-//			objInput.close();
-//		}	
-//
-//		return (lista);
-//	}
+	public void definirCaminhoEntrada(String input) throws IOException {
+		this.input = input;
+	}
+	
+	public HashMap<String, String> lerArquivoLex() throws Exception {
+		Path path = Paths.get("files/" + this.input);
+		IOUtils cli = new IOUtils();
+        List<String> linhasArquivo = Files.readAllLines(path);
+        HashMap<String, String> tags = new HashMap<String,String>();
+        for (int i = 0; i < linhasArquivo.size(); i++) {
+        	String [] linha = cli.getInput(linhasArquivo.get(i));
+        	tags.put(linha[0].replace(":", ""), linha[1]);
+		}
+        return tags;
+	}
 	
 	public void salvarTags (HashMap<String,String> listaTags) throws IOException {
 		BufferedWriter writer = new BufferedWriter(new FileWriter("files/" + this.output));

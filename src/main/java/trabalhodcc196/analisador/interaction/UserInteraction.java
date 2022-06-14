@@ -41,12 +41,8 @@ public class UserInteraction {
 					break;
 				case ":c":
 					cli.warning("Carrega um arquivo com definicoes de tags"); // :c tags.lex
-//					List<Tag> string = fileUtils.lerArquivoDefinicaoDeTags(comand[1]);
-//					for(int i=0; i<string.size(); i++) 
-//					{
-//						System.out.println(string.get(i));
-//					}
-					cli.warning("Comando ainda nao implementado.");
+					fileUtils.definirCaminhoEntrada(comand[1]);
+					listaTags.lsTags.putAll(fileUtils.lerArquivoLex());
 					break;
 				case ":o":
 					cli.warning("Especifica o caminho do arquivo de saída para a divisão de tags"); // :o output.txt
@@ -64,8 +60,13 @@ public class UserInteraction {
 					cli.warning("Comando ainda nao implementado.");
 					break;
 				case ":l":
-					cli.info("Lista as definições de tag válidas"); // :l
-					listaTags.imprimirLista(listaTags.lsTags);
+					cli.info("Lista as definiçoes de tag validas"); // :l
+					if(listaTags.lsTags.isEmpty())
+					{
+						cli.write("Lista vazia.");
+					}else {
+						listaTags.imprimirLista(listaTags.lsTags);	
+					}
 					break;
 				case ":s":
 					cli.warning("Salvar as tags"); // :s file.txt
