@@ -66,8 +66,7 @@ public class UserInteraction {
 					break;
 				case ":s":
 					cli.warning("Salvar as tags"); // :s file.txt
-					fileUtils.definirCaminhoSaida(comand[1]);
-					fileUtils.salvarTags(listaTags.lsTags);
+					fileUtils.salvarTags(listaTags.lsTags, comand[1]);
 					cli.info("Arquivo criado dentro da pasta 'files'.");
 					break;
 				default:

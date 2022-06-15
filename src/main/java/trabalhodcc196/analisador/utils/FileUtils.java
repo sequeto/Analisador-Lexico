@@ -68,8 +68,8 @@ public class FileUtils {
         
 	}
 	
-	public void salvarTags (HashMap<String,String> listaTags) throws IOException {
-		BufferedWriter writer = new BufferedWriter(new FileWriter("files/" + this.output));
+	public void salvarTags (HashMap<String,String> listaTags, String output) throws IOException {
+		BufferedWriter writer = new BufferedWriter(new FileWriter("files/" + output));
 		
 		for (Map.Entry<String, String> tags : listaTags.entrySet()) {
 		     writer.write(tags.getKey()+": "+tags.getValue()+"\n");
