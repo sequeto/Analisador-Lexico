@@ -32,7 +32,7 @@ public class TagsProcess {
 				if (tags.getKey().equalsIgnoreCase(comand[0].replace(":", ""))) {
 					throw new Exception("Tag ja existente.");
 				}
-				
+
 			}
 
 			try {

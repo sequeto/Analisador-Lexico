@@ -56,7 +56,7 @@ public class IOUtils {
 			String [] inputString = input.split(" ");		
 			return inputString;	
 		} catch (Exception e) {
-			throw new Exception ("Não foi possível processar a tag. \n"+e.getMessage());
+			throw new InputErrorException ("Não foi possível processar a tag. \n"+e.getMessage());
 		}	
 	}
 	
