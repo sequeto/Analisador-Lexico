@@ -13,6 +13,8 @@ package trabalhodcc196.analisador.utils;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+import trabalhodcc196.analisador.exceptions.InputErrorException;
+
 public class IOUtils {
 	private Scanner input;
 	private PrintStream output;	
