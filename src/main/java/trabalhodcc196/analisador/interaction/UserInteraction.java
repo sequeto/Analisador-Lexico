@@ -28,7 +28,7 @@ public class UserInteraction {
 		String [] comand = cli.getInput(input);
 		TagsProcess process = new TagsProcess();
 		if(comand[0].equals("")){
-			throw new InputErrorException("Insira um comando ou tag:");
+			throw new InputErrorException("Insira um comando ou tag!");
 		}
 		if(comand[0].charAt(0) == ':') {
 			// Faz um switch entre os comandos

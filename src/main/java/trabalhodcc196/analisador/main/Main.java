@@ -16,6 +16,7 @@ import java.util.Scanner;
 
 import trabalhodcc196.analisador.model.ListaTags;
 import trabalhodcc196.analisador.utils.IOUtils;
+import trabalhodcc196.analisador.exceptions.InputErrorException;
 import trabalhodcc196.analisador.interaction.UserInteraction;
 
 public class Main {
@@ -36,6 +37,9 @@ public class Main {
 			else {
 				try {
 					UserInteraction.readInput(input, listaTags);
+					
+				} catch (InputErrorException e) {
+					cli.error("Erro na entrada digitada! "+e.getMessage());
 				} catch (Exception e) {
 					cli.error(e.getMessage());
 				}

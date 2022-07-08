@@ -15,4 +15,8 @@ public class InputErrorException extends Exception{
 	 {
 		 super(message);
 	 }
+	 
+	 public InputErrorException() {
+		 
+	 }
 }
