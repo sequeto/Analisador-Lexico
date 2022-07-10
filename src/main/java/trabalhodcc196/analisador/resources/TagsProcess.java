@@ -19,13 +19,13 @@ public class TagsProcess {
 
 	public void saveTags(String[] comand, HashMap<String, String> listaTags) throws Exception {
 		if(comand.length >=2) {
-			throw new InputErrorException();
+			throw new InputErrorException("Processamento impossível para a entrada informada");
 		}
 		if (listaTags.isEmpty()) {
 			try {
 				listaTags.put(comand[0].replace(":", ""), comand[1]);
 			} catch (Exception e) {
-				throw new InputErrorException();
+				throw new InputErrorException("Processamento impossível para a entrada informada");
 			}
 
 		} else {
@@ -40,7 +40,7 @@ public class TagsProcess {
 			try {
 				listaTags.put(comand[0].replace(":", ""), comand[1]);
 			} catch (Exception e) {
-				throw new InputErrorException();
+				throw new InputErrorException("Processamento impossível para a entrada informada");
 			}
 		}
 	}

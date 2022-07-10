@@ -11,6 +11,7 @@
 
 package trabalhodcc196.analisador.main;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 
@@ -39,7 +40,7 @@ public class Main {
 					UserInteraction.readInput(input, listaTags);
 					
 				} catch (InputErrorException e) {
-					cli.error("Erro na entrada digitada! "+e.getMessage());
+					cli.error(String.format("Erro na entrada digitada! %s", e.getMessage() !=null ? e.getMessage() : ""));
 				} catch (Exception e) {
 					cli.error(e.getMessage());
 				}
