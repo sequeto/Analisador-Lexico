@@ -41,14 +41,12 @@ public class UserInteraction {
 					break;
 				case ":c":
 					cli.warning("Carrega um arquivo com definicoes de tags"); // :c tags.lex
-					fileUtils.definirCaminhoEntrada(comand[1]);
-					fileUtils.lerArquivoLex(listaTags.lsTags);
+					fileUtils.lerArquivoLex(listaTags.lsTags, comand[1]);
 					cli.info("Arquivo lido e carregado para a lista de tags.");
 					break;
 				case ":o":
 					cli.warning("Especifica o caminho do arquivo de saída para a divisão de tags"); // :o output.txt
-//					fileUtils.definirCaminhoSaida(comand[1]);
-//					fileUtils.escreverArquivo("Teste");
+//					fileUtils.escreverArquivo("Teste", comand[1]);
 //					cli.info("Arquivo criado dentro da pasta 'files'.");
 					cli.warning("Comando ainda nao implementado.");
 					break;
@@ -65,6 +63,7 @@ public class UserInteraction {
 					listaTags.imprimirLista();	
 					break;
 				case ":s":
+					// validar as tags
 					cli.warning("Salvar as tags"); // :s file.txt
 					fileUtils.salvarTags(listaTags.lsTags, comand[1]);
 					cli.info("Arquivo criado dentro da pasta 'files'.");

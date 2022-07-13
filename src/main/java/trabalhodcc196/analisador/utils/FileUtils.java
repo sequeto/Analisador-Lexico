@@ -22,26 +22,14 @@ import java.util.Map;
 
 public class FileUtils {
 
-	private String output;
-	private String input;
-
-
-	public void escreverArquivo(String divisaoTags) throws IOException {
-		BufferedWriter writer = new BufferedWriter(new FileWriter("files/" + this.output));
+	public void escreverArquivo(String divisaoTags, String output) throws IOException {
+		BufferedWriter writer = new BufferedWriter(new FileWriter("files/" + output));
 		writer.write(divisaoTags);
 		writer.close();
 	}
-
-	public void definirCaminhoSaida(String output) throws IOException {
-		this.output = output;
-	}
 	
-	public void definirCaminhoEntrada(String input) throws IOException {
-		this.input = input;
-	}
-	
-	public void lerArquivoLex(HashMap<String, String> listaTags) throws Exception {
-		Path path = Paths.get("files/" + this.input);
+	public void lerArquivoLex(HashMap<String, String> listaTags, String input) throws Exception {
+		Path path = Paths.get("files/" + input);
 		IOUtils cli = new IOUtils();
         List<String> linhasArquivo = Files.readAllLines(path);
         for (int i = 0; i < linhasArquivo.size(); i++) {
