@@ -12,6 +12,7 @@ package trabalhodcc196.analisador.resources;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 import trabalhodcc196.analisador.exceptions.InputErrorException;
 
@@ -23,6 +24,7 @@ public class TagsProcess {
 		}
 		if (listaTags.isEmpty()) {
 			try {
+				validarExpressaoRegular(comand[1]);
 				listaTags.put(comand[0].replace(":", ""), comand[1]);
 			} catch (Exception e) {
 				throw new InputErrorException("Processamento impossível para a entrada informada");
@@ -38,10 +40,35 @@ public class TagsProcess {
 			}
 
 			try {
+				validarExpressaoRegular(comand[1]);
 				listaTags.put(comand[0].replace(":", ""), comand[1]);
 			} catch (Exception e) {
-				throw new InputErrorException("Processamento impossível para a entrada informada");
+				throw new InputErrorException();
 			}
 		}
+	}
+
+	public Boolean validarExpressaoRegular(String tag){
+		Stack<String> pilha = new Stack<String>();
+		Stack<Character> pilhaProcessamento = new Stack<Character>();
+		for(char c : tag.toCharArray()){
+			if(c == '*') {
+
+
+			} else if (c == '+') {
+				if(pilhaProcessamento.size() > 2) return false;
+				Character char1 = pilhaProcessamento.pop();
+				if(pilhaProcessamento.size() == 0) {
+					pilha.push(String.valueOf(char1));
+				} else {
+					Character char2 = pilhaProcessamento.pop();
+					pilha.push(char2 + "+" + char1);
+				}
+			} else {
+				pilhaProcessamento.push(c);
+			}
+		}
+
+		return null;
 	}
 }
