@@ -4,11 +4,21 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class Automato {
-    List<Estado> estados;
-    List<Transicao> transicoes;
-    List<Estado> estadosFinais;
-    List<Character> alfabeto;
+public abstract class Automato {
+    private List<Estado> estados;
+    private List<Transicao> transicoes;
+    private List<Estado> estadosFinais;
+    private List<Character> alfabeto;
+
+    public Automato(List<Estado> estados, List<Transicao> transicoes, List<Estado> estadosFinais, List<Character> alfabeto) {
+        this.estados = estados;
+        this.transicoes = transicoes;
+        this.estadosFinais = estadosFinais;
+        this.alfabeto = alfabeto;
+    }
+
+    public Automato() {
+    }
 
     public List<Estado> getEstados() {
         return estados;

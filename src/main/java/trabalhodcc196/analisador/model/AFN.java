@@ -7,6 +7,12 @@ public class AFN extends Automato {
 	List<Estado> estadosIniciais;
 	List<Character> alfabeto;
 
+    public AFN(List<Estado> estados, List<Transicao> transicoes, List<Estado> estadosFinais, List<Character> alfabeto, List<Estado> estadosIniciais, List<Character> alfabeto1) {
+        super(estados, transicoes, estadosFinais, alfabeto);
+        this.estadosIniciais = estadosIniciais;
+        this.alfabeto = alfabeto1;
+    }
+
     public AFD toAFD(){
         AFD afd = new AFD();
         Set<Estado> estadosAFD = new HashSet<>();

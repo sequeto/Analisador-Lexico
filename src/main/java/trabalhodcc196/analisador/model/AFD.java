@@ -9,43 +9,15 @@ public class AFD extends Automato {
 	public AFD() {
 		
 	}
-	
-	public AFD(
-			List<Estado> estados, 
-			List<Estado> estadosFinais, 
-			List<Transicao> transicoes, 
-			List<Character> alfabeto, 
-			Estado estadoInicial)
-	{
-		this.alfabeto = alfabeto;
+
+	public AFD(List<Estado> estados, List<Transicao> transicoes, List<Estado> estadosFinais, List<Character> alfabeto, List<Character> alfabeto1, Estado estadoInicial) {
+		super(estados, transicoes, estadosFinais, alfabeto);
+		this.alfabeto = alfabeto1;
+		this.estadoInicial = estadoInicial;
 	}
-	
+
 	public AFD(String expressaoRegular) {
 		
-	}
-	
-	public List<Estado> getEstados() {
-		return estados;
-	}
-
-	public void setEstados(List<Estado> estados) {
-		this.estados = estados;
-	}
-
-	public List<Estado> getEstadosFinais() {
-		return estadosFinais;
-	}
-
-	public void setEstadosFinais(List<Estado> estadosFinais) {
-		this.estadosFinais = estadosFinais;
-	}
-
-	public List<Transicao> getTransicoes() {
-		return transicoes;
-	}
-
-	public void setTransicoes(List<Transicao> transicoes) {
-		this.transicoes = transicoes;
 	}
 
 	public List<Character> getAlfabeto() {
