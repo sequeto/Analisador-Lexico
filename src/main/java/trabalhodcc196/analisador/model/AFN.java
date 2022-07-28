@@ -50,4 +50,22 @@ public class AFN extends Automato {
         rotulo = rotulo.substring(0,rotulo.lastIndexOf(","));
         return new Estado(rotulo);
     }
+
+    public AFN afnLambdaToAfn() throws CloneNotSupportedException {
+        AFN afn = (AFN) this.clone();
+        List<Transicao> transicoesLambda = afn.getTransicoes().stream()
+                .filter(transicao -> transicao.getCaracter().equals("\u03BB"))
+                .collect(Collectors.toList());
+        transicoesLambda.forEach(transicaoLambda -> {
+            List<Estado> origens = getDestinosByOrigem(transicaoLambda.getOrigem());
+            origens.forEach(origem ->{
+                Transicao anterior = getTransicaoByOrigemByDestino(origem,transicaoLambda.getOrigem());
+                Transicao nova = new Transicao(anterior.getCaracter(), anterior.getOrigem(),transicaoLambda.getDestino());
+                adicionarTransicao(nova);
+                removerTransicao(anterior);
+                removerTransicao(transicaoLambda);
+            });
+        });
+        return afn;
+    }
 }

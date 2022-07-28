@@ -40,5 +40,13 @@ public class Transicao {
         this.destino = destino;
     }
 
-
+    @Override
+    public boolean equals(Object obj){
+        if (obj instanceof Transicao) {
+            return ((Transicao) obj).getCaracter().equals(this.caracter) &&
+                    ((Transicao) obj).getDestino().equals(this.destino) &&
+                    ((Transicao) obj).getOrigem().equals(this.origem);
+        }
+        return false;
+    }
 }
