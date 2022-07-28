@@ -2,10 +2,7 @@ package trabalhodcc196.analisador.model;
 
 import java.util.List;
 
-public class AFD {
-	private List<Estado> estados;
-	private List<Estado> estadosFinais;
-	private List<Transicao> transicoes;
+public class AFD extends Automato {
 	private List<Character> alfabeto;
 	private Estado estadoInicial;
 	
@@ -20,9 +17,6 @@ public class AFD {
 			List<Character> alfabeto, 
 			Estado estadoInicial)
 	{
-		this.alfabeto = alfabeto;
-		this.alfabeto = alfabeto;
-		this.alfabeto = alfabeto;
 		this.alfabeto = alfabeto;
 	}
 	
