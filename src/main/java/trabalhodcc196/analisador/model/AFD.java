@@ -57,6 +57,7 @@ public class AFD extends Automato {
 
 	@Override
 	public void mostrarAutomato() {
+		System.out.println("========AFD========:");
 		System.out.println("Estados:");
 		getEstados().forEach(estado -> System.out.println(estado.getRotulo() + " "));
 		System.out.println("Estado inicial:");

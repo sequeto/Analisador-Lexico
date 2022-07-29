@@ -49,7 +49,6 @@ public class AFN extends Automato implements Cloneable {
             Set<Estado> origens = Arrays.stream(estadoAtual.getRotulo().split(","))
                     .map(str -> new Estado(str)).
                     collect(Collectors.toSet());
-
             for(Character caracter : alfabeto) {
                 List<Estado> destinos = new ArrayList<>();
                 Boolean isFinal = false;
@@ -57,6 +56,7 @@ public class AFN extends Automato implements Cloneable {
                     destinos.addAll(getDestinosByOrigemByCaracter(origem,caracter));
                     if(isFinal(origem)){isFinal = true;}
                 }
+                destinos = destinos.stream().distinct().collect(Collectors.toList());
 
                 if(destinos.size()!=0){
                     Estado novoEstado = montarEstadoAFD(destinos);
@@ -148,6 +148,7 @@ public class AFN extends Automato implements Cloneable {
 
     @Override
     public void mostrarAutomato() {
+        System.out.println("========AFN========:");
         System.out.println("Estados:");
         getEstados().forEach(estado -> System.out.println(estado.getRotulo() + " "));
         System.out.println("Estados iniciais:");
