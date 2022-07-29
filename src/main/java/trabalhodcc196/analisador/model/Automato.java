@@ -97,13 +97,8 @@ public abstract class Automato {
         this.estados.add(estado);
     }
 
-    public void mostrarAutomato() {
-        this.transicoes.forEach(transicao -> System.out.println(
-                        transicao.getOrigem() + " >>>>>>>> " +
-                                transicao.getCaracter() + " >>>>>>>> " +
-                                transicao.getDestino()
-                ));
-    }
+    public abstract void mostrarAutomato();
 
     public abstract boolean isInicial(Estado estado);
+
 }

@@ -66,8 +66,12 @@ public class AFN extends Automato {
             origens.forEach(origem ->{
                 Transicao anterior = getTransicaoByOrigemByDestino(origem,transicaoLambda.getOrigem());
                 Transicao nova = new Transicao(anterior.getCaracter(), anterior.getOrigem(),transicaoLambda.getDestino());
-                adicionarTransicao(nova);
-                removerTransicao(anterior);
+                if(isInicial(transicaoLambda.getOrigem())){
+                    adicionarInicial(transicaoLambda.getDestino());
+                } else {
+                    adicionarTransicao(nova);
+                    removerTransicao(anterior);
+                }
                 removerTransicao(transicaoLambda);
             });
         });
@@ -77,5 +81,25 @@ public class AFN extends Automato {
     @Override
     public boolean isInicial(Estado estado) {
         return this.estadosIniciais.contains(estado);
+    }
+
+    public void adicionarInicial(Estado estado) {
+        this.estadosIniciais.add(estado);
+    }
+
+    @Override
+    public void mostrarAutomato() {
+        System.out.println("Estados:");
+        getEstados().forEach(estado -> System.out.println(estado.getRotulo() + " "));
+        System.out.println("Estados iniciais:");
+        estadosIniciais.forEach(iniciais -> System.out.println(iniciais.getRotulo() + " "));
+        System.out.println("Estados finais:");
+        getEstadosFinais().forEach(finais -> System.out.println(finais.getRotulo() + " "));
+        System.out.println("Transições:");
+        getTransicoes().forEach(transicao -> System.out.println(
+                transicao.getOrigem() + " >>===== " +
+                        transicao.getCaracter() + " =====>> " +
+                        transicao.getDestino()
+        ));
     }
 }

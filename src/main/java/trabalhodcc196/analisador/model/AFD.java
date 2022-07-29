@@ -53,4 +53,20 @@ public class AFD extends Automato {
 	public boolean isInicial(Estado estado) {
 		return this.estadoInicial.equals(estado);
 	}
+
+	@Override
+	public void mostrarAutomato() {
+		System.out.println("Estados:");
+		getEstados().forEach(estado -> System.out.println(estado.getRotulo() + " "));
+		System.out.println("Estado inicial:");
+		System.out.println(estadoInicial.getRotulo());
+		System.out.println("Estados finais:");
+		getEstadosFinais().forEach(finais -> System.out.println(finais.getRotulo() + " "));
+		System.out.println("Transições:");
+		getTransicoes().forEach(transicao -> System.out.println(
+				transicao.getOrigem() + " >>===== " +
+						transicao.getCaracter() + " =====>> " +
+						transicao.getDestino()
+		));
+	}
 }
