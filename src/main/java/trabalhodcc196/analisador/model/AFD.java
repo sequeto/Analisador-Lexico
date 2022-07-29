@@ -48,6 +48,9 @@ public class AFD extends Automato {
 		
 		return afd;
 	}
-	
-	
+
+	@Override
+	public boolean isInicial(Estado estado) {
+		return this.estadoInicial.equals(estado);
+	}
 }

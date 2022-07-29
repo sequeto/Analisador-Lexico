@@ -18,11 +18,13 @@ public class AFN extends Automato {
         Set<Estado> estadosAFD = new HashSet<>();
         Estado inicialAFD = montarEstadoAFD(estadosIniciais);
         estadosAFD.add(inicialAFD);
+        afd.adicionarEstado(inicialAFD);
+        afd.setEstadoInicial(inicialAFD);
         for (Estado estado : estadosAFD) {
 
-            List<Estado> origens = Arrays.stream(estado.getRotulo().split(","))
+            Set<Estado> origens = Arrays.stream(estado.getRotulo().split(","))
                     .map(str -> new Estado(str)).
-                    collect(Collectors.toList());
+                    collect(Collectors.toSet());
 
             alfabeto.forEach(caracter -> {
                 List<Estado> destinos = new ArrayList<>();
@@ -44,6 +46,9 @@ public class AFN extends Automato {
 
     public Estado montarEstadoAFD(List<Estado> estadosAFN){
         String rotulo = "";
+        estadosAFN = estadosAFN.stream()
+                .sorted(Comparator.comparing(Estado::getRotulo))
+                .collect(Collectors.toList());
         for (Estado estado : estadosAFN) {
             rotulo = rotulo + estado.getRotulo() + ",";
         }
@@ -67,5 +72,10 @@ public class AFN extends Automato {
             });
         });
         return afn;
+    }
+
+    @Override
+    public boolean isInicial(Estado estado) {
+        return this.estadosIniciais.contains(estado);
     }
 }

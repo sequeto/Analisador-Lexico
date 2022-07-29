@@ -99,9 +99,11 @@ public abstract class Automato {
 
     public void mostrarAutomato() {
         this.transicoes.forEach(transicao -> System.out.println(
-                        transicao.getOrigem() + ">>>>>>>> " +
-                                transicao.getCaracter() + " >>>>>>>>" +
+                        transicao.getOrigem() + " >>>>>>>> " +
+                                transicao.getCaracter() + " >>>>>>>> " +
                                 transicao.getDestino()
                 ));
     }
+
+    public abstract boolean isInicial(Estado estado);
 }
