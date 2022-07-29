@@ -113,6 +113,7 @@ public class AFN extends Automato {
         afnConcatenado.getEstados().addAll(afn2.getEstados());
         afnConcatenado.getTransicoes().addAll(afn2.getTransicoes());
         afnConcatenado.getEstadosFinais().addAll(afn2.getEstadosFinais());
+        afnConcatenado.getAlfabeto().addAll(afn2.getAlfabeto());
         afnConcatenado.getEstadosFinais().forEach(estadoFinal -> {
             afn2.getEstadosIniciais().forEach(inicial -> {
                 Transicao transicao = new Transicao("\u03BB",estadoFinal,inicial);
