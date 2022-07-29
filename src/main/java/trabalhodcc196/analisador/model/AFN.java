@@ -3,7 +3,7 @@ package trabalhodcc196.analisador.model;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class AFN extends Automato {
+public class AFN extends Automato implements Cloneable {
 	private List<Estado> estadosIniciais = new ArrayList<>();
 	private List<Character> alfabeto = new ArrayList<>();
 
@@ -101,19 +101,24 @@ public class AFN extends Automato {
                 .filter(transicao -> transicao.getCaracter().equals("\u03BB"))
                 .collect(Collectors.toList());
         transicoesLambda.forEach(transicaoLambda -> {
-            List<Estado> origens = getDestinosByOrigem(transicaoLambda.getOrigem());
+            List<Estado> origens = getOrigensByDestino(transicaoLambda.getOrigem());
             origens.forEach(origem ->{
-                Transicao anterior = getTransicaoByOrigemByDestino(origem,transicaoLambda.getOrigem());
-                Transicao nova = new Transicao(anterior.getCaracter(), anterior.getOrigem(),transicaoLambda.getDestino());
                 if(isInicial(transicaoLambda.getOrigem())){
                     adicionarInicial(transicaoLambda.getDestino());
                 } else {
-                    adicionarTransicao(nova);
-                    removerTransicao(anterior);
+                    List<Transicao> transicoesAnteriores= getTransicoesByOrigemByDestino(origem,transicaoLambda.getOrigem());
+                    for (Transicao anterior : transicoesAnteriores){
+                        Transicao nova = new Transicao(anterior.getCaracter(), anterior.getOrigem(),transicaoLambda.getDestino());
+                        adicionarTransicao(nova);
+                    }
                 }
                 removerTransicao(transicaoLambda);
             });
         });
+        afn.setTransicoes(afn.getTransicoes()
+                .stream()
+                .sorted(Comparator.comparing(transicao -> {return transicao.getOrigem().getRotulo();}))
+                .collect(Collectors.toList()));
         return afn;
     }
 

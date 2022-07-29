@@ -73,16 +73,16 @@ public abstract class Automato {
                 .collect(Collectors.toList());
     }
 
-    public Transicao getTransicaoByOrigemByDestino(Estado origem, Estado destino){
+    public List <Transicao> getTransicoesByOrigemByDestino(Estado origem, Estado destino){
         return transicoes.stream().filter(transicao -> {
             return transicao.getOrigem().equals(origem) && transicao.getDestino().equals(destino);})
-                .findFirst().orElse(null);
+                .collect(Collectors.toList());
     }
 
     public List<Estado> getOrigensByDestino(Estado destino) {
         return transicoes.stream()
                 .filter(transicao -> {return destino.getRotulo().equals(transicao.getDestino().getRotulo());})
-                .map(Transicao::getDestino)
+                .map(Transicao::getOrigem)
                 .collect(Collectors.toList());
     }
 
