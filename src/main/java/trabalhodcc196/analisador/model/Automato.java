@@ -10,6 +10,7 @@ public abstract class Automato {
     private List<Estado> estadosFinais;
     private List<Character> alfabeto;
 
+
     public Automato(List<Estado> estados, List<Transicao> transicoes, List<Estado> estadosFinais, List<Character> alfabeto) {
         this.estados = estados;
         this.transicoes = transicoes;

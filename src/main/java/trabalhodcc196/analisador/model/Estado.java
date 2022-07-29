@@ -4,6 +4,8 @@ public class Estado {
     
     private String rotulo;
 
+    private static Integer contadorRotulo = 0;
+
     public Estado(String rotulo) {
         this.rotulo = rotulo;
     }

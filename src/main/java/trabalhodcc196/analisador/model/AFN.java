@@ -4,13 +4,34 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class AFN extends Automato {
-	List<Estado> estadosIniciais;
-	List<Character> alfabeto;
+	private List<Estado> estadosIniciais;
+	private List<Character> alfabeto;
+
+    public AFN() {
+    }
 
     public AFN(List<Estado> estados, List<Transicao> transicoes, List<Estado> estadosFinais, List<Character> alfabeto, List<Estado> estadosIniciais, List<Character> alfabeto1) {
         super(estados, transicoes, estadosFinais, alfabeto);
         this.estadosIniciais = estadosIniciais;
         this.alfabeto = alfabeto1;
+    }
+
+    public List<Estado> getEstadosIniciais() {
+        return estadosIniciais;
+    }
+
+    public void setEstadosIniciais(List<Estado> estadosIniciais) {
+        this.estadosIniciais = estadosIniciais;
+    }
+
+    @Override
+    public List<Character> getAlfabeto() {
+        return alfabeto;
+    }
+
+    @Override
+    public void setAlfabeto(List<Character> alfabeto) {
+        this.alfabeto = alfabeto;
     }
 
     public AFD toAFD(){
@@ -85,6 +106,20 @@ public class AFN extends Automato {
 
     public void adicionarInicial(Estado estado) {
         this.estadosIniciais.add(estado);
+    }
+
+    public AFN concatenarAutomatos(AFN afn2) throws CloneNotSupportedException {
+        AFN afnConcatenado = (AFN) this.clone();
+        afnConcatenado.getEstados().addAll(afn2.getEstados());
+        afnConcatenado.getTransicoes().addAll(afn2.getTransicoes());
+        afnConcatenado.getEstadosFinais().addAll(afn2.getEstadosFinais());
+        afnConcatenado.getEstadosFinais().forEach(estadoFinal -> {
+            afn2.getEstadosIniciais().forEach(inicial -> {
+                Transicao transicao = new Transicao("\u03BB",estadoFinal,inicial);
+                afnConcatenado.adicionarTransicao(transicao);
+            });
+        });
+        return null;
     }
 
     @Override
