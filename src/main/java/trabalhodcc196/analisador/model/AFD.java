@@ -1,9 +1,10 @@
 package trabalhodcc196.analisador.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AFD extends Automato {
-	private List<Character> alfabeto;
+	private List<Character> alfabeto = new ArrayList<>();
 	private Estado estadoInicial;
 	
 	public AFD() {
@@ -64,9 +65,9 @@ public class AFD extends Automato {
 		getEstadosFinais().forEach(finais -> System.out.println(finais.getRotulo() + " "));
 		System.out.println("Transições:");
 		getTransicoes().forEach(transicao -> System.out.println(
-				transicao.getOrigem() + " >>===== " +
+				transicao.getOrigem().getRotulo() + " >>===== " +
 						transicao.getCaracter() + " =====>> " +
-						transicao.getDestino()
+						transicao.getDestino().getRotulo()
 		));
 	}
 }

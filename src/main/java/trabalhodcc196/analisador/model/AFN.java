@@ -4,8 +4,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class AFN extends Automato {
-	private List<Estado> estadosIniciais;
-	private List<Character> alfabeto;
+	private List<Estado> estadosIniciais = new ArrayList<>();
+	private List<Character> alfabeto = new ArrayList<>();
 
     public AFN() {
     }
@@ -36,36 +36,54 @@ public class AFN extends Automato {
 
     public AFD toAFD(){
         AFD afd = new AFD();
-        Set<Estado> estadosAFD = new HashSet<>();
+        afd.setAlfabeto(alfabeto);
         Estado inicialAFD = montarEstadoAFD(estadosIniciais);
-        estadosAFD.add(inicialAFD);
         afd.adicionarEstado(inicialAFD);
         afd.setEstadoInicial(inicialAFD);
-        for (Estado estado : estadosAFD) {
-
-            Set<Estado> origens = Arrays.stream(estado.getRotulo().split(","))
+        Set<Estado> processados = new HashSet<>();
+        processados.add(inicialAFD);
+        Estado estadoAtual = null;
+        while(!processados.isEmpty()) {
+            estadoAtual = processados.stream().findFirst().orElse(null);
+            processados.add(estadoAtual);
+            Set<Estado> origens = Arrays.stream(estadoAtual.getRotulo().split(","))
                     .map(str -> new Estado(str)).
                     collect(Collectors.toSet());
 
-            alfabeto.forEach(caracter -> {
+            for(Character caracter : alfabeto) {
                 List<Estado> destinos = new ArrayList<>();
-                origens.forEach(origem ->{
+                Boolean isFinal = false;
+                for (Estado origem : origens) {
                     destinos.addAll(getDestinosByOrigemByCaracter(origem,caracter));
-                });
+                    if(isFinal(origem)){isFinal = true;}
+                }
+
                 if(destinos.size()!=0){
                     Estado novoEstado = montarEstadoAFD(destinos);
-                    Transicao novaTransicao = new Transicao(caracter.toString(),estado,novoEstado);
-                    afd.adicionarEstado(novoEstado);
-                    afd.adicionarTransicao(novaTransicao);
-                    estadosAFD.add(novoEstado);
-                }
-            });
-        }
+                    Transicao novaTransicao = new Transicao(caracter.toString(),estadoAtual,novoEstado);
+                    if(!afd.getTransicoes().contains(novaTransicao)){afd.adicionarTransicao(novaTransicao);}
 
+                    if (!estadoAtual.equals(novoEstado) && (!processados.contains(novoEstado))){
+                        processados.add(novoEstado);
+                    }
+                    if(!afd.getEstados().contains(novoEstado)){afd.adicionarEstado(novoEstado);}
+                    if(isFinal && !afd.getEstadosFinais().contains(novoEstado)){
+                        afd.adicionarFinal(novoEstado);
+                    }
+
+                    processados.remove(estadoAtual);
+
+                }
+            };
+        }
+        afd.setTransicoes(afd.getTransicoes()
+                .stream()
+                .sorted(Comparator.comparing(transicao -> {return transicao.getOrigem().getRotulo();}))
+                .collect(Collectors.toList()));
         return afd;
     }
 
-    public Estado montarEstadoAFD(List<Estado> estadosAFN){
+    private Estado montarEstadoAFD(List<Estado> estadosAFN){
         String rotulo = "";
         estadosAFN = estadosAFN.stream()
                 .sorted(Comparator.comparing(Estado::getRotulo))
@@ -133,9 +151,9 @@ public class AFN extends Automato {
         getEstadosFinais().forEach(finais -> System.out.println(finais.getRotulo() + " "));
         System.out.println("Transições:");
         getTransicoes().forEach(transicao -> System.out.println(
-                transicao.getOrigem() + " >>===== " +
+                transicao.getOrigem().getRotulo() + " >>===== " +
                         transicao.getCaracter() + " =====>> " +
-                        transicao.getDestino()
+                        transicao.getDestino().getRotulo()
         ));
     }
 }

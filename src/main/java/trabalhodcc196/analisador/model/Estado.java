@@ -1,10 +1,17 @@
 package trabalhodcc196.analisador.model;
 
+import java.util.Objects;
+
 public class Estado {
     
     private String rotulo;
 
-    private static Integer contadorRotulo = 0;
+    private static Integer contadorRotulo = 1;
+
+    public Estado() {
+        this.rotulo = contadorRotulo.toString();
+        contadorRotulo++;
+    }
 
     public Estado(String rotulo) {
         this.rotulo = rotulo;
@@ -20,10 +27,12 @@ public class Estado {
 
      @Override
      public boolean equals(Object obj){
-             if (obj instanceof Estado) {
-                 return ((Estado) obj).getRotulo().equals(this.rotulo);
-             }
-             return false;
+        if(obj == this){return true;}
+        if (!(obj instanceof Estado)) {
+            return false;
+        }
+        Estado e = (Estado) obj;
+        return Objects.equals(e.getRotulo(),this.rotulo);
      }
 
 }

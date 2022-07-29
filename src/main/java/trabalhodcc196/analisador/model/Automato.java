@@ -1,14 +1,14 @@
 package trabalhodcc196.analisador.model;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public abstract class Automato {
-    private List<Estado> estados;
-    private List<Transicao> transicoes;
-    private List<Estado> estadosFinais;
-    private List<Character> alfabeto;
+    private List<Estado> estados = new ArrayList<>();
+    private List<Transicao> transicoes = new ArrayList<>();
+    private List<Estado> estadosFinais = new ArrayList<>();
+    private List<Character> alfabeto = new ArrayList<>();
 
 
     public Automato(List<Estado> estados, List<Transicao> transicoes, List<Estado> estadosFinais, List<Character> alfabeto) {
@@ -101,5 +101,13 @@ public abstract class Automato {
     public abstract void mostrarAutomato();
 
     public abstract boolean isInicial(Estado estado);
+
+    public void adicionarFinal(Estado estado) {
+        this.estadosFinais.add(estado);
+    }
+
+    public Boolean isFinal(Estado estado) {
+        return this.estadosFinais.contains(estado);
+    }
 
 }
