@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 public class AFN extends Automato implements Cloneable {
 	private List<Estado> estadosIniciais = new ArrayList<>();
-	private List<Character> alfabeto = new ArrayList<>();
+ 	private List<Character> alfabeto = new ArrayList<>();
 
     public AFN() {
     }
@@ -143,7 +143,8 @@ public class AFN extends Automato implements Cloneable {
                 afnConcatenado.adicionarTransicao(transicao);
             });
         });
-        return null;
+        
+        return afnConcatenado;
     }
 
     @Override

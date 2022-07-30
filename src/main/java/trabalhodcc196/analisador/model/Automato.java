@@ -115,6 +115,10 @@ public abstract class Automato implements Cloneable{
     public void adicionarFinal(Estado estado) {
         this.estadosFinais.add(estado);
     }
+    
+    public void removerFinal(Estado estado) {
+        this.estadosFinais.remove(estado);
+    }
 
     public Boolean isFinal(Estado estado) {
         return this.estadosFinais.contains(estado);
