@@ -70,7 +70,6 @@ public class Regex {
 		
 	public AFN regexToAfn() throws InputErrorException {
 		this.processStack = new Stack<AFN>();
-		AFN afn = new AFN();
 		AFN primeiraPosicao = new AFN();
 		AFN segundaPosicao = new AFN();
 		
@@ -85,6 +84,7 @@ public class Regex {
 					segundaPosicao = processStack.pop();
 					primeiraPosicao = processStack.pop(); 
 					processStack.push(processingUnion(primeiraPosicao, segundaPosicao));
+					processStack.peek().mostrarAutomato(); // Teste
 				}
 			}
 			
@@ -97,6 +97,7 @@ public class Regex {
 					segundaPosicao = processStack.pop();
 					primeiraPosicao = processStack.pop(); 
 					processStack.push(processingConcatenation(primeiraPosicao, segundaPosicao));
+					processStack.peek().mostrarAutomato(); // Teste
 				}
 			}
 			
@@ -109,6 +110,7 @@ public class Regex {
 					segundaPosicao = processStack.pop();
 					primeiraPosicao = processStack.pop(); 
 					processStack.push(adicionandoFechoDeKleene(primeiraPosicao));
+					processStack.peek().mostrarAutomato(); // Teste
 				}
 			}
 			
@@ -119,6 +121,7 @@ public class Regex {
 				
 				else {
 					processStack.push(new AFN(this.expression.charAt(i)));
+					processStack.peek().mostrarAutomato(); // Teste
 				}
 			}
 			
