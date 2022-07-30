@@ -2,9 +2,10 @@ package trabalhodcc196.analisador.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
-public abstract class Automato {
+public abstract class Automato implements Cloneable{
     private List<Estado> estados = new ArrayList<>();
     private List<Transicao> transicoes = new ArrayList<>();
     private List<Estado> estadosFinais = new ArrayList<>();
@@ -79,6 +80,12 @@ public abstract class Automato {
                 .collect(Collectors.toList());
     }
 
+    public List <Transicao> getTransicoesByOrigem(Estado origem){
+        return transicoes.stream().filter(transicao -> {
+                    return transicao.getOrigem().equals(origem);})
+                .collect(Collectors.toList());
+    }
+
     public List<Estado> getOrigensByDestino(Estado destino) {
         return transicoes.stream()
                 .filter(transicao -> {return destino.getRotulo().equals(transicao.getDestino().getRotulo());})
@@ -109,5 +116,88 @@ public abstract class Automato {
     public Boolean isFinal(Estado estado) {
         return this.estadosFinais.contains(estado);
     }
+
+    public Boolean existeCaminho(Estado inicial, Estado terminal) {
+        System.out.println(String.format("Buscando terminal %s por %s", terminal.getRotulo(), inicial.getRotulo()));
+
+        if(inicial.equals(terminal)) return true;
+        List<Estado> processados = new ArrayList<>();
+        Stack<Estado> estadosBusca = new Stack<>();
+        estadosBusca.addAll(getDestinosByOrigem(inicial));
+        while (!estadosBusca.isEmpty()) {
+            Estado proximo = estadosBusca.pop();
+            processados.add(proximo);
+            if (proximo.equals(terminal)) {
+                return true;
+            }
+            List<Estado> aProcessar = getDestinosByOrigem(proximo);
+            aProcessar.forEach(estado -> {
+                if (!processados.contains(estado) && !estadosBusca.contains(estado)) {
+                    estadosBusca.add(estado);
+                }
+            });
+        }
+
+        return false;
+    }
+
+    public void removerInacessiveis() {
+        List<Estado> listaIniciais = new ArrayList<>();
+        if (this instanceof AFD){
+            listaIniciais.add(((AFD) this).getEstadoInicial());
+        }
+        if (this instanceof AFN){
+            listaIniciais.addAll(((AFN) this).getEstadosIniciais());
+        }
+        List<Estado> estadosCopia = new ArrayList<>(estados);
+        estadosCopia.forEach(estado -> {
+            Boolean alcança = false;
+            for (Estado inicial : listaIniciais) {
+                if(existeCaminho(inicial,estado)) alcança = true;
+            };
+            if(!alcança) removerEstado(estado);
+        });
+    }
+
+    public void removerInuteis() {
+        List<Estado> listaTerminais = new ArrayList<>();
+
+        listaTerminais.addAll(estadosFinais);
+        List<Estado> estados = new ArrayList<>(this.getEstados());
+        estados.forEach(estado -> {
+            listaTerminais.forEach(inicial -> {
+                Boolean alcança = false;
+                for (Estado terminal : listaTerminais) {
+                    if(existeCaminho(estado,terminal)) alcança = true;
+                };
+                if(!alcança) removerEstado(estado);
+            });
+        });
+    }
+
+    private void removerEstado(Estado estado) {
+        this.getEstados().remove(estado);
+        estadosFinais = estadosFinais.stream()
+                .filter(terminal -> {return !terminal.getRotulo().equals(estado.getRotulo());})
+                .collect(Collectors.toList());
+        if (this instanceof AFD){
+            ((AFD) this).setEstadoInicial(null);
+        }
+        if (this instanceof AFN){
+            ((AFN) this).setEstadosIniciais(((AFN) this).getEstadosIniciais().stream()
+                    .filter(terminal -> {return !terminal.getRotulo().equals(estado.getRotulo());})
+                    .collect(Collectors.toList()));
+        }
+
+        transicoes = transicoes.stream()
+                .filter(transicao -> {return !transicao.getOrigem().equals(estado);})
+                .collect(Collectors.toList());
+
+        transicoes = transicoes.stream()
+                .filter(transicao -> {return !transicao.getDestino().equals(estado);})
+                .collect(Collectors.toList());
+
+    }
+
 
 }

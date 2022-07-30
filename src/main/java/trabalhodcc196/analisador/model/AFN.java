@@ -162,4 +162,6 @@ public class AFN extends Automato implements Cloneable {
                         transicao.getDestino().getRotulo()
         ));
     }
+
+
 }
