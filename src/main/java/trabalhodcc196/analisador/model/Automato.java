@@ -1,6 +1,7 @@
 package trabalhodcc196.analisador.model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Stack;
 import java.util.stream.Collectors;
@@ -14,9 +15,11 @@ public abstract class Automato implements Cloneable{
 
     public Automato(List<Estado> estados, List<Transicao> transicoes, List<Estado> estadosFinais, List<Character> alfabeto) {
         this.estados = estados;
-        this.transicoes = transicoes;
         this.estadosFinais = estadosFinais;
         this.alfabeto = alfabeto;
+        this.transicoes = transicoes.stream()
+                .sorted(Comparator.comparing(transicao -> {return transicao.getOrigem().getRotulo();}))
+                .collect(Collectors.toList());
     }
 
     public Automato() {
