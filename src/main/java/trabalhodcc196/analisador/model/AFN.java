@@ -135,7 +135,6 @@ public class AFN extends Automato implements Cloneable {
         AFN afnConcatenado = (AFN) this.clone();
         afnConcatenado.getEstados().addAll(afn2.getEstados());
         afnConcatenado.getTransicoes().addAll(afn2.getTransicoes());
-        afnConcatenado.getEstadosFinais().addAll(afn2.getEstadosFinais());
         afnConcatenado.getAlfabeto().addAll(afn2.getAlfabeto());
         afnConcatenado.getEstadosFinais().forEach(estadoFinal -> {
             afn2.getEstadosIniciais().forEach(inicial -> {
@@ -143,6 +142,9 @@ public class AFN extends Automato implements Cloneable {
                 afnConcatenado.adicionarTransicao(transicao);
             });
         });
+        
+        afnConcatenado.getEstadosFinais().clear();
+        afnConcatenado.getEstadosFinais().addAll(afn2.getEstadosFinais());
         
         return afnConcatenado;
     }
