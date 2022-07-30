@@ -15,6 +15,21 @@ public class AFN extends Automato implements Cloneable {
         this.estadosIniciais = estadosIniciais;
         this.alfabeto = alfabeto1;
     }
+    
+    public AFN(char caracter) {
+    	super();
+    	this.estadosIniciais = new ArrayList<>();
+    	this.alfabeto = new ArrayList<>();
+    	
+        Estado estadoInicial = new Estado();
+        Estado estadoFinal = new Estado();
+        Transicao transicao = new Transicao(Character.toString(caracter), estadoInicial, estadoFinal);
+        
+        this.getEstadosIniciais().add(estadoInicial);
+        this.getEstadosFinais().add(estadoFinal);
+        this.getTransicoes().add(transicao);
+        this.getAlfabeto().add(caracter);
+    }
 
     public List<Estado> getEstadosIniciais() {
         return estadosIniciais;
@@ -188,7 +203,7 @@ public class AFN extends Automato implements Cloneable {
         return afnUnido;
     }
     
-    public AFN adicionandoFechoDeKleene(AFN afn) throws CloneNotSupportedException{
+    public AFN adicionandoFechoDeKleene() throws CloneNotSupportedException{
     	AFN afnKleene= (AFN) this.clone();
     	
     	afnKleene.getEstadosFinais().forEach(last ->{
