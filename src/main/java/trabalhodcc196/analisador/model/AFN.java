@@ -148,6 +148,45 @@ public class AFN extends Automato implements Cloneable {
         
         return afnConcatenado;
     }
+    
+    public AFN unirAutomatos(AFN afn2) throws CloneNotSupportedException {
+        AFN afnUnido = (AFN) this.clone();
+        
+        Estado estadoInicial = new Estado();
+        Estado estadoFinal = new Estado();
+        
+        afnUnido.getEstadosIniciais().forEach(inicial -> {
+        	Transicao transicao = new Transicao("\u03BB",estadoInicial,inicial);
+        	afnUnido.adicionarTransicao(transicao);
+        });
+        
+        afn2.getEstadosIniciais().forEach(inicial -> {
+        	Transicao transicao = new Transicao("\u03BB",estadoInicial,inicial);
+        	afnUnido.adicionarTransicao(transicao);
+        });
+        
+        afnUnido.getEstadosFinais().forEach(last ->{
+        	Transicao transicao = new Transicao("\u03BB",last, estadoFinal);
+        	afnUnido.adicionarTransicao(transicao);
+        });
+        
+        afn2.getEstadosFinais().forEach(last ->{
+        	Transicao transicao = new Transicao("\u03BB",last, estadoFinal);
+        	afnUnido.adicionarTransicao(transicao);
+        });
+        
+        afnUnido.getEstados().addAll(afn2.getEstadosIniciais());
+        afnUnido.getTransicoes().addAll(afn2.getTransicoes());
+        afnUnido.getAlfabeto().addAll(afn2.getAlfabeto());
+        
+        afnUnido.getEstadosIniciais().clear();
+        afnUnido.getEstadosIniciais().add(estadoInicial);
+        
+        afnUnido.getEstadosFinais().clear();
+        afnUnido.getEstadosFinais().add(estadoFinal);
+        
+        return afnUnido;
+    }
 
     @Override
     public void mostrarAutomato() {
