@@ -187,6 +187,21 @@ public class AFN extends Automato implements Cloneable {
         
         return afnUnido;
     }
+    
+    public AFN adicionandoFechoDeKleene(AFN afn) throws CloneNotSupportedException{
+    	AFN afnKleene= (AFN) this.clone();
+    	
+    	afnKleene.getEstadosFinais().forEach(last ->{
+    		afnKleene.getEstadosIniciais().forEach(inicial -> {
+                Transicao transicao = new Transicao("\u03BB",last,inicial);
+                afnKleene.adicionarTransicao(transicao);
+            });
+        });
+    	
+    	afnKleene.getEstadosFinais().addAll(afnKleene.getEstadosIniciais());
+    	
+    	return afnKleene;
+    }
 
     @Override
     public void mostrarAutomato() {
