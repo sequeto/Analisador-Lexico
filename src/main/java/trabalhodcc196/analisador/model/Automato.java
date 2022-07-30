@@ -178,14 +178,14 @@ public abstract class Automato implements Cloneable{
     private void removerEstado(Estado estado) {
         this.getEstados().remove(estado);
         estadosFinais = estadosFinais.stream()
-                .filter(terminal -> {return !terminal.getRotulo().equals(estado.getRotulo());})
+                .filter(terminal -> {return !terminal.equals(estado);})
                 .collect(Collectors.toList());
         if (this instanceof AFD){
             ((AFD) this).setEstadoInicial(null);
         }
         if (this instanceof AFN){
             ((AFN) this).setEstadosIniciais(((AFN) this).getEstadosIniciais().stream()
-                    .filter(terminal -> {return !terminal.getRotulo().equals(estado.getRotulo());})
+                    .filter(terminal -> {return !terminal.equals(estado);})
                     .collect(Collectors.toList()));
         }
 
