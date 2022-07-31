@@ -117,6 +117,7 @@ public class AFN extends Automato implements Cloneable {
         List<Transicao> transicoesLambda = afn.getTransicoes().stream()
                 .filter(transicao -> transicao.getCaracter().equals("\u03BB"))
                 .collect(Collectors.toList());
+        
         transicoesLambda.forEach(transicaoLambda -> {
         	
         	if(isInicial(transicaoLambda.getOrigem())){
@@ -136,10 +137,13 @@ public class AFN extends Automato implements Cloneable {
             
             removerTransicao(transicaoLambda);
         });
+        
         afn.setTransicoes(afn.getTransicoes()
                 .stream()
                 .sorted(Comparator.comparing(transicao -> {return transicao.getOrigem().getRotulo();}))
                 .collect(Collectors.toList()));
+        
+        afn.removerInuteis();
         
         return afn;
     }
@@ -197,14 +201,16 @@ public class AFN extends Automato implements Cloneable {
         	afnUnido.adicionarTransicao(transicao);
         });
         
-        afnUnido.getEstados().addAll(afn2.getEstadosIniciais());
+        afnUnido.getEstados().addAll(afn2.getEstados());
         afnUnido.getTransicoes().addAll(afn2.getTransicoes());
         afnUnido.getAlfabeto().addAll(afn2.getAlfabeto());
         
         afnUnido.getEstadosIniciais().clear();
+        afnUnido.getEstados().add(estadoInicial);
         afnUnido.getEstadosIniciais().add(estadoInicial);
         
         afnUnido.getEstadosFinais().clear();
+        afnUnido.getEstados().add(estadoFinal);
         afnUnido.getEstadosFinais().add(estadoFinal);
         
         return afnUnido;

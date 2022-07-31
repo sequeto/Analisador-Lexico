@@ -11,7 +11,6 @@
 
 package trabalhodcc196.analisador.main;
 
-import java.util.Objects;
 import java.util.Scanner;
 
 
