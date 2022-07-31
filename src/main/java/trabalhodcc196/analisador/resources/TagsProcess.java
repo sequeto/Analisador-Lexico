@@ -88,6 +88,7 @@ public class TagsProcess {
 			afn = afn.afnLambdaToAfn();
 			afn.mostrarAutomato();
 //			AFD afd = afn.toAFD();
+//			afd.mostrarAutomato();
 //			return afd;	
 			return null;
 		}

@@ -27,6 +27,8 @@ public class AFN extends Automato implements Cloneable {
         
         this.getEstadosIniciais().add(estadoInicial);
         this.getEstadosFinais().add(estadoFinal);
+        this.getEstados().add(estadoInicial);
+        this.getEstados().add(estadoFinal);
         this.getTransicoes().add(transicao);
         this.getAlfabeto().add(caracter);
     }
@@ -138,6 +140,7 @@ public class AFN extends Automato implements Cloneable {
                 .stream()
                 .sorted(Comparator.comparing(transicao -> {return transicao.getOrigem().getRotulo();}))
                 .collect(Collectors.toList()));
+        
         return afn;
     }
 
