@@ -116,19 +116,23 @@ public class AFN extends Automato implements Cloneable {
                 .filter(transicao -> transicao.getCaracter().equals("\u03BB"))
                 .collect(Collectors.toList());
         transicoesLambda.forEach(transicaoLambda -> {
+        	
+        	if(isInicial(transicaoLambda.getOrigem())){
+                adicionarInicial(transicaoLambda.getDestino());
+            }
+        	
             List<Estado> origens = getOrigensByDestino(transicaoLambda.getOrigem());
-            origens.forEach(origem ->{
-                if(isInicial(transicaoLambda.getOrigem())){
-                    adicionarInicial(transicaoLambda.getDestino());
-                } else {
-                    List<Transicao> transicoesAnteriores= getTransicoesByOrigemByDestino(origem,transicaoLambda.getOrigem());
-                    for (Transicao anterior : transicoesAnteriores){
-                        Transicao nova = new Transicao(anterior.getCaracter(), anterior.getOrigem(),transicaoLambda.getDestino());
-                        adicionarTransicao(nova);
-                    }
+            
+            origens.forEach(origem -> {
+                List<Transicao> transicoesAnteriores= getTransicoesByOrigemByDestino(origem,transicaoLambda.getOrigem());
+                for (Transicao anterior : transicoesAnteriores){
+                    Transicao nova = new Transicao(anterior.getCaracter(), anterior.getOrigem(),transicaoLambda.getDestino());
+                    adicionarTransicao(nova);
+                    removerTransicao(anterior);
                 }
-                removerTransicao(transicaoLambda);
             });
+            
+            removerTransicao(transicaoLambda);
         });
         afn.setTransicoes(afn.getTransicoes()
                 .stream()
