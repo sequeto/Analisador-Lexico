@@ -213,6 +213,7 @@ public class AFN extends Automato implements Cloneable {
             });
         });
     	
+    	afnKleene.getEstadosFinais().clear();
     	afnKleene.getEstadosFinais().addAll(afnKleene.getEstadosIniciais());
     	
     	return afnKleene;
