@@ -1,6 +1,7 @@
 package trabalhodcc196.analisador.model;
 
 import java.util.*;
+import java.util.concurrent.LinkedBlockingDeque;
 import java.util.stream.Collectors;
 
 
@@ -129,59 +130,29 @@ public class AFN extends Automato implements Cloneable {
 
     public AFN afnLambdaToAfn() throws CloneNotSupportedException {
         AFN afn = (AFN) this.clone();
-        
-        
-        List<Transicao> transicoesLambda = afn.getTransicoes().stream()
-                .filter(transicao -> transicao.getCaracter().equals("\u03BB"))
-                .collect(Collectors.toList());
-        
-        while(!transicoesLambda.isEmpty()) {
-        	transicoesLambda.forEach(transicaoLambda -> {
-            	
-            	if(isInicial(transicaoLambda.getOrigem())){
-                    adicionarInicial(transicaoLambda.getDestino());
-                }
-            	
-            	if(isFinal(transicaoLambda.getOrigem())){
-                    adicionarFinal(transicaoLambda.getDestino());
-                }
-            	
-                List<Estado> origens = getOrigensByDestino(transicaoLambda.getOrigem());
-                
-                origens.forEach(origem -> {
-                	System.out.println("Estado: " + origem.getRotulo());
-                    List<Transicao> transicoesAnteriores= getTransicoesByOrigemByDestino(origem,transicaoLambda.getOrigem());
-                    for (Transicao anterior : transicoesAnteriores){
-                        Transicao nova = new Transicao(anterior.getCaracter(), anterior.getOrigem(),transicaoLambda.getDestino());
-                        System.out.println("Transicao Origem: " + nova.getOrigem().getRotulo());
-                        System.out.println("Transicao Destino: " + nova.getDestino().getRotulo());
-                        System.out.println("Transicao Caracter: " + nova.getCaracter());
-                        if(!afn.getTransicoes().contains(nova)) {
-                        	adicionarTransicao(nova);                     	
-                        }
+
+        afn.getEstados().forEach(pivot -> {
+
+            Queue<Transicao> filaProcessamento = new LinkedBlockingDeque(getTransicoesByOrigem(pivot));
+
+            while (!filaProcessamento.isEmpty()) {
+                Transicao transicao = filaProcessamento.poll();
+                if(transicao.getCaracter().equals("\u03BB")) {
+                    List<Transicao> proximas = getTransicoesByOrigem(transicao.getDestino());
+                    proximas.forEach(proxima -> {
+                        filaProcessamento.add(proxima);
+                    });
+                    if(afn.isFinal(transicao.getDestino()) && !afn.getEstadosFinais().contains(pivot)) {
+                        afn.adicionarFinal(pivot);
                     }
-                });
-            });
-        	
-        	System.out.println("Finalizando Interacao");
-        	
-        	transicoesLambda.forEach(transicaoLambda ->{
-        		removerTransicao(transicaoLambda);
-        	});
-        	
-        	transicoesLambda = afn.getTransicoes().stream()
-                    .filter(transicao -> transicao.getCaracter().equals("\u03BB"))
-                    .collect(Collectors.toList());
-        	
-        }
-         
-        afn.setTransicoes(afn.getTransicoes()
-                .stream()
-                .sorted(Comparator.comparing(transicao -> {return transicao.getOrigem().getRotulo();}))
-                .collect(Collectors.toList()));
-        
-        afn.removerInuteis();
-        
+                    afn.getTransicoes().remove(transicao);
+                } else {
+                    Transicao nova = new Transicao(transicao.getCaracter(),pivot,transicao.getDestino());
+                    if(!afn.getTransicoes().contains(nova)){afn.adicionarTransicao(nova);};
+                }
+            };
+        });
+
         return afn;
     }
 
