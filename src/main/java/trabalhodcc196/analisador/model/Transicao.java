@@ -1,7 +1,5 @@
 package trabalhodcc196.analisador.model;
 
-import java.util.List;
-
 public class Transicao {
     private String caracter;
     private Estado origem;

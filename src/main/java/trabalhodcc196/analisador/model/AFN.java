@@ -3,6 +3,7 @@ package trabalhodcc196.analisador.model;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
 public class AFN extends Automato implements Cloneable {
 	private List<Estado> estadosIniciais = new ArrayList<>();
  	private List<Character> alfabeto = new ArrayList<>();
@@ -27,6 +28,8 @@ public class AFN extends Automato implements Cloneable {
         
         this.getEstadosIniciais().add(estadoInicial);
         this.getEstadosFinais().add(estadoFinal);
+        this.getEstados().add(estadoInicial);
+        this.getEstados().add(estadoFinal);
         this.getTransicoes().add(transicao);
         this.getAlfabeto().add(caracter);
     }
@@ -190,14 +193,16 @@ public class AFN extends Automato implements Cloneable {
         	afnUnido.adicionarTransicao(transicao);
         });
         
-        afnUnido.getEstados().addAll(afn2.getEstadosIniciais());
+        afnUnido.getEstados().addAll(afn2.getEstados());
         afnUnido.getTransicoes().addAll(afn2.getTransicoes());
         afnUnido.getAlfabeto().addAll(afn2.getAlfabeto());
         
         afnUnido.getEstadosIniciais().clear();
+        afnUnido.getEstados().add(estadoInicial);
         afnUnido.getEstadosIniciais().add(estadoInicial);
         
         afnUnido.getEstadosFinais().clear();
+        afnUnido.getEstados().add(estadoFinal);
         afnUnido.getEstadosFinais().add(estadoFinal);
         
         return afnUnido;
@@ -213,6 +218,7 @@ public class AFN extends Automato implements Cloneable {
             });
         });
     	
+    	afnKleene.getEstadosFinais().clear();
     	afnKleene.getEstadosFinais().addAll(afnKleene.getEstadosIniciais());
     	
     	return afnKleene;

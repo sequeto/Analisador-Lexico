@@ -107,7 +107,6 @@ public class Regex {
 				}
 				
 				else {
-					segundaPosicao = processStack.pop();
 					primeiraPosicao = processStack.pop(); 
 					processStack.push(adicionandoFechoDeKleene(primeiraPosicao));
 					processStack.peek().mostrarAutomato(); // Teste
