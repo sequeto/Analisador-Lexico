@@ -3,6 +3,7 @@ package trabalhodcc196.analisador.model;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
 public class AFN extends Automato implements Cloneable {
 	private List<Estado> estadosIniciais = new ArrayList<>();
  	private List<Character> alfabeto = new ArrayList<>();
@@ -53,7 +54,7 @@ public class AFN extends Automato implements Cloneable {
 
     public AFD toAFD(){
         AFD afd = new AFD();
-        afd.setAlfabeto(alfabeto);
+        afd.setAlfabeto(this.alfabeto);
         Estado inicialAFD = montarEstadoAFD(estadosIniciais);
         afd.adicionarEstado(inicialAFD);
         afd.setEstadoInicial(inicialAFD);
@@ -66,37 +67,51 @@ public class AFN extends Automato implements Cloneable {
             Set<Estado> origens = Arrays.stream(estadoAtual.getRotulo().split(","))
                     .map(str -> new Estado(str)).
                     collect(Collectors.toSet());
-            for(Character caracter : alfabeto) {
+   
+            
+            for(Character caracter: this.alfabeto) {
                 List<Estado> destinos = new ArrayList<>();
                 Boolean isFinal = false;
                 for (Estado origem : origens) {
-                    destinos.addAll(getDestinosByOrigemByCaracter(origem,caracter));
-                    if(isFinal(origem)){isFinal = true;}
+                    destinos.addAll(getDestinosByOrigemByCaracter(origem, caracter));
+                    if(isFinal(origem)){
+                    	isFinal = true;
+                	}
+                    
+                    if(isFinal(origem) && !afd.getEstadosFinais().contains(origem)){
+                    	afd.adicionarFinal(origem);
+                	}
                 }
+                
                 destinos = destinos.stream().distinct().collect(Collectors.toList());
-
-                if(destinos.size()!=0){
+                
+                if(destinos.size()!= 0){
                     Estado novoEstado = montarEstadoAFD(destinos);
                     Transicao novaTransicao = new Transicao(caracter.toString(),estadoAtual,novoEstado);
-                    if(!afd.getTransicoes().contains(novaTransicao)){afd.adicionarTransicao(novaTransicao);}
-
+                    if(!afd.getTransicoes().contains(novaTransicao)){
+                    	afd.adicionarTransicao(novaTransicao);
+                    }
                     if (!estadoAtual.equals(novoEstado) && (!processados.contains(novoEstado))){
                         processados.add(novoEstado);
                     }
-                    if(!afd.getEstados().contains(novoEstado)){afd.adicionarEstado(novoEstado);}
+                    if(!afd.getEstados().contains(novoEstado)){
+                    	afd.adicionarEstado(novoEstado);
+                    }
+                    
                     if(isFinal && !afd.getEstadosFinais().contains(novoEstado)){
                         afd.adicionarFinal(novoEstado);
                     }
-
-                    processados.remove(estadoAtual);
-
                 }
             };
+
+            processados.remove(estadoAtual);
         }
+        
         afd.setTransicoes(afd.getTransicoes()
                 .stream()
                 .sorted(Comparator.comparing(transicao -> {return transicao.getOrigem().getRotulo();}))
                 .collect(Collectors.toList()));
+        
         return afd;
     }
 

@@ -85,23 +85,22 @@ public class TagsProcess {
 			Regex expression = new Regex(tag);
 			cli.info(expression.getRegex());
 			AFN afn = expression.regexToAfn();
-//			afn = afn.afnLambdaToAfn();
-//			afn.mostrarAutomato();
-//			AFD afd = afn.toAFD();
-//			afd.mostrarAutomato();
+			afn = afn.afnLambdaToAfn();
+			afn.mostrarAutomato();
+			AFD afd = afn.toAFD();
+			afd.mostrarAutomato();
 //			return afd;	
 			return null;
 		}
 		catch(InputErrorException e) {
 			cli.error(String.format("Erro na definição da tag! %s", e.getMessage() !=null ? e.getMessage() : ""));
 			return null;
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-//		} catch (CloneNotSupportedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-//		return null;
+			
+		return null;
 		
 	}
 	
