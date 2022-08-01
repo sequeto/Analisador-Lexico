@@ -59,29 +59,28 @@ public class AFN extends Automato implements Cloneable {
         Estado inicialAFD = montarEstadoAFD(estadosIniciais);
         afd.adicionarEstado(inicialAFD);
         afd.setEstadoInicial(inicialAFD);
-        Set<Estado> processados = new HashSet<>();
-        processados.add(inicialAFD);
+        List<Estado> processados = new ArrayList<>();
+        Queue<Estado> aProcessar = new LinkedBlockingDeque();
+        aProcessar.add(inicialAFD);
         Estado estadoAtual = null;
-        while(!processados.isEmpty()) {
-            estadoAtual = processados.stream().findFirst().orElse(null);
+        while(!aProcessar.isEmpty()) {
+            estadoAtual = aProcessar.poll();
             processados.add(estadoAtual);
             Set<Estado> origens = Arrays.stream(estadoAtual.getRotulo().split(","))
                     .map(str -> new Estado(str)).
                     collect(Collectors.toSet());
-   
-            
+
+            Boolean isFinal = false;
             for(Character caracter: this.alfabeto) {
                 List<Estado> destinos = new ArrayList<>();
-                Boolean isFinal = false;
                 for (Estado origem : origens) {
                     destinos.addAll(getDestinosByOrigemByCaracter(origem, caracter));
                     if(isFinal(origem)){
                     	isFinal = true;
                 	}
-                    
-                    if(isFinal(origem) && !afd.getEstadosFinais().contains(origem)){
-                    	afd.adicionarFinal(origem);
-                	}
+                }
+                if(isFinal && !afd.getEstadosFinais().contains(estadoAtual)){
+                    afd.adicionarFinal(estadoAtual);
                 }
                 
                 destinos = destinos.stream().distinct().collect(Collectors.toList());
@@ -92,20 +91,16 @@ public class AFN extends Automato implements Cloneable {
                     if(!afd.getTransicoes().contains(novaTransicao)){
                     	afd.adicionarTransicao(novaTransicao);
                     }
-                    if (!estadoAtual.equals(novoEstado) && (!processados.contains(novoEstado))){
-                        processados.add(novoEstado);
+
+                    if (!estadoAtual.equals(novoEstado) && (!processados.contains(novoEstado)) && (!aProcessar.contains(novoEstado))){
+                        aProcessar.add(novoEstado);
                     }
                     if(!afd.getEstados().contains(novoEstado)){
                     	afd.adicionarEstado(novoEstado);
                     }
-                    
-                    if(isFinal && !afd.getEstadosFinais().contains(novoEstado)){
-                        afd.adicionarFinal(novoEstado);
-                    }
+
                 }
             };
-
-            processados.remove(estadoAtual);
         }
         
         afd.setTransicoes(afd.getTransicoes()
