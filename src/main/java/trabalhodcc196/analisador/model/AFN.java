@@ -129,30 +129,78 @@ public class AFN extends Automato implements Cloneable {
 
     public AFN afnLambdaToAfn() throws CloneNotSupportedException {
         AFN afn = (AFN) this.clone();
+        
+        
         List<Transicao> transicoesLambda = afn.getTransicoes().stream()
                 .filter(transicao -> transicao.getCaracter().equals("\u03BB"))
                 .collect(Collectors.toList());
         
-        transicoesLambda.forEach(transicaoLambda -> {
-        	
-        	if(isInicial(transicaoLambda.getOrigem())){
-                adicionarInicial(transicaoLambda.getDestino());
-            }
-        	
-            List<Estado> origens = getOrigensByDestino(transicaoLambda.getOrigem());
-            
-            origens.forEach(origem -> {
-                List<Transicao> transicoesAnteriores= getTransicoesByOrigemByDestino(origem,transicaoLambda.getOrigem());
-                for (Transicao anterior : transicoesAnteriores){
-                    Transicao nova = new Transicao(anterior.getCaracter(), anterior.getOrigem(),transicaoLambda.getDestino());
-                    adicionarTransicao(nova);
-                    removerTransicao(anterior);
+        while(!transicoesLambda.isEmpty()) {
+        	transicoesLambda.forEach(transicaoLambda -> {
+            	
+            	if(isInicial(transicaoLambda.getOrigem())){
+                    adicionarInicial(transicaoLambda.getDestino());
                 }
+            	
+            	if(isFinal(transicaoLambda.getOrigem())){
+                    adicionarFinal(transicaoLambda.getDestino());
+                }
+            	
+                List<Estado> origens = getOrigensByDestino(transicaoLambda.getOrigem());
+                
+                origens.forEach(origem -> {
+                	System.out.println("Estado: " + origem.getRotulo());
+                    List<Transicao> transicoesAnteriores= getTransicoesByOrigemByDestino(origem,transicaoLambda.getOrigem());
+                    for (Transicao anterior : transicoesAnteriores){
+                        Transicao nova = new Transicao(anterior.getCaracter(), anterior.getOrigem(),transicaoLambda.getDestino());
+                        System.out.println("Transicao Origem: " + nova.getOrigem().getRotulo());
+                        System.out.println("Transicao Destino: " + nova.getDestino().getRotulo());
+                        System.out.println("Transicao Caracter: " + nova.getCaracter());
+                        if(!afn.getTransicoes().contains(nova)) {
+                        	adicionarTransicao(nova);                     	
+                        }
+                    }
+                });
             });
-            
-            removerTransicao(transicaoLambda);
-        });
+        	
+        	System.out.println("Finalizando Interacao");
+        	
+        	transicoesLambda.forEach(transicaoLambda ->{
+        		removerTransicao(transicaoLambda);
+        	});
+        	
+        	transicoesLambda = afn.getTransicoes().stream()
+                    .filter(transicao -> transicao.getCaracter().equals("\u03BB"))
+                    .collect(Collectors.toList());
+        	
+        }
         
+//        for (ListIterator<Transicao> iter = transicoesLambda.listIterator(); iter.hasNext(); ) {
+//        	Transicao transicaoLambda = iter.next();
+//        	
+//        	if(isInicial(transicaoLambda.getOrigem())){
+//                adicionarInicial(transicaoLambda.getDestino());
+//            }
+//        	
+//            List<Estado> origens = getOrigensByDestino(transicaoLambda.getOrigem());
+//            
+//            origens.forEach(origem -> {
+//                List<Transicao> transicoesAnteriores= getTransicoesByOrigemByDestino(origem,transicaoLambda.getOrigem());
+//                for (Transicao anterior : transicoesAnteriores){
+//                    Transicao nova = new Transicao(anterior.getCaracter(), anterior.getOrigem(),transicaoLambda.getDestino());
+//                    adicionarTransicao(nova);
+//                    if(nova.getCaracter().equals("\u03BB")) {
+//                    	iter.add(nova);
+//                    }
+//                    
+//                    removerTransicao(anterior);
+//                }
+//            });
+//            
+//            removerTransicao(transicaoLambda);
+//        	
+//        }
+         
         afn.setTransicoes(afn.getTransicoes()
                 .stream()
                 .sorted(Comparator.comparing(transicao -> {return transicao.getOrigem().getRotulo();}))

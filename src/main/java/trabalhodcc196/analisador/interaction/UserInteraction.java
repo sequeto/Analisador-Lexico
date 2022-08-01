@@ -79,6 +79,7 @@ public class UserInteraction {
 		// Validar regras para definição da tag - Seção 2.1 da Especificação
 		else {
 			cli.info("Definindo Tag:");
+			afds.add(process.gerarAFD(comand[1]));
 			process.saveTags(comand, listaTags.lsTags);
 		}
 		

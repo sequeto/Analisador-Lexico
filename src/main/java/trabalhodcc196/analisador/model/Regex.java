@@ -126,7 +126,13 @@ public class Regex {
 			
 		}
 		
-		return processStack.pop();
+		if(processStack.size() != 1) {
+			throw new InputErrorException("Tag Inválida");
+		}
+		
+		else {			
+			return processStack.pop();
+		}
 	}
 
 	

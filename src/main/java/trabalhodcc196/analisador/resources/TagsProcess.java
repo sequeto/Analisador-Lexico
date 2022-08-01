@@ -31,7 +31,7 @@ public class TagsProcess {
 		if (listaTags.isEmpty()) {
 			try {
 //				validarExpressaoRegular(comand[1]);
-				gerarAFD(comand[1]);
+//				gerarAFD(comand[1]);
 				listaTags.put(comand[0].replace(":", ""), comand[1]);
 			} catch (Exception e) {
 				throw new InputErrorException("Processamento impossível para a entrada informada");
@@ -48,7 +48,7 @@ public class TagsProcess {
 
 			try {
 //				validarExpressaoRegular(comand[1]);
-				gerarAFD(comand[1]);
+//				gerarAFD(comand[1]);
 				listaTags.put(comand[0].replace(":", ""), comand[1]);
 			} catch (Exception e) {
 				throw new InputErrorException();
@@ -87,10 +87,9 @@ public class TagsProcess {
 			AFN afn = expression.regexToAfn();
 			afn = afn.afnLambdaToAfn();
 			afn.mostrarAutomato();
-			AFD afd = afn.toAFD();
-			afd.mostrarAutomato();
-//			return afd;	
-			return null;
+//			AFD afd = afn.toAFD();
+//			afd.mostrarAutomato();
+//			return afd;
 		}
 		catch(InputErrorException e) {
 			cli.error(String.format("Erro na definição da tag! %s", e.getMessage() !=null ? e.getMessage() : ""));
