@@ -87,8 +87,8 @@ public class TagsProcess {
 			AFN afn = expression.regexToAfn();
 			afn = afn.afnLambdaToAfn();
 			afn.mostrarAutomato();
-//			AFD afd = afn.toAFD();
-//			afd.mostrarAutomato();
+			AFD afd = afn.toAFD();
+			afd.mostrarAutomato();
 //			return afd;
 		}
 		catch(InputErrorException e) {

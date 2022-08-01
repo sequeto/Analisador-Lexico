@@ -76,7 +76,7 @@ public class Regex {
 		for(int i = 0; i < this.expression.length(); i++) {
 			
 			if(this.expression.charAt(i) == '+') {
-				if(processStack.size() != 2) {
+				if(processStack.size() < 2) {
 					throw new InputErrorException("Tag Inválida - União");
 				}
 				
@@ -89,7 +89,7 @@ public class Regex {
 			}
 			
 			else if(this.expression.charAt(i) == '.') {
-				if(processStack.size() != 2) {
+				if(processStack.size() < 2) {
 					throw new InputErrorException("Tag Inválida - Concatenação");
 				}
 				
@@ -102,7 +102,7 @@ public class Regex {
 			}
 			
 			else if(this.expression.charAt(i) == '*') {
-				if(processStack.size() != 1) {
+				if(processStack.size() == 0) {
 					throw new InputErrorException("Tag Inválida - Fecho de Kleene");
 				}
 				
@@ -114,14 +114,8 @@ public class Regex {
 			}
 			
 			else {
-				if(processStack.size() > 2) {
-					throw new InputErrorException("Tag Inválida - Ordem de Operandos Inválidos");
-				}
-				
-				else {
-					processStack.push(new AFN(this.expression.charAt(i)));
-					processStack.peek().mostrarAutomato(); // Teste
-				}
+				processStack.push(new AFN(this.expression.charAt(i)));
+				processStack.peek().mostrarAutomato(); // Teste
 			}
 			
 		}
