@@ -130,10 +130,11 @@ public class AFN extends Automato implements Cloneable {
 
     public AFN afnLambdaToAfn() throws CloneNotSupportedException {
         AFN afn = (AFN) this.clone();
-
+        List<Transicao> toRemove = new ArrayList<>();
         afn.getEstados().forEach(pivot -> {
 
             Queue<Transicao> filaProcessamento = new LinkedBlockingDeque(getTransicoesByOrigem(pivot));
+
 
             while (!filaProcessamento.isEmpty()) {
                 Transicao transicao = filaProcessamento.poll();
@@ -145,13 +146,14 @@ public class AFN extends Automato implements Cloneable {
                     if(afn.isFinal(transicao.getDestino()) && !afn.getEstadosFinais().contains(pivot)) {
                         afn.adicionarFinal(pivot);
                     }
-                    afn.getTransicoes().remove(transicao);
+                    toRemove.add(transicao);
                 } else {
                     Transicao nova = new Transicao(transicao.getCaracter(),pivot,transicao.getDestino());
                     if(!afn.getTransicoes().contains(nova)){afn.adicionarTransicao(nova);};
                 }
             };
         });
+        afn.getTransicoes().removeAll(toRemove);
 
         return afn;
     }
