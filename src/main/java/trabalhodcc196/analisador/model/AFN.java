@@ -154,6 +154,8 @@ public class AFN extends Automato implements Cloneable {
             };
         });
         afn.getTransicoes().removeAll(toRemove);
+        afn.removerInacessiveis();
+        afn.removerInuteis();
 
         return afn;
     }
