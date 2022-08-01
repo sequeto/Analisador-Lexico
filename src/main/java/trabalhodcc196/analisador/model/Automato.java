@@ -131,8 +131,6 @@ public abstract class Automato implements Cloneable{
     }
 
     public Boolean existeCaminho(Estado inicial, Estado terminal) {
-        System.out.println(String.format("Buscando terminal %s por %s", terminal.getRotulo(), inicial.getRotulo()));
-
         if(inicial.equals(terminal)) return true;
         List<Estado> processados = new ArrayList<>();
         Stack<Estado> estadosBusca = new Stack<>();
@@ -173,9 +171,7 @@ public abstract class Automato implements Cloneable{
     }
 
     public void removerInuteis() {
-        List<Estado> listaTerminais = new ArrayList<>();
-
-        listaTerminais.addAll(estadosFinais);
+        List<Estado> listaTerminais = new ArrayList<>(estadosFinais);
         List<Estado> estados = new ArrayList<>(this.getEstados());
         estados.forEach(estado -> {
             listaTerminais.forEach(inicial -> {

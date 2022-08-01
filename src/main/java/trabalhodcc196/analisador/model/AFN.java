@@ -99,6 +99,7 @@ public class AFN extends Automato implements Cloneable {
                     	afd.adicionarEstado(novoEstado);
                     }
 
+
                 }
             };
         }
@@ -241,7 +242,11 @@ public class AFN extends Automato implements Cloneable {
 
     @Override
     public void mostrarAutomato() {
-        System.out.println("========AFN========:");
+        if(this.getTransicoes().stream().anyMatch(transicao -> {
+                    return transicao.getCaracter().equals("λ");
+                })){
+            System.out.println("========AFN \u03BB========:");
+        } else {System.out.println("========AFN========:");}
         System.out.println("Estados:");
         getEstados().forEach(estado -> System.out.println(estado.getRotulo() + " "));
         System.out.println("Estados iniciais:");
