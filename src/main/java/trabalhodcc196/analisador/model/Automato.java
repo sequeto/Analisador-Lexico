@@ -14,7 +14,9 @@ public abstract class Automato implements Cloneable{
 
 
     public Automato(List<Estado> estados, List<Transicao> transicoes, List<Estado> estadosFinais, List<Character> alfabeto) {
-        this.estados = estados;
+        this.estados = estados.stream()
+                .sorted(Comparator.comparing(estado -> {return estado.getRotulo();}))
+                .collect(Collectors.toList());
         this.estadosFinais = estadosFinais;
         this.alfabeto = alfabeto;
         this.transicoes = transicoes.stream()
@@ -30,7 +32,9 @@ public abstract class Automato implements Cloneable{
     }
 
     public void setEstados(List<Estado> estados) {
-        this.estados = estados;
+        this.estados = estados.stream()
+                .sorted(Comparator.comparing(estado -> {return estado.getRotulo();}))
+                .collect(Collectors.toList());
     }
 
     public List<Transicao> getTransicoes() {
@@ -38,7 +42,9 @@ public abstract class Automato implements Cloneable{
     }
 
     public void setTransicoes(List<Transicao> transicoes) {
-        this.transicoes = transicoes;
+        this.transicoes = transicoes.stream()
+                .sorted(Comparator.comparing(transicao -> {return transicao.getOrigem().getRotulo();}))
+                .collect(Collectors.toList());;
     }
 
     public List<Estado> getEstadosFinais() {
