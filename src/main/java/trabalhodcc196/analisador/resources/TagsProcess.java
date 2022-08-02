@@ -154,17 +154,22 @@ public class TagsProcess {
 		
 		tagsDefined.getWords().forEach(word -> {
 			if(word.getTag() != null) {
-				System.out.print(word.getWord());
-				System.out.print(": ");
-				System.out.println(word.getTag());				
+				//System.out.print(word.getWord());
+				//System.out.print(": ");
+				System.out.print(word.getTag());
+				System.out.print(" ");
 			}
 			
 			else {
-				System.out.print(word.getWord());
-				System.out.print(": ");
-				System.out.println("Palavra Não Reconhecida");
+				//System.out.print(word.getWord());
+				//System.out.print(": ");
+				System.out.print("Palavra Não Reconhecida");
+				System.out.print(" ");
 			}
+			
+			
 		});
+		System.out.print("\n");
 	}
 	
 	public static void getAllSubtrings(String s, int i, String out, String [] wordsAux) throws Exception
