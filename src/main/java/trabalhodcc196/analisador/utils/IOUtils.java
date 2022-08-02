@@ -55,7 +55,7 @@ public class IOUtils {
 	
 	public String[] getInput(String input) throws Exception{
 		try {
-			String [] inputString = input.split(" ");		
+			String [] inputString = input.split(" ",2);
 			return inputString;	
 		} catch (Exception e) {
 			throw new InputErrorException ("Não foi possível processar a entrada. \n"+e.getMessage());
