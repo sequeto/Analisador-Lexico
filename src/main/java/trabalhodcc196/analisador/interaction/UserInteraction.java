@@ -57,7 +57,7 @@ public class UserInteraction {
 				case ":p":
 					cli.info("Realiza a divisão em tags da entrada informada"); // :p x = 1037
 //					process.processInput(comand);
-					process.processInput(comand[1]);
+//					process.processInput(comand[1]);
 					break;
 				case ":a":
 					cli.warning("Lista as definições formais dos autômatos em memória"); // :a

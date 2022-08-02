@@ -11,17 +11,15 @@
 package trabalhodcc196.analisador.resources;
 
 import java.util.ArrayList;
-import java.util.Set;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 import trabalhodcc196.analisador.exceptions.InputErrorException;
+import trabalhodcc196.analisador.model.AFD;
 import trabalhodcc196.analisador.model.ListWords;
 import trabalhodcc196.analisador.model.Regex;
-import trabalhodcc196.analisador.model.Word;
 import trabalhodcc196.analisador.utils.IOUtils;
 
 public class TagsProcess {
@@ -40,16 +38,18 @@ public class TagsProcess {
 		TagsProcess.tags = tags;
 	}
 
-	public void saveTags(String[] comand, HashMap<String, String> listaTags) throws Exception {
+	public void saveTags(String[] comand, HashMap<String, String> listaTags, List<AFD> afds) throws Exception {
 		if(comand.length > 2) {
 			throw new InputErrorException("Processamento impossível para a entrada informada");
 		}
 		if (listaTags.isEmpty()) {
 			try {
 				expression = new Regex(comand[1], comand[0].replace(":", ""));
-				if(!expression.getAFD().equals(null)) {
+				AFD afd = expression.getAFD();
+				if(!afd.equals(null)) {
 					tags.add(expression);
-					listaTags.put(comand[0].replace(":", ""), comand[1]);					
+					listaTags.put(comand[0].replace(":", ""), comand[1]);
+					afds.add(afd);
 				}
 			} catch (Exception e) {
 				throw new InputErrorException("Processamento impossível para a entrada informada");
@@ -171,4 +171,4 @@ public class TagsProcess {
 //		}
 //	}
 	
-}
+//}
