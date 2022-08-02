@@ -14,6 +14,7 @@ package trabalhodcc196.analisador.main;
 import java.util.Scanner;
 
 
+import trabalhodcc196.analisador.model.ListaAutomatos;
 import trabalhodcc196.analisador.model.ListaTags;
 import trabalhodcc196.analisador.utils.IOUtils;
 import trabalhodcc196.analisador.exceptions.InputErrorException;
@@ -27,6 +28,7 @@ public class Main {
 	public static void main(String[] args) {
 		String input;
 		ListaTags listaTags = new ListaTags();
+		ListaAutomatos listaAutomatos = new ListaAutomatos();
 		// Criando Loop de Interação do Usuário
 		while(true) {
 			cli.write("Especifique uma TAG ou digite um comando:");
@@ -36,7 +38,7 @@ public class Main {
 			}
 			else {
 				try {
-					UserInteraction.readInput(input, listaTags);
+					UserInteraction.readInput(input, listaTags, listaAutomatos);
 					
 				} catch (InputErrorException e) {
 					cli.error(String.format("Erro na entrada digitada! %s", e.getMessage() !=null ? e.getMessage() : ""));
@@ -44,7 +46,6 @@ public class Main {
 					cli.error(e.getMessage());
 				}
 			}
-			
 		}
 		
 		cli.info("Fim do Programa");

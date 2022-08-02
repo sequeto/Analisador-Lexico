@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,14 +29,17 @@ public class FileUtils {
 		writer.close();
 	}
 	
-	public void lerArquivoLex(HashMap<String, String> listaTags, String input) throws Exception {
+	public List<String[]>  lerArquivoLex(HashMap<String, String> listaTags, String input) throws Exception {
 		Path path = Paths.get("files/" + input);
 		IOUtils cli = new IOUtils();
         List<String> linhasArquivo = Files.readAllLines(path);
+		List<String[]> tags = new ArrayList<>();
         for (int i = 0; i < linhasArquivo.size(); i++) {
         	String [] linha = cli.getInput(linhasArquivo.get(i));
-        	listaTags.put(linha[0].replace(":", ""), linha[1]);
+			tags.add(linha);
 		}
+		return tags;
+
         
 	}
 	

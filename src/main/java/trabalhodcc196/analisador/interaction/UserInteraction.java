@@ -16,6 +16,7 @@ import java.util.Scanner;
 
 import trabalhodcc196.analisador.exceptions.InputErrorException;
 import trabalhodcc196.analisador.model.AFD;
+import trabalhodcc196.analisador.model.ListaAutomatos;
 import trabalhodcc196.analisador.model.ListaTags;
 import trabalhodcc196.analisador.resources.TagsProcess;
 import trabalhodcc196.analisador.utils.FileUtils;
@@ -24,11 +25,10 @@ import trabalhodcc196.analisador.utils.IOUtils;
 public class UserInteraction {
 	public static IOUtils cli = new IOUtils(new Scanner(System.in), System.out);
 	public static FileUtils fileUtils = new FileUtils();
-	public static List<AFD> afds = new ArrayList<>();
 	
 	// Módulos e Funções de cada comando
 	
-	public static void readInput(String input, ListaTags listaTags) throws Exception{
+	public static void readInput(String input, ListaTags listaTags, ListaAutomatos listaAutomatos) throws Exception{
 		String [] comand = cli.getInput(input);
 		TagsProcess process = new TagsProcess();
 		if(comand[0].equals("")){
@@ -45,14 +45,21 @@ public class UserInteraction {
 					break;
 				case ":c":
 					cli.warning("Carrega um arquivo com definicoes de tags"); // :c tags.lex
-					fileUtils.lerArquivoLex(listaTags.lsTags, comand[1]);
+					List<String[]> fromLex = fileUtils.lerArquivoLex(listaTags.lsTags, comand[1]);
+					fromLex.forEach(comando -> {
+						try {
+							cli.info("Acessando tag: "+comando[0]);
+							process.saveTags(comando, listaTags.lsTags, listaAutomatos.lsAutomatos);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					});
+
 					cli.info("Arquivo lido e carregado para a lista de tags.");
 					break;
 				case ":o":
 					cli.warning("Especifica o caminho do arquivo de saída para a divisão de tags"); // :o output.txt
-//					fileUtils.escreverArquivo("Teste", comand[1]);
-//					cli.info("Arquivo criado dentro da pasta 'files'.");
-					cli.warning("Comando ainda nao implementado.");
+					cli.setSaida(comand[1]);
 					break;
 				case ":p":
 					cli.info("Realiza a divisão em tags da entrada informada"); // :p x = 1037
@@ -61,21 +68,13 @@ public class UserInteraction {
 					break;
 				case ":a":
 					cli.warning("Lista as definições formais dos autômatos em memória"); // :a
-					if(!(afds.size() ==0)) {
-						afds.forEach(afd -> {
-							cli.write("=========" + afds.indexOf(afd) + "=========");
-							afd.definicaoFormal();
-						});
-					} else {
-						cli.warning("Não há autômatos em memória.");
-					}
+					listaAutomatos.imprimirLista();
 					break;
 				case ":l":
 					cli.info("Lista as definiçoes de tag validas"); // :l
 					listaTags.imprimirLista();	
 					break;
 				case ":s":
-					// validar as tags
 					cli.warning("Salvar as tags"); // :s file.txt
 					fileUtils.salvarTags(listaTags.lsTags, comand[1]);
 					cli.info("Arquivo criado dentro da pasta 'files'.");
@@ -87,7 +86,7 @@ public class UserInteraction {
 		
 		else {
 			cli.info("Definindo Tag:");
-			process.saveTags(comand, listaTags.lsTags, afds);
+			process.saveTags(comand, listaTags.lsTags, listaAutomatos.lsAutomatos);
 		}
 		
 	}

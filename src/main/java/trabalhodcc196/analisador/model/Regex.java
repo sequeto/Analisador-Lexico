@@ -117,7 +117,7 @@ public class Regex {
 					segundaPosicao = processStack.pop();
 					primeiraPosicao = processStack.pop(); 
 					processStack.push(processingUnion(primeiraPosicao, segundaPosicao));
-					processStack.peek().definicaoFormal(); // Teste
+					//processStack.peek().definicaoFormal(); // Teste
 				}
 			}
 			
@@ -130,7 +130,7 @@ public class Regex {
 					segundaPosicao = processStack.pop();
 					primeiraPosicao = processStack.pop(); 
 					processStack.push(processingConcatenation(primeiraPosicao, segundaPosicao));
-					processStack.peek().definicaoFormal(); // Teste
+					//processStack.peek().definicaoFormal(); // Teste
 				}
 			}
 			
@@ -142,13 +142,13 @@ public class Regex {
 				else {
 					primeiraPosicao = processStack.pop(); 
 					processStack.push(adicionandoFechoDeKleene(primeiraPosicao));
-					processStack.peek().definicaoFormal(); // Teste
+					//processStack.peek().definicaoFormal(); // Teste
 				}
 			}
 			
 			else {
 				processStack.push(new AFN(this.expression.charAt(i)));
-				processStack.peek().definicaoFormal(); // Teste
+				//processStack.peek().definicaoFormal(); // Teste
 			}
 			
 		}

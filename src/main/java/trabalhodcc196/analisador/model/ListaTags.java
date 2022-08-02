@@ -18,7 +18,7 @@ import trabalhodcc196.analisador.utils.IOUtils;
 
 
 public class ListaTags {
-	public static IOUtils cli = new IOUtils(new Scanner(System.in), System.out);
+	public IOUtils cli = new IOUtils(new Scanner(System.in), System.out);
 	public HashMap<String,String> lsTags;
 
 	public ListaTags()

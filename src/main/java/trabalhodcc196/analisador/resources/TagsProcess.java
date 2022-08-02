@@ -58,22 +58,24 @@ public class TagsProcess {
 		} else {
 			for (Map.Entry<String, String> tags : listaTags.entrySet()) {
 				if (tags.getKey().equalsIgnoreCase(comand[0].replace(":", ""))) {
-					throw new Exception("Tag já existente.");
+					throw new Exception("Tag já existente: "+comand[0]);
 				}
 			}
 
 			try {
 				Regex expression = new Regex(comand[1], comand[0].replace(":", ""));
-				if(!expression.getAFD().equals(null)) {
+				AFD afd = expression.getAFD();
+				if(!afd.equals(null)) {
 					tags.add(expression);
-					listaTags.put(comand[0].replace(":", ""), comand[1]);					
+					listaTags.put(comand[0].replace(":", ""), comand[1]);
+					afds.add(afd);
 				}
 				else {
-					throw new InputErrorException("Tag Inválida");
+					throw new InputErrorException("Tag Inválida: "+comand[0]);
 				}
 			}
 			catch(InputErrorException e) {
-				throw new InputErrorException("Tag Inválida");
+				throw new InputErrorException("Tag Inválida: "+comand[0]);
 			}
 			catch (Exception e) {
 				throw new InputErrorException();

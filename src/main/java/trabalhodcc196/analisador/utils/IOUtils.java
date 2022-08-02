@@ -17,7 +17,8 @@ import trabalhodcc196.analisador.exceptions.InputErrorException;
 
 public class IOUtils {
 	private Scanner input;
-	private PrintStream output;	
+	private PrintStream output;
+	private String saida = "output.txt";
 	
 	public IOUtils(Scanner input, PrintStream output) {
 		this.input = input;
@@ -48,11 +49,7 @@ public class IOUtils {
 		String content = this.input.nextLine();
 		return content;
 	}
-	
-	public Integer waitInt() {
-		return this.input.nextInt();
-	}
-	
+
 	public String[] getInput(String input) throws Exception{
 		try {
 			String [] inputString = input.split(" ",2);
@@ -61,5 +58,8 @@ public class IOUtils {
 			throw new InputErrorException ("Não foi possível processar a entrada. \n"+e.getMessage());
 		}	
 	}
-	
+
+	public void setSaida(String saida) {
+		this.saida = saida;
+	}
 }
