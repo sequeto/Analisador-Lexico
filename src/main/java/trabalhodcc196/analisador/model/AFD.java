@@ -54,6 +54,36 @@ public class AFD extends Automato {
 	public boolean isInicial(Estado estado) {
 		return this.estadoInicial.equals(estado);
 	}
+	
+	public boolean recognizeWord(String word) {
+		List<Transicao> transicoes = this.getTransicoesByOrigem(estadoInicial);
+		Estado estadoFinalizandoProcessamento = null;
+		boolean foundTransition = false;
+		
+		for(int i = 0; i < word.length(); i++) {
+			foundTransition = false;
+			for(int j = 0; j < transicoes.size(); j++) {
+				if(transicoes.get(j).getCaracter().equals(Character.toString(word.charAt(i)))) {
+					foundTransition = true;
+					estadoFinalizandoProcessamento = transicoes.get(j).getDestino();
+					transicoes = this.getTransicoesByOrigem(transicoes.get(j).getDestino());
+					break;
+				}
+			}
+			
+			if(!foundTransition) {
+				return false;
+			}
+		}
+		
+		if(this.isFinal(estadoFinalizandoProcessamento)) {
+			return true;
+		}
+		
+		else {
+			return false;
+		}
+	}
 
 	@Override
 	public void mostrarAutomato() {

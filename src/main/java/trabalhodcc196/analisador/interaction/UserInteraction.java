@@ -55,8 +55,8 @@ public class UserInteraction {
 					cli.warning("Comando ainda nao implementado.");
 					break;
 				case ":p":
-					cli.warning("Realiza a divisão em tags da entrada informada"); // :p x=1037
-					cli.warning("Comando ainda nao implementado.");
+					cli.info("Realiza a divisão em tags da entrada informada"); // :p x = 1037
+					process.processInput(comand);
 					break;
 				case ":a":
 					cli.warning("Lista as definições formais dos autômatos em memória"); // :a
@@ -76,10 +76,9 @@ public class UserInteraction {
 					cli.error("Comando nao encontrado");
 			}
 		}
-		// Validar regras para definição da tag - Seção 2.1 da Especificação
+		
 		else {
 			cli.info("Definindo Tag:");
-			afds.add(process.gerarAFD(comand[1]));
 			process.saveTags(comand, listaTags.lsTags);
 		}
 		

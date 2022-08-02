@@ -1,24 +1,39 @@
 package trabalhodcc196.analisador.model;
 
 import trabalhodcc196.analisador.exceptions.InputErrorException;
-import trabalhodcc196.analisador.utils.IOUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 import java.util.Stack;
 
-
-
 public class Regex {
+	private String label;
 	private String expression;
+	private AFD AFD;
 	Stack<AFN> processStack;
-	
-	public static IOUtils cli = new IOUtils(new Scanner(System.in), System.out);
 
-	public Regex(String regex) {
-		super();
+	public Regex(String regex, String label) throws InputErrorException {
+		this.label = label;
 		this.expression = regex;
+		try {
+			this.setAFD(this.generateAFD());			
+		}catch(Exception e) {
+			this.setAFD(null);
+		}
+	
+	}
+	
+	public AFD getAFD() {
+		return AFD;
+	}
+
+	public void setAFD(AFD aFD) {
+		AFD = aFD;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
 	public String getRegex() {
@@ -29,43 +44,61 @@ public class Regex {
 		this.expression = regex;
 	}
 	
-	public AFN processingConcatenation(AFN primeiraPosicao, AFN segundaPosicao) {
+	public AFN processingConcatenation(AFN primeiraPosicao, AFN segundaPosicao) throws InputErrorException {
 		AFN afn = primeiraPosicao;
 		
 		try {
 			afn = primeiraPosicao.concatenarAutomatos(segundaPosicao);			
 		}
 		catch(Exception e) {
-			cli.error(String.format("Erro na Concatenação de Automatos"));
+			throw new InputErrorException(String.format("Erro na Concatenação de Automatos"));
 		}
 		
 		return afn;
 	}
 	
-	private AFN processingUnion(AFN primeiraPosicao, AFN segundaPosicao) {
+	private AFN processingUnion(AFN primeiraPosicao, AFN segundaPosicao) throws InputErrorException {
 		AFN afn = primeiraPosicao;
 		
 		try {
 			afn = primeiraPosicao.unirAutomatos(segundaPosicao);			
 		}
 		catch(Exception e) {
-			cli.error(String.format("Erro na União de Automatos"));
+			throw new InputErrorException(String.format("Erro na União de Automatos"));
 		}
 		
 		return afn;
 	}
 	
-	private AFN adicionandoFechoDeKleene(AFN primeiraPosicao) {
+	private AFN adicionandoFechoDeKleene(AFN primeiraPosicao) throws InputErrorException {
 		AFN afn = primeiraPosicao;
 		
 		try {
 			afn = primeiraPosicao.adicionandoFechoDeKleene();			
 		}
 		catch(Exception e) {
-			cli.error(String.format("Erro na Adição do Fecho de Kleene"));
+			throw new InputErrorException(String.format("Erro na Adição do Fecho de Kleene"));
 		}
 		
 		return afn;
+	}
+	
+	public AFD generateAFD() throws InputErrorException {
+		try {
+			AFN afn = this.regexToAfn();
+			afn = afn.afnLambdaToAfn();
+			afn.mostrarAutomato();
+			AFD afd = afn.toAFD();
+			afd.mostrarAutomato();
+			
+			return afd;
+		}
+		catch(InputErrorException e) {
+			throw new InputErrorException(String.format("Erro na definição da tag! %s", e.getMessage() !=null ? e.getMessage() : ""));
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			throw new InputErrorException(String.format("Erro na definição da tag! %s", e.getMessage() !=null ? e.getMessage() : ""));
+		}	
 	}
 		
 	public AFN regexToAfn() throws InputErrorException {

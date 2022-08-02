@@ -60,7 +60,7 @@ public class AFN extends Automato implements Cloneable {
         afd.adicionarEstado(inicialAFD);
         afd.setEstadoInicial(inicialAFD);
         List<Estado> processados = new ArrayList<>();
-        Queue<Estado> aProcessar = new LinkedBlockingDeque();
+        Queue<Estado> aProcessar = new LinkedBlockingDeque<Estado>();
         aProcessar.add(inicialAFD);
         Estado estadoAtual = null;
         while(!aProcessar.isEmpty()) {

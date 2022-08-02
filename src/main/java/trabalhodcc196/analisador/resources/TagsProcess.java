@@ -10,19 +10,29 @@
 
 package trabalhodcc196.analisador.resources;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Stack;
 
 import trabalhodcc196.analisador.exceptions.InputErrorException;
-import trabalhodcc196.analisador.model.AFD;
-import trabalhodcc196.analisador.model.AFN;
 import trabalhodcc196.analisador.model.Regex;
 import trabalhodcc196.analisador.utils.IOUtils;
 
 public class TagsProcess {
+	public static List<Regex> tags = new ArrayList<>();
+	private Regex expression = null;
+	
 	public static IOUtils cli = new IOUtils(new Scanner(System.in), System.out);
+	
+	public List<Regex> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<Regex> tags) {
+		TagsProcess.tags = tags;
+	}
 
 	public void saveTags(String[] comand, HashMap<String, String> listaTags) throws Exception {
 		if(comand.length > 2) {
@@ -30,77 +40,61 @@ public class TagsProcess {
 		}
 		if (listaTags.isEmpty()) {
 			try {
-//				validarExpressaoRegular(comand[1]);
-//				gerarAFD(comand[1]);
-				listaTags.put(comand[0].replace(":", ""), comand[1]);
+				expression = new Regex(comand[1], comand[0].replace(":", ""));
+				if(!expression.getAFD().equals(null)) {
+					tags.add(expression);
+					listaTags.put(comand[0].replace(":", ""), comand[1]);					
+				}
 			} catch (Exception e) {
 				throw new InputErrorException("Processamento impossível para a entrada informada");
 			}
 
 		} else {
 			for (Map.Entry<String, String> tags : listaTags.entrySet()) {
-
 				if (tags.getKey().equalsIgnoreCase(comand[0].replace(":", ""))) {
 					throw new Exception("Tag já existente.");
 				}
-
 			}
 
 			try {
-//				validarExpressaoRegular(comand[1]);
-//				gerarAFD(comand[1]);
-				listaTags.put(comand[0].replace(":", ""), comand[1]);
-			} catch (Exception e) {
+				Regex expression = new Regex(comand[1], comand[0].replace(":", ""));
+				if(!expression.getAFD().equals(null)) {
+					tags.add(expression);
+					listaTags.put(comand[0].replace(":", ""), comand[1]);					
+				}
+				else {
+					throw new InputErrorException("Tag Inválida");
+				}
+			}
+			catch(InputErrorException e) {
+				throw new InputErrorException("Tag Inválida");
+			}
+			catch (Exception e) {
 				throw new InputErrorException();
 			}
 		}
 	}
-
-//	public Boolean validarExpressaoRegular(String tag){
-//		Stack<String> pilha = new Stack<String>();
-//		Stack<Character> pilhaProcessamento = new Stack<Character>();
-//		for(char c : tag.toCharArray()){
-//			if(c == '*') {
-//
-//
-//			} else if (c == '+') {
-//				if(pilhaProcessamento.size() > 2) return false;
-//				Character char1 = pilhaProcessamento.pop();
-//				if(pilhaProcessamento.size() == 0) {
-//					pilha.push(String.valueOf(char1));
-//				} else {
-//					Character char2 = pilhaProcessamento.pop();
-//					pilha.push(char2 + "+" + char1);
-//				}
-//			} else {
-//				pilhaProcessamento.push(c);
-//			}
-//		}
-//
-//		return null;
-//	}
 	
-	public AFD gerarAFD(String tag) throws InputErrorException, CloneNotSupportedException{
-		try {
-			Regex expression = new Regex(tag);
-			cli.info(expression.getRegex());
-			AFN afn = expression.regexToAfn();
-			afn = afn.afnLambdaToAfn();
-			afn.mostrarAutomato();
-			AFD afd = afn.toAFD();
-			afd.mostrarAutomato();
-//			return afd;
-		}
-		catch(InputErrorException e) {
-			cli.error(String.format("Erro na definição da tag! %s", e.getMessage() !=null ? e.getMessage() : ""));
-			return null;
-		} catch (CloneNotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-			
-		return null;
+	public void processInput(String [] input) {
+		String word;
+		boolean recognizeWord  = false;
 		
+		for(int i = 1; i < input.length; i++) {
+			word = input[i];
+			recognizeWord  = false;
+			
+			for(int j = 0; j < TagsProcess.tags.size(); j++) {
+				recognizeWord = TagsProcess.tags.get(j).getAFD().recognizeWord(word);
+				
+				if(recognizeWord) {
+					cli.write(TagsProcess.tags.get(j).getLabel());
+					break;
+				}
+			}
+			
+			if(!recognizeWord) {
+				cli.info("Palavra não reconhecida por nenhuma tag salva!");
+			}
+		}
 	}
-	
 }
