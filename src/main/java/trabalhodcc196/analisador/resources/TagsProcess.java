@@ -75,25 +75,45 @@ public class TagsProcess {
 		}
 	}
 	
-	public void processInput(String [] input) {
-		String word;
+//	public void processInput(String [] input) {
+//		String word;
+//		boolean recognizeWord  = false;
+//		
+//		for(int i = 1; i < input.length; i++) {
+//			word = input[i];
+//			recognizeWord  = false;
+//			
+//			for(int j = 0; j < TagsProcess.tags.size(); j++) {
+//				recognizeWord = TagsProcess.tags.get(j).getAFD().recognizeWord(word);
+//				
+//				if(recognizeWord) {
+//					cli.write(TagsProcess.tags.get(j).getLabel());
+//					break;
+//				}
+//			}
+//			
+//			if(!recognizeWord) {
+//				cli.info("Palavra não reconhecida por nenhuma tag salva!");
+//			}
+//		}
+//	}
+	
+	public void processInput(String input) {
+		String processado = "";
 		boolean recognizeWord  = false;
 		
-		for(int i = 1; i < input.length; i++) {
-			word = input[i];
+		for(int i = 0; i < input.length(); i++) {
+			processado = processado + Character.toString(input.charAt(i));
 			recognizeWord  = false;
 			
 			for(int j = 0; j < TagsProcess.tags.size(); j++) {
-				recognizeWord = TagsProcess.tags.get(j).getAFD().recognizeWord(word);
+				recognizeWord = TagsProcess.tags.get(j).getAFD().recognizeWord(processado);
 				
 				if(recognizeWord) {
 					cli.write(TagsProcess.tags.get(j).getLabel());
+					processado = "";
 					break;
 				}
-			}
-			
-			if(!recognizeWord) {
-				cli.info("Palavra não reconhecida por nenhuma tag salva!");
 			}
 		}
 	}
