@@ -20,6 +20,7 @@ import trabalhodcc196.analisador.exceptions.InputErrorException;
 import trabalhodcc196.analisador.model.AFD;
 import trabalhodcc196.analisador.model.ListWords;
 import trabalhodcc196.analisador.model.Regex;
+import trabalhodcc196.analisador.model.Word;
 import trabalhodcc196.analisador.utils.IOUtils;
 
 public class TagsProcess {
@@ -106,71 +107,89 @@ public class TagsProcess {
 //		}
 //	}
 	
-//	public void processInput(String input) throws Exception {
-//		recur(input, 0, "", TagsProcess.wordsAux);
-//		
-//		System.out.println(Integer.toString(this.listWords.get(1).getWords().size()) );
+	public void processInput(String input) throws Exception {
+		TagsProcess.listWords =  new ArrayList<>();
+		ListWords tagsDefined = null;
+		Integer index = 0;
 		
-//		words.forEach(word -> {
-//			System.out.println(word);
-//		});
+		getAllSubtrings(input, 0, "", TagsProcess.wordsAux);
+		
+		TagsProcess.listWords.forEach(list ->{ // Lista de Palavras
+			list.getWords().forEach(word -> {
+				for(int j = 0; j < TagsProcess.tags.size(); j++) {
+					
+					if(TagsProcess.tags.get(j).getAFD().recognizeWord(word.getWord())) {
+						list.incrementTags();
+						word.setTag(TagsProcess.tags.get(j).getLabel());
+						break;
+					}
+				}
+			});
+		});
+		
+		for(int j= 0; j < TagsProcess.listWords.size(); j++) {
+			if(TagsProcess.listWords.get(j).getTagsRecognize().equals(TagsProcess.listWords.get(j).getWords().size())) {
+				if(TagsProcess.listWords.get(index).getTagsRecognize().equals(TagsProcess.listWords.get(index).getWords().size())) {
+					if(TagsProcess.listWords.get(j).getTagsRecognize() < TagsProcess.listWords.get(index).getTagsRecognize()) {
+						index = j;
+					}
+				}
+				
+				else {
+					index = j;
+				}
+			}
+			
+			else {
+				if(!TagsProcess.listWords.get(index).getTagsRecognize().equals(TagsProcess.listWords.get(index).getWords().size())) {
+					if(TagsProcess.listWords.get(j).getTagsRecognize() > TagsProcess.listWords.get(index).getTagsRecognize()) {
+						index = j;
+					}
+				}
+			}
+		}
+		
+		
+		tagsDefined = TagsProcess.listWords.get(index);
+		
+		tagsDefined.getWords().forEach(word -> {
+			if(word.getTag() != null) {
+				System.out.print(word.getWord());
+				System.out.print(": ");
+				System.out.println(word.getTag());				
+			}
+			
+			else {
+				System.out.print(word.getWord());
+				System.out.print(": ");
+				System.out.println("Palavra Não Reconhecida");
+			}
+		});
 	}
 	
-//	public static void recur(String s, int i, String out, Set<String> listWords)
-//	{
-//		// base case
-//		if (s == null || s.length() == 0) {
-//			return;
-//		}
-//
-//		if (i == s.length()) {
-//			
-//			System.out.println("{" + out + "}");
-//		}
-//
-//		// consider each substring S[i, j]
-//		for (int j = s.length() - 1; j >= i; j--)
-//		{
-//			String substr = s.substring(i, j + 1);
-//			listWords.add(s.substring(i, j + 1));
-//
-//			// append the substring to the result and recur with an index of
-//			// the next character to be processed and the result string
-//			recur(s, j + 1, out + substr, listWords);
-//		}
-//	}
-//	
+	public static void getAllSubtrings(String s, int i, String out, String [] wordsAux) throws Exception
+	{
+		// base case
+		if (s == null || s.length() == 0) {
+			return;
+		}
+
+		if (i == s.length()) {
+			wordsAux = out.split(" ");
+			List<Word> wordsList = new ArrayList<>();
+			
+			for(int j=0; j< wordsAux.length; j++) {
+				wordsList.add(new Word(wordsAux[j]));
+			}
+			ListWords wordlistList = new ListWords(wordsList);
+			listWords.add(wordlistList);
+		}
+
+		for (int j = s.length() - 1; j >= i; j--)
+		{
+			String substr = s.substring(i, j + 1) + " ";
+			getAllSubtrings(s, j + 1, out + substr, wordsAux);
+		}
+	}
 	
-//	public static void recur(String s, int i, String out, String [] wordsAux) throws Exception
-//	{
-//		// base case
-//		if (s == null || s.length() == 0) {
-//			return;
-//		}
-//
-//		if (i == s.length()) {
-//			wordsAux = out.split(" ");
-//			List<Word> wordsList = new ArrayList<>();
-//			
-//			for(int j=0; i< wordsAux.length; j++) {
-//				System.out.println("teste");
-//				wordsList.add(new Word(wordsAux[j]));
-//			}
-//			System.out.println(Integer.toString(wordsAux.length) );
-//			ListWords wordlistList = new ListWords(wordsList);
-//			listWords.add(wordlistList);
-//			System.out.println(out);
-//		}
-//
-//		// consider each substring S[i, j]
-//		for (int j = s.length() - 1; j >= i; j--)
-//		{
-//			String substr = s.substring(i, j + 1) + " ";
-//
-//			// append the substring to the result and recur with an index of
-//			// the next character to be processed and the result string
-//			recur(s, j + 1, out + substr, wordsAux);
-//		}
-//	}
-	
-//}
+}
