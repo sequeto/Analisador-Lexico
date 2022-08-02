@@ -61,7 +61,14 @@ public class UserInteraction {
 					break;
 				case ":a":
 					cli.warning("Lista as definições formais dos autômatos em memória"); // :a
-					cli.warning("Comando ainda nao implementado.");
+					if(!(afds.size() ==0)) {
+						afds.forEach(afd -> {
+							cli.write("=========" + afds.indexOf(afd) + "=========");
+							afd.definicaoFormal();
+						});
+					} else {
+						cli.warning("Não há autômatos em memória.");
+					}
 					break;
 				case ":l":
 					cli.info("Lista as definiçoes de tag validas"); // :l
@@ -80,7 +87,7 @@ public class UserInteraction {
 		
 		else {
 			cli.info("Definindo Tag:");
-			process.saveTags(comand, listaTags.lsTags);
+			process.saveTags(comand, listaTags.lsTags, afds);
 		}
 		
 	}

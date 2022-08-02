@@ -241,18 +241,30 @@ public class AFN extends Automato implements Cloneable {
     }
 
     @Override
-    public void mostrarAutomato() {
+    public void definicaoFormal() {
         if(this.getTransicoes().stream().anyMatch(transicao -> {
                     return transicao.getCaracter().equals("λ");
                 })){
             System.out.println("========AFN \u03BB========:");
         } else {System.out.println("========AFN========:");}
-        System.out.println("Estados:");
-        getEstados().forEach(estado -> System.out.println(estado.getRotulo() + " "));
-        System.out.println("Estados iniciais:");
-        estadosIniciais.forEach(iniciais -> System.out.println(iniciais.getRotulo() + " "));
-        System.out.println("Estados finais:");
-        getEstadosFinais().forEach(finais -> System.out.println(finais.getRotulo() + " "));
+        String formato = "Definição formal: ({";
+        for (Estado estado : getEstados()) {
+            formato = formato +" "+estado.getRotulo();
+        }
+        formato = formato +" }, {";
+        for (Character character : alfabeto) {
+            formato = formato +" |"+character+"|";
+        }
+        formato = formato +" }, \u03B4, {";
+        for (Estado inicial : getEstadosIniciais()) {
+            formato = formato +" "+inicial.getRotulo();
+        }
+        formato = formato +" }, {";
+        for (Estado terminal : getEstadosFinais()) {
+            formato = formato +" "+terminal.getRotulo();
+        }
+        formato = formato+" })";
+        System.out.println(formato);
         System.out.println("Transições:");
         getTransicoes().forEach(transicao -> System.out.println(
                 transicao.getOrigem().getRotulo() + " >>===== " +

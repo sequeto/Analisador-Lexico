@@ -114,7 +114,7 @@ public abstract class Automato implements Cloneable{
         this.estados.add(estado);
     }
 
-    public abstract void mostrarAutomato();
+    public abstract void definicaoFormal();
 
     public abstract boolean isInicial(Estado estado);
 

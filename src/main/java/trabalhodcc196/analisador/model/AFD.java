@@ -86,14 +86,22 @@ public class AFD extends Automato {
 	}
 
 	@Override
-	public void mostrarAutomato() {
+	public void definicaoFormal() {
 		System.out.println("========AFD========:");
-		System.out.println("Estados:");
-		getEstados().forEach(estado -> System.out.println(estado.getRotulo() + " "));
-		System.out.println("Estado inicial:");
-		System.out.println(estadoInicial.getRotulo());
-		System.out.println("Estados finais:");
-		getEstadosFinais().forEach(finais -> System.out.println(finais.getRotulo() + " "));
+		String formato = "Definição formal: ({";
+		for (Estado estado : getEstados()) {
+			formato = formato +" "+estado.getRotulo();
+		}
+		formato = formato +" }, {";
+		for (Character character : alfabeto) {
+			formato = formato +" |"+character+"|";
+		}
+		formato = formato +" }, \u03B4, "+estadoInicial.getRotulo()+", {";
+		for (Estado terminal : getEstadosFinais()) {
+			formato = formato +" "+terminal.getRotulo();
+		}
+		formato = formato+" })";
+		System.out.println(formato);
 		System.out.println("Transições:");
 		getTransicoes().forEach(transicao -> System.out.println(
 				transicao.getOrigem().getRotulo() + " >>===== " +
