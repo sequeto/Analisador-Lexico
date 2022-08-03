@@ -44,15 +44,14 @@ public class UserInteraction {
 				case ":c":
 					cli.warning("Carrega um arquivo com definicoes de tags"); // :c tags.lex
 					List<String[]> fromLex = fileUtils.lerArquivoLex(listaTags.lsTags, comand[1]);
-					fromLex.forEach(comando -> {
+					for (String[] comando : fromLex) {
 						try {
 							cli.info("Acessando tag: "+comando[0]);
 							process.saveTags(comando, listaTags.lsTags, listaAutomatos.lsAutomatos);
 						} catch (Exception e) {
-							e.printStackTrace();
+							cli.error(e.getMessage());
 						}
-					});
-
+					}
 					cli.info("Arquivo lido e carregado para a lista de tags.");
 					break;
 				case ":o":

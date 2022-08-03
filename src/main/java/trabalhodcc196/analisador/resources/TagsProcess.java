@@ -43,7 +43,7 @@ public class TagsProcess {
 					listaTags.put(comand[0].replace(":", ""), comand[1]);
 					afds.add(afd);
 				} else {
-					throw new AutomataProcessingException("Tag Inválida: "+comand[0]);
+					throw new AutomataProcessingException("Tag Inválida: "+comand[0].replace(":", ""));
 				}
 			} catch (AutomataProcessingException e) {
 				throw new AutomataProcessingException("Processamento impossível para a entrada informada");
@@ -54,7 +54,7 @@ public class TagsProcess {
 		} else {
 			for (Map.Entry<String, String> tags : listaTags.entrySet()) {
 				if (tags.getKey().equalsIgnoreCase(comand[0].replace(":", ""))) {
-					throw new Exception("Tag já existente: "+comand[0]);
+					throw new Exception("Tag já existente: "+comand[0].replace(":", ""));
 				}
 			}
 
@@ -66,7 +66,7 @@ public class TagsProcess {
 					listaTags.put(comand[0].replace(":", ""), comand[1]);
 					afds.add(afd);
 				} else {
-					throw new AutomataProcessingException("Tag Inválida: "+comand[0]);
+					throw new AutomataProcessingException("Tag Inválida: "+comand[0].replace(":", ""));
 				}
 			}
 			catch(AutomataProcessingException e) {
