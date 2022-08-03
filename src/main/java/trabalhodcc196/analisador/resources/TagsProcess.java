@@ -155,7 +155,7 @@ public class TagsProcess {
 
 		for (Word word : tagsDefined.getWords()){
 			if(word.getTag() != null) {
-				saida = saida + word.getWord() + ": " + word.getTag();
+				saida = saida + word.getWord() + ": " + word.getTag()+"\n";
 				System.out.print(word.getWord());
 				System.out.print(": ");
 				System.out.println(word.getTag());

@@ -1,1 +1,4 @@
-Teste
+Teste: Palavra Não Reconhecida
+de: Palavra Não Reconhecida
+c: VAR
+odigo...: Palavra Não Reconhecida

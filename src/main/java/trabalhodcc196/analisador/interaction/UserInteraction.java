@@ -41,7 +41,7 @@ public class UserInteraction {
 				case ":d":
 					cli.warning("Realiza a divisao em tags da string do arquivo informado"); // :d input.txt
 					String leitura = fileUtils.lerArquivoTxt(comand[1]);
-					process.processInput(leitura);
+					fileUtils.salvarArquivoTxt(process.processInput(leitura));
 					break;
 				case ":c":
 					cli.warning("Carrega um arquivo com definicoes de tags"); // :c tags.lex
