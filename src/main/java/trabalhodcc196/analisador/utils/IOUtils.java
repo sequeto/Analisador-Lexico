@@ -18,7 +18,7 @@ import trabalhodcc196.analisador.exceptions.InputErrorException;
 public class IOUtils {
 	private Scanner input;
 	private PrintStream output;
-	private String saida = "output.txt";
+
 	
 	public IOUtils(Scanner input, PrintStream output) {
 		this.input = input;
@@ -59,7 +59,4 @@ public class IOUtils {
 		}	
 	}
 
-	public void setSaida(String saida) {
-		this.saida = saida;
-	}
 }

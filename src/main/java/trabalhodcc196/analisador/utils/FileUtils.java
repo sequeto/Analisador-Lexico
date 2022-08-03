@@ -23,6 +23,12 @@ import java.util.Map;
 
 public class FileUtils {
 
+	private String output = "output.txt";
+
+	public void setOutput(String output) {
+		this.output = output;
+	}
+
 	public void escreverArquivo(String divisaoTags, String output) throws IOException {
 		BufferedWriter writer = new BufferedWriter(new FileWriter("files/" + output));
 		writer.write(divisaoTags);
@@ -39,8 +45,13 @@ public class FileUtils {
 			tags.add(linha);
 		}
 		return tags;
+	}
 
-        
+	public String lerArquivoTxt(String input) throws Exception {
+		Path path = Paths.get("files/" + input);
+		IOUtils cli = new IOUtils();
+
+		return Files.readString(path);
 	}
 	
 	public void salvarTags (HashMap<String,String> listaTags, String output) throws IOException {
@@ -51,5 +62,11 @@ public class FileUtils {
 		}
 		writer.close();
 	}
-	
+
+	public void salvarArquivoTxt(String processInput) throws IOException {
+		BufferedWriter writer = new BufferedWriter(new FileWriter("files/" + this.output));
+		writer.write(processInput);
+		writer.close();
+	}
+
 }

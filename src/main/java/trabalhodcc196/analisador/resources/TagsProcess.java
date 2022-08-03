@@ -107,10 +107,11 @@ public class TagsProcess {
 //		}
 //	}
 	
-	public void processInput(String input) throws Exception {
+	public String processInput(String input) throws Exception {
 		TagsProcess.listWords =  new ArrayList<>();
 		ListWords tagsDefined = null;
 		Integer index = 0;
+		String saida = "";
 		
 		getAllSubtrings(input, 0, "", TagsProcess.wordsAux);
 		
@@ -151,20 +152,23 @@ public class TagsProcess {
 		
 		
 		tagsDefined = TagsProcess.listWords.get(index);
-		
-		tagsDefined.getWords().forEach(word -> {
+
+		for (Word word : tagsDefined.getWords()){
 			if(word.getTag() != null) {
+				saida = saida + word.getWord() + ": " + word.getTag();
 				System.out.print(word.getWord());
 				System.out.print(": ");
-				System.out.println(word.getTag());				
+				System.out.println(word.getTag());
 			}
 			
 			else {
+				saida = saida + word.getWord() + ": "+"Palavra Não Reconhecida\n";
 				System.out.print(word.getWord());
 				System.out.print(": ");
 				System.out.println("Palavra Não Reconhecida");
 			}
-		});
+		};
+		return saida;
 	}
 	
 	public static void getAllSubtrings(String s, int i, String out, String [] wordsAux) throws Exception

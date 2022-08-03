@@ -40,8 +40,8 @@ public class UserInteraction {
 			switch(comand[0]) {
 				case ":d":
 					cli.warning("Realiza a divisao em tags da string do arquivo informado"); // :d input.txt
-					//String leitura = fileUtils.criarStringDoArquivo(comand[1]);
-					cli.warning("Comando ainda nao implementado.");
+					String leitura = fileUtils.lerArquivoTxt(comand[1]);
+					process.processInput(leitura);
 					break;
 				case ":c":
 					cli.warning("Carrega um arquivo com definicoes de tags"); // :c tags.lex
@@ -59,12 +59,11 @@ public class UserInteraction {
 					break;
 				case ":o":
 					cli.warning("Especifica o caminho do arquivo de saída para a divisão de tags"); // :o output.txt
-					cli.setSaida(comand[1]);
+					fileUtils.setOutput(comand[1]);
 					break;
 				case ":p":
 					cli.info("Realiza a divisão em tags da entrada informada"); // :p x = 1037
-//					process.processInput(comand);
-					process.processInput(comand[1]);
+					fileUtils.salvarArquivoTxt(process.processInput(comand[1]));
 					break;
 				case ":a":
 					cli.warning("Lista as definições formais dos autômatos em memória"); // :a
