@@ -38,7 +38,7 @@ public class TagsProcess {
 			try {
 				expression = new Regex(comand[1], comand[0].replace(":", ""));
 				AFD afd = expression.getAFD();
-				if(!afd.equals(null)) {
+				if(afd != null) {
 					tags.add(expression);
 					listaTags.put(comand[0].replace(":", ""), comand[1]);
 					afds.add(afd);
