@@ -85,7 +85,6 @@ public class TagsProcess {
 			String processado = "";
 			Word reconhecido = null;
 			Word naoReconhecido = null;
-			
 			boolean recognize = false;
 			
 			while(!input.isEmpty()) {
@@ -96,10 +95,16 @@ public class TagsProcess {
 					processado = processado + Character.toString(input.charAt(i));
 					for(int j = 0; j < TagsProcess.tags.size(); j++) {
 						if(TagsProcess.tags.get(j).getAFD().recognizeWord(processado)) {
-							recognize = true;
-							reconhecido = new Word(processado);
-							reconhecido.setTag(TagsProcess.tags.get(j).getLabel());
-							break;
+							if(reconhecido != null && reconhecido.getWord() == processado) {
+								reconhecido.setWarning(true);
+								reconhecido.setWarningTag(TagsProcess.tags.get(j).getLabel());
+							}
+							
+							else {
+								recognize = true;
+								reconhecido = new Word(processado);
+								reconhecido.setTag(TagsProcess.tags.get(j).getLabel());								
+							}
 						}
 					}
 					
@@ -134,6 +139,20 @@ public class TagsProcess {
 			
 			for (Word word : listWords){
 				if(word.getTag() != null) {
+					if(word.isWarning()) {
+						String tags = word.getTag();
+						
+						for(int i = 0; i < word.getTags().size(); i++) {
+							if(i == word.getTags().size() - 1) {
+								tags = tags + " e " + word.getTags().get(i);
+							}
+							else {
+								tags = tags + ", " + word.getTags().get(i);								
+							}
+						}
+						
+						System.out.println("[WARNING] Sobreposição na definição das sobreposição das tags " + tags + ".");
+					}
 					saida = saida + word.getWord() + ": " + word.getTag()+"\n";
 					System.out.print(word.getWord());
 					System.out.print(": ");
