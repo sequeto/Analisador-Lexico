@@ -109,9 +109,9 @@ public class Regex {
 		} catch (CloneNotSupportedException e) {
 			// TODO Auto-generated catch block
 			throw new InputErrorException(String.format("Erro na definição da tag! %s", e.getMessage() !=null ? e.getMessage() : ""));
-		}	
+		}
 	}
-		
+
 	public AFN regexToAfn() throws InputErrorException {
 		this.processStack = new Stack<AFN>();
 		AFN primeiraPosicao = new AFN();

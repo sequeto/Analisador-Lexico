@@ -83,29 +83,7 @@ public class TagsProcess {
 			}
 		}
 	}
-	
-//	public void processInput(String [] input) {
-//		String word;
-//		boolean recognizeWord  = false;
-//		
-//		for(int i = 1; i < input.length; i++) {
-//			word = input[i];
-//			recognizeWord  = false;
-//			
-//			for(int j = 0; j < TagsProcess.tags.size(); j++) {
-//				recognizeWord = TagsProcess.tags.get(j).getAFD().recognizeWord(word);
-//				
-//				if(recognizeWord) {
-//					cli.write(TagsProcess.tags.get(j).getLabel());
-//					break;
-//				}
-//			}
-//			
-//			if(!recognizeWord) {
-//				cli.info("Palavra não reconhecida por nenhuma tag salva!");
-//			}
-//		}
-//	}
+
 	
 	public String processInput(String input) throws Exception {
 		TagsProcess.listWords =  new ArrayList<>();
@@ -162,7 +140,7 @@ public class TagsProcess {
 			}
 			
 			else {
-				saida = saida + word.getWord() + ": "+"Palavra Não Reconhecida\n";
+				saida = saida + word.getWord() + ": "+ "Palavra Não Reconhecida\n";
 				System.out.print(word.getWord());
 				System.out.print(": ");
 				System.out.println("Palavra Não Reconhecida");
@@ -179,7 +157,7 @@ public class TagsProcess {
 		}
 
 		if (i == s.length()) {
-			wordsAux = out.split(" ");
+			wordsAux = out.split(",");
 			List<Word> wordsList = new ArrayList<>();
 			
 			for(int j=0; j< wordsAux.length; j++) {
@@ -187,11 +165,12 @@ public class TagsProcess {
 			}
 			ListWords wordlistList = new ListWords(wordsList);
 			listWords.add(wordlistList);
+			//System.out.println("processado:" + out);
 		}
 
 		for (int j = s.length() - 1; j >= i; j--)
 		{
-			String substr = s.substring(i, j + 1) + " ";
+			String substr = s.substring(i, j + 1) + ",";
 			getAllSubtrings(s, j + 1, out + substr, wordsAux);
 		}
 	}
