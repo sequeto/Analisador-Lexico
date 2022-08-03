@@ -58,5 +58,13 @@
 	      <artifactId>jflex</artifactId>
 	      <version>1.5.0</version>
 	    </dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-text</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<!-- Thanks for using https://jar-download.com -->
+
+
 	</dependencies>
 </project>

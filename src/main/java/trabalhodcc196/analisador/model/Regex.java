@@ -11,6 +11,7 @@
 
 package trabalhodcc196.analisador.model;
 
+import org.apache.commons.text.StringEscapeUtils;
 import trabalhodcc196.analisador.exceptions.InputErrorException;
 import java.util.Stack;
 
@@ -22,7 +23,7 @@ public class Regex {
 
 	public Regex(String regex, String label) throws InputErrorException {
 		this.label = label;
-		this.expression = regex;
+		this.expression = StringEscapeUtils.unescapeJava(regex);;
 		try {
 			this.setAFD(this.generateAFD());			
 		}catch(Exception e) {
@@ -107,7 +108,6 @@ public class Regex {
 		catch(InputErrorException e) {
 			throw new InputErrorException(String.format("Erro na definição da tag! %s", e.getMessage() !=null ? e.getMessage() : ""));
 		} catch (CloneNotSupportedException e) {
-			// TODO Auto-generated catch block
 			throw new InputErrorException(String.format("Erro na definição da tag! %s", e.getMessage() !=null ? e.getMessage() : ""));
 		}
 	}
