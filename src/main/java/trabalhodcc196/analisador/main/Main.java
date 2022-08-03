@@ -11,14 +11,14 @@
 
 package trabalhodcc196.analisador.main;
 
-import java.util.Scanner;
-
-
+import trabalhodcc196.analisador.exceptions.AutomataProcessingException;
+import trabalhodcc196.analisador.exceptions.InputErrorException;
+import trabalhodcc196.analisador.interaction.UserInteraction;
 import trabalhodcc196.analisador.model.ListaAutomatos;
 import trabalhodcc196.analisador.model.ListaTags;
 import trabalhodcc196.analisador.utils.IOUtils;
-import trabalhodcc196.analisador.exceptions.InputErrorException;
-import trabalhodcc196.analisador.interaction.UserInteraction;
+
+import java.util.Scanner;
 
 public class Main {
 	
@@ -42,6 +42,8 @@ public class Main {
 					
 				} catch (InputErrorException e) {
 					cli.error(String.format("Erro na entrada digitada! %s", e.getMessage() !=null ? e.getMessage() : ""));
+				} catch (AutomataProcessingException e) {
+					cli.error("Erro de criação de autômato, "+e.getMessage());
 				} catch (Exception e) {
 					cli.error(e.getMessage());
 				}

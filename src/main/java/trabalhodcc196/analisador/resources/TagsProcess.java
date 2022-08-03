@@ -10,18 +10,14 @@
 
 package trabalhodcc196.analisador.resources;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-
-import trabalhodcc196.analisador.exceptions.InputErrorException;
+import trabalhodcc196.analisador.exceptions.AutomataProcessingException;
 import trabalhodcc196.analisador.model.AFD;
 import trabalhodcc196.analisador.model.ListWords;
 import trabalhodcc196.analisador.model.Regex;
 import trabalhodcc196.analisador.model.Word;
 import trabalhodcc196.analisador.utils.IOUtils;
+
+import java.util.*;
 
 public class TagsProcess {
 	public static List<Regex> tags = new ArrayList<>();
@@ -49,9 +45,13 @@ public class TagsProcess {
 					tags.add(expression);
 					listaTags.put(comand[0].replace(":", ""), comand[1]);
 					afds.add(afd);
+				} else {
+					throw new AutomataProcessingException("Tag Inválida: "+comand[0]);
 				}
+			} catch (AutomataProcessingException e) {
+				throw new AutomataProcessingException("Processamento impossível para a entrada informada");
 			} catch (Exception e) {
-				throw new InputErrorException("Processamento impossível para a entrada informada");
+				throw new Exception();
 			}
 
 		} else {
@@ -68,16 +68,15 @@ public class TagsProcess {
 					tags.add(expression);
 					listaTags.put(comand[0].replace(":", ""), comand[1]);
 					afds.add(afd);
-				}
-				else {
-					throw new InputErrorException("Tag Inválida: "+comand[0]);
+				} else {
+					throw new AutomataProcessingException("Tag Inválida: "+comand[0]);
 				}
 			}
-			catch(InputErrorException e) {
-				throw new InputErrorException("Tag Inválida: "+comand[0]);
+			catch(AutomataProcessingException e) {
+				throw new AutomataProcessingException(e.getMessage());
 			}
 			catch (Exception e) {
-				throw new InputErrorException();
+				throw new Exception();
 			}
 		}
 	}

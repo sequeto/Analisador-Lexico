@@ -28,45 +28,56 @@ public class FileUtils {
 	public void setOutput(String output) {
 		this.output = output;
 	}
-
-	public void escreverArquivo(String divisaoTags, String output) throws IOException {
-		BufferedWriter writer = new BufferedWriter(new FileWriter("files/" + output));
-		writer.write(divisaoTags);
-		writer.close();
-	}
 	
 	public List<String[]>  lerArquivoLex(HashMap<String, String> listaTags, String input) throws Exception {
-		Path path = Paths.get("files/" + input);
-		IOUtils cli = new IOUtils();
-        List<String> linhasArquivo = Files.readAllLines(path);
-		List<String[]> tags = new ArrayList<>();
-        for (int i = 0; i < linhasArquivo.size(); i++) {
-        	String [] linha = cli.getInput(linhasArquivo.get(i));
-			tags.add(linha);
+		try {
+			Path path = Paths.get("files/" + input);
+			IOUtils cli = new IOUtils();
+			List<String> linhasArquivo = Files.readAllLines(path);
+			List<String[]> tags = new ArrayList<>();
+			for (int i = 0; i < linhasArquivo.size(); i++) {
+				String [] linha = cli.getInput(linhasArquivo.get(i));
+				tags.add(linha);
+			}
+			return tags;
+		} catch (Exception e) {
+			throw new IOException("Não foi possível a leitura do arquivo .lex.");
 		}
-		return tags;
 	}
 
-	public String lerArquivoTxt(String input) throws Exception {
-		Path path = Paths.get("files/" + input);
-		IOUtils cli = new IOUtils();
+	public String lerArquivoTxt(String input) throws IOException {
 
-		return Files.readString(path);
+		try {
+			Path path = Paths.get("files/" + input);
+			IOUtils cli = new IOUtils();
+
+			return Files.readString(path);
+		} catch (IOException e) {
+			throw new IOException("Não foi possível carregar string do arquivo .txt.");
+		}
 	}
 	
 	public void salvarTags (HashMap<String,String> listaTags, String output) throws IOException {
-		BufferedWriter writer = new BufferedWriter(new FileWriter("files/" + output));
-		
-		for (Map.Entry<String, String> tags : listaTags.entrySet()) {
-		     writer.write(tags.getKey()+": "+tags.getValue()+"\n");
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter("files/" + output));
+
+			for (Map.Entry<String, String> tags : listaTags.entrySet()) {
+				 writer.write(tags.getKey()+": "+tags.getValue()+"\n");
+			}
+			writer.close();
+		} catch (IOException e) {
+			throw new IOException("Erro ao criar arquivo com as tags");
 		}
-		writer.close();
 	}
 
 	public void salvarArquivoTxt(String processInput) throws IOException {
-		BufferedWriter writer = new BufferedWriter(new FileWriter("files/" + this.output));
-		writer.write(processInput);
-		writer.close();
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter("files/" + this.output));
+			writer.write(processInput);
+			writer.close();
+		} catch (IOException e) {
+			throw new IOException("Erro ao salvar arquivo txt.");
+		}
 	}
 
 }

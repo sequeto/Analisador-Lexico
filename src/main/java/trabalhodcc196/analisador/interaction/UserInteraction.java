@@ -10,17 +10,15 @@
 
 package trabalhodcc196.analisador.interaction;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 import trabalhodcc196.analisador.exceptions.InputErrorException;
-import trabalhodcc196.analisador.model.AFD;
 import trabalhodcc196.analisador.model.ListaAutomatos;
 import trabalhodcc196.analisador.model.ListaTags;
 import trabalhodcc196.analisador.resources.TagsProcess;
 import trabalhodcc196.analisador.utils.FileUtils;
 import trabalhodcc196.analisador.utils.IOUtils;
+
+import java.util.List;
+import java.util.Scanner;
 
 public class UserInteraction {
 	public static IOUtils cli = new IOUtils(new Scanner(System.in), System.out);
@@ -79,7 +77,7 @@ public class UserInteraction {
 					cli.info("Arquivo criado dentro da pasta 'files'.");
 					break;
 				default:
-					cli.error("Comando nao encontrado");
+					throw new InputErrorException("Comando nao encontrado");
 			}
 		}
 		
