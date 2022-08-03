@@ -1,6 +1,5 @@
-abab: tag2
-ab: tag2
- : espaco
 a: tag
  : espaco
-b: tag
+aa: tag2
+ : espaco
+a: tag

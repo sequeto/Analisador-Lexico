@@ -83,8 +83,65 @@ public class TagsProcess {
 			}
 		}
 	}
-
 	
+	public String processInput(String input) {
+		String saida = "";
+		if(!input.isEmpty()) {
+			List<Word> listWords = new ArrayList<>();
+			String processado = "";
+			
+			Word reconhecido = null;
+			
+			boolean recognize = false;
+			
+			while(!input.isEmpty()) {
+				reconhecido = new Word("");
+				reconhecido.setTag("Não Reconhecido");
+				
+				for(int i = 0; i<input.length(); i++) {
+					processado = processado + Character.toString(input.charAt(i));
+					for(int j = 0; j < TagsProcess.tags.size(); j++) {
+						if(TagsProcess.tags.get(j).getAFD().recognizeWord(processado)) {
+							recognize = true;
+							reconhecido = new Word(processado);
+							reconhecido.setTag(TagsProcess.tags.get(j).getLabel());
+							break;
+						}
+					}
+					
+					if(!recognize) {
+						reconhecido.setWord(processado);
+					}
+				}
+								
+				listWords.add(reconhecido);
+				input = input.substring(reconhecido.getWord().length());
+				processado = "";
+				recognize = false;
+			}
+			
+			for (Word word : listWords){
+				if(word.getTag() != null) {
+					saida = saida + word.getWord() + ": " + word.getTag()+"\n";
+					System.out.print(word.getWord());
+					System.out.print(": ");
+					System.out.println(word.getTag());
+				}
+				
+				else {
+					saida = saida + word.getWord() + ": "+ "Palavra Não Reconhecida\n";
+					System.out.print(word.getWord());
+					System.out.print(": ");
+					System.out.println("Palavra Não Reconhecida");
+				}
+			};
+		
+		
+		}
+		return saida;
+	}
+
+	/*
 	public String processInput(String input) throws Exception {
 		TagsProcess.listWords =  new ArrayList<>();
 		ListWords tagsDefined = null;
@@ -173,6 +230,6 @@ public class TagsProcess {
 			String substr = s.substring(i, j + 1) + ",";
 			getAllSubtrings(s, j + 1, out + substr, wordsAux);
 		}
-	}
+	}*/
 	
 }
