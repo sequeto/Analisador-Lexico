@@ -1,5 +1,12 @@
+aba: tag2
+ : espaco
+cc: Palavra Não Reconhecida
+ : espaco
+c: Palavra Não Reconhecida
 a: tag
  : espaco
-aa: tag2
+cc: Palavra Não Reconhecida
  : espaco
-a: tag
+ab: tag2
+ : espaco
+c: Palavra Não Reconhecida

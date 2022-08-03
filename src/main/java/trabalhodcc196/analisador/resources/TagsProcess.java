@@ -88,12 +88,13 @@ public class TagsProcess {
 			String processado = "";
 			
 			Word reconhecido = null;
+			Word naoReconhecido = null;
 			
 			boolean recognize = false;
 			
 			while(!input.isEmpty()) {
 				reconhecido = new Word("");
-				reconhecido.setTag("Não Reconhecido");
+				reconhecido.setTag(null);
 				
 				for(int i = 0; i<input.length(); i++) {
 					processado = processado + Character.toString(input.charAt(i));
@@ -108,10 +109,28 @@ public class TagsProcess {
 					
 					if(!recognize) {
 						reconhecido.setWord(processado);
+						recognize = true;
 					}
 				}
-								
-				listWords.add(reconhecido);
+				
+				
+				if(reconhecido.getTag() == null) {
+					if(listWords.get((listWords.size()-1)).getTag() == null) {
+						naoReconhecido = new Word(listWords.get((listWords.size()-1)).getWord() + reconhecido.getWord());
+						naoReconhecido.setTag(null);
+						listWords.remove((listWords.size()-1));
+						listWords.add(naoReconhecido);
+					}
+					
+					else {
+						listWords.add(reconhecido);
+					}
+				}
+				
+				else {
+					listWords.add(reconhecido);					
+				}
+				
 				input = input.substring(reconhecido.getWord().length());
 				processado = "";
 				recognize = false;
