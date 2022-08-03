@@ -40,9 +40,7 @@ public class TagsProcess {
 	}
 
 	public void saveTags(String[] comand, HashMap<String, String> listaTags, List<AFD> afds) throws Exception {
-		if(comand.length > 2) {
-			throw new InputErrorException("Processamento impossível para a entrada informada");
-		}
+
 		if (listaTags.isEmpty()) {
 			try {
 				expression = new Regex(comand[1], comand[0].replace(":", ""));
