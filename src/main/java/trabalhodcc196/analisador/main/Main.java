@@ -44,6 +44,8 @@ public class Main {
 					cli.error(String.format("Erro na entrada digitada! %s", e.getMessage() !=null ? e.getMessage() : ""));
 				} catch (AutomataProcessingException e) {
 					cli.error("Erro de criação de autômato, "+e.getMessage());
+				} catch (ArrayIndexOutOfBoundsException e) {
+					cli.error("Comando inválido.");
 				} catch (Exception e) {
 					cli.error(e.getMessage());
 				}
