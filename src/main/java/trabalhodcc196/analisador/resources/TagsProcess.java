@@ -112,7 +112,7 @@ public class TagsProcess {
 				
 				
 				if(reconhecido.getTag() == null) {
-					if(listWords.get((listWords.size()-1)).getTag() == null) {
+					if(!listWords.isEmpty() && listWords.get((listWords.size()-1)).getTag() == null) {
 						naoReconhecido = new Word(listWords.get((listWords.size()-1)).getWord() + reconhecido.getWord());
 						naoReconhecido.setTag(null);
 						listWords.remove((listWords.size()-1));
