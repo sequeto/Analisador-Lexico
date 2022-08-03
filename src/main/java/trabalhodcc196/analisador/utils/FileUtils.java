@@ -14,6 +14,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class FileUtils {
 			IOUtils cli = new IOUtils();
 
 			return Files.readString(path);
-		} catch (IOException e) {
+		} catch (IOException | InvalidPathException e) {
 			throw new IOException("Não foi possível carregar string do arquivo .txt.");
 		}
 	}
@@ -65,7 +66,7 @@ public class FileUtils {
 				 writer.write(tags.getKey()+": "+tags.getValue()+"\n");
 			}
 			writer.close();
-		} catch (IOException e) {
+		} catch (IOException | InvalidPathException e) {
 			throw new IOException("Erro ao criar arquivo com as tags");
 		}
 	}
@@ -75,7 +76,7 @@ public class FileUtils {
 			BufferedWriter writer = new BufferedWriter(new FileWriter("files/" + this.output));
 			writer.write(processInput);
 			writer.close();
-		} catch (IOException e) {
+		} catch (IOException | InvalidPathException e) {
 			throw new IOException("Erro ao salvar arquivo txt.");
 		}
 	}

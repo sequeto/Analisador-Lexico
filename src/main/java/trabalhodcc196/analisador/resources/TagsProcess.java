@@ -83,7 +83,6 @@ public class TagsProcess {
 		if(!input.isEmpty()) {
 			List<Word> listWords = new ArrayList<>();
 			String processado = "";
-			
 			Word reconhecido = null;
 			Word naoReconhecido = null;
 			
