@@ -12,7 +12,6 @@ package trabalhodcc196.analisador.resources;
 
 import trabalhodcc196.analisador.exceptions.AutomataProcessingException;
 import trabalhodcc196.analisador.model.AFD;
-import trabalhodcc196.analisador.model.ListWords;
 import trabalhodcc196.analisador.model.Regex;
 import trabalhodcc196.analisador.model.Word;
 import trabalhodcc196.analisador.utils.IOUtils;
@@ -22,8 +21,6 @@ import java.util.*;
 public class TagsProcess {
 	public static List<Regex> tags = new ArrayList<>();
 	private Regex expression = null;
-	public static List<ListWords> listWords = new ArrayList<>();
-	public static String [] wordsAux;
 	
 	public static IOUtils cli = new IOUtils(new Scanner(System.in), System.out);
 	
@@ -156,96 +153,5 @@ public class TagsProcess {
 		}
 		return saida;
 	}
-
-	/*
-	public String processInput(String input) throws Exception {
-		TagsProcess.listWords =  new ArrayList<>();
-		ListWords tagsDefined = null;
-		Integer index = 0;
-		String saida = "";
-		
-		getAllSubtrings(input, 0, "", TagsProcess.wordsAux);
-		
-		TagsProcess.listWords.forEach(list ->{ // Lista de Palavras
-			list.getWords().forEach(word -> {
-				for(int j = 0; j < TagsProcess.tags.size(); j++) {
-					
-					if(TagsProcess.tags.get(j).getAFD().recognizeWord(word.getWord())) {
-						list.incrementTags();
-						word.setTag(TagsProcess.tags.get(j).getLabel());
-						break;
-					}
-				}
-			});
-		});
-		
-		for(int j= 0; j < TagsProcess.listWords.size(); j++) {
-			if(TagsProcess.listWords.get(j).getTagsRecognize().equals(TagsProcess.listWords.get(j).getWords().size())) {
-				if(TagsProcess.listWords.get(index).getTagsRecognize().equals(TagsProcess.listWords.get(index).getWords().size())) {
-					if(TagsProcess.listWords.get(j).getTagsRecognize() < TagsProcess.listWords.get(index).getTagsRecognize()) {
-						index = j;
-					}
-				}
-				
-				else {
-					index = j;
-				}
-			}
-			
-			else {
-				if(!TagsProcess.listWords.get(index).getTagsRecognize().equals(TagsProcess.listWords.get(index).getWords().size())) {
-					if(TagsProcess.listWords.get(j).getTagsRecognize() > TagsProcess.listWords.get(index).getTagsRecognize()) {
-						index = j;
-					}
-				}
-			}
-		}
-		
-		
-		tagsDefined = TagsProcess.listWords.get(index);
-
-		for (Word word : tagsDefined.getWords()){
-			if(word.getTag() != null) {
-				saida = saida + word.getWord() + ": " + word.getTag()+"\n";
-				System.out.print(word.getWord());
-				System.out.print(": ");
-				System.out.println(word.getTag());
-			}
-			
-			else {
-				saida = saida + word.getWord() + ": "+ "Palavra Não Reconhecida\n";
-				System.out.print(word.getWord());
-				System.out.print(": ");
-				System.out.println("Palavra Não Reconhecida");
-			}
-		};
-		return saida;
-	}
-	
-	public static void getAllSubtrings(String s, int i, String out, String [] wordsAux) throws Exception
-	{
-		// base case
-		if (s == null || s.length() == 0) {
-			return;
-		}
-
-		if (i == s.length()) {
-			wordsAux = out.split(",");
-			List<Word> wordsList = new ArrayList<>();
-			
-			for(int j=0; j< wordsAux.length; j++) {
-				wordsList.add(new Word(wordsAux[j]));
-			}
-			ListWords wordlistList = new ListWords(wordsList);
-			listWords.add(wordlistList);
-			//System.out.println("processado:" + out);
-		}
-
-		for (int j = s.length() - 1; j >= i; j--)
-		{
-			String substr = s.substring(i, j + 1) + ",";
-			getAllSubtrings(s, j + 1, out + substr, wordsAux);
-		}
-	}*/
 	
 }
