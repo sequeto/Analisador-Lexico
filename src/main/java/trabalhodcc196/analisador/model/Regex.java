@@ -164,9 +164,11 @@ public class Regex {
 
         }
 
+
         if (processStack.size() != 1) {
             throw new InputErrorException("Tag Inválida");
         } else {
+            processStack.peek().definicaoFormal();
             return processStack.pop();
         }
     }
