@@ -17,4 +17,5 @@
 <b>java -jar analisador-0.0.1-SNAPSHOT-jar-with-dependencies.jar</b>
 
 ## Primeira parte do trabalho
-<p>A aplicação tem por objetivo, nesta primeira parte, ler as tags informadas pelo usuário e salvá-las ou lê-las de arquivos.</p>
+<p>A aplicação tem por objetivo, na primeira parte, ler as tags informadas pelo usuário e salvá-las ou lê-las de arquivos.
+Para a segunda parte, temos a validação das tags em expressões regulares e gerar seus autômatos correspondentes. Outras operações incluem: carregar as definições formais dos autômatos, carregar as tags dos arquivos e processá-las e dividir uma string em tags.</p>
