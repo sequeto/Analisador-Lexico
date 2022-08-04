@@ -48,11 +48,11 @@ public class UserInteraction {
 						try {
 							cli.info("Acessando tag: "+comando[0]);
 							process.saveTags(comando, listaTags.lsTags, listaAutomatos.lsAutomatos);
+							cli.info("Arquivo lido e carregado para a lista de tags.");
 						} catch (Exception e) {
 							cli.error(e.getMessage());
 						}
 					}
-					cli.info("Arquivo lido e carregado para a lista de tags.");
 					break;
 				case ":o":
 					cli.warning("Especifica o caminho do arquivo de saída para a divisão de tags"); // :o output.txt
