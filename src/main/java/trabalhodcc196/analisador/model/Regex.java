@@ -173,7 +173,7 @@ public class Regex {
         }
     }
 
-    private void validarEscapeCode(char caracter, Stack<AFN> processStack, Integer consecutiveCounterbars) {
+    private void validarEscapeCode(char caracter, Stack<AFN> processStack, Integer consecutiveCounterbars) throws InputErrorException {
         switch (caracter){
             case '.', '*', '+' -> {
                 processStack.pop();
@@ -187,6 +187,8 @@ public class Regex {
                 processStack.pop();
                 processStack.push(new AFN('\u0000'));
             }
+            case '\\' -> {}
+            default -> throw new InputErrorException("Código de escape inválido.");
         }
 
     }
