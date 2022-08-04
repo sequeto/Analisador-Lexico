@@ -105,7 +105,8 @@ public class AFD extends Automato {
 		}
 		formato = formato +" }, {";
 		for (Character character : alfabeto) {
-			formato = formato +" |"+character+"|";
+			formato = formato +" |"+ (character.equals('\n') ? "<\\n>" : character)
+					+"|";
 		}
 		formato = formato +" }, \u03B4, "+estadoInicial.getRotulo()+", {";
 		for (Estado terminal : getEstadosFinais()) {
@@ -114,10 +115,12 @@ public class AFD extends Automato {
 		formato = formato+" })";
 		System.out.println(formato);
 		System.out.println("Transições:");
-		getTransicoes().forEach(transicao -> System.out.println(
-				transicao.getOrigem().getRotulo() + " >>===== " +
-						transicao.getCaracter() + " =====>> " +
-						transicao.getDestino().getRotulo()
-		));
+		getTransicoes().forEach(transicao ->{
+			String caracterImpresso = (transicao.getCaracter().equals("\n")) ? "<\\n>" : transicao.getCaracter().toString();
+			System.out.println(
+					transicao.getOrigem().getRotulo() + " >>===== " +
+							caracterImpresso + " =====>> " +
+							transicao.getDestino().getRotulo());
+		});
 	}
 }

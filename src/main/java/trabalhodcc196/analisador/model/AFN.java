@@ -263,7 +263,8 @@ public class AFN extends Automato implements Cloneable {
         }
         formato = formato +" }, {";
         for (Character character : alfabeto) {
-            formato = formato +" |"+character+"|";
+            formato = formato +" |"+ (character.equals('\n') ? "<\\n>" : character)
+                    +"|";
         }
         formato = formato +" }, \u03B4, {";
         for (Estado inicial : getEstadosIniciais()) {
@@ -276,11 +277,13 @@ public class AFN extends Automato implements Cloneable {
         formato = formato+" })";
         System.out.println(formato);
         System.out.println("Transições:");
-        getTransicoes().forEach(transicao -> System.out.println(
+        getTransicoes().forEach(transicao ->{
+            String caracterImpresso = (transicao.getCaracter().equals("\n")) ? "<\\n>" : transicao.getCaracter().toString();
+                System.out.println(
                 transicao.getOrigem().getRotulo() + " >>===== " +
-                        transicao.getCaracter() + " =====>> " +
-                        transicao.getDestino().getRotulo()
-        ));
+                        caracterImpresso + " =====>> " +
+                        transicao.getDestino().getRotulo());
+        });
     }
 
 
