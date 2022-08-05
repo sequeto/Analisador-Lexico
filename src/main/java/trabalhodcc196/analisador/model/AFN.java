@@ -144,7 +144,7 @@ public class AFN extends Automato implements Cloneable {
 
             while (!filaProcessamento.isEmpty()) {
                 Transicao transicao = filaProcessamento.poll();
-                if(transicao.getCaracter().equals("\u03BB")) {
+                if(transicao.getCaracter().equals("\u0000")) {
                     List<Transicao> proximas = getTransicoesByOrigem(transicao.getDestino());
                     proximas.forEach(proxima -> {
                         filaProcessamento.add(proxima);
@@ -162,6 +162,9 @@ public class AFN extends Automato implements Cloneable {
         afn.getTransicoes().removeAll(toRemove);
         afn.removerInacessiveis();
         afn.removerInuteis();
+        afn.getAlfabeto().removeIf(caracter -> {
+           return caracter == '\u0000';
+        });
 
         return afn;
     }
@@ -182,7 +185,7 @@ public class AFN extends Automato implements Cloneable {
         afnConcatenado.getAlfabeto().addAll(afn2.getAlfabeto());
         afnConcatenado.getEstadosFinais().forEach(estadoFinal -> {
             afn2.getEstadosIniciais().forEach(inicial -> {
-                Transicao transicao = new Transicao("\u03BB",estadoFinal,inicial);
+                Transicao transicao = new Transicao("\u0000",estadoFinal,inicial);
                 afnConcatenado.adicionarTransicao(transicao);
             });
         });
@@ -200,22 +203,22 @@ public class AFN extends Automato implements Cloneable {
         Estado estadoFinal = new Estado();
         
         afnUnido.getEstadosIniciais().forEach(inicial -> {
-        	Transicao transicao = new Transicao("\u03BB",estadoInicial,inicial);
+        	Transicao transicao = new Transicao("\u0000",estadoInicial,inicial);
         	afnUnido.adicionarTransicao(transicao);
         });
         
         afn2.getEstadosIniciais().forEach(inicial -> {
-        	Transicao transicao = new Transicao("\u03BB",estadoInicial,inicial);
+        	Transicao transicao = new Transicao("\u0000",estadoInicial,inicial);
         	afnUnido.adicionarTransicao(transicao);
         });
         
         afnUnido.getEstadosFinais().forEach(last ->{
-        	Transicao transicao = new Transicao("\u03BB",last, estadoFinal);
+        	Transicao transicao = new Transicao("\u0000",last, estadoFinal);
         	afnUnido.adicionarTransicao(transicao);
         });
         
         afn2.getEstadosFinais().forEach(last ->{
-        	Transicao transicao = new Transicao("\u03BB",last, estadoFinal);
+        	Transicao transicao = new Transicao("\u0000",last, estadoFinal);
         	afnUnido.adicionarTransicao(transicao);
         });
         
@@ -239,7 +242,7 @@ public class AFN extends Automato implements Cloneable {
     	
     	afnKleene.getEstadosFinais().forEach(last ->{
     		afnKleene.getEstadosIniciais().forEach(inicial -> {
-                Transicao transicao = new Transicao("\u03BB",last,inicial);
+                Transicao transicao = new Transicao("\u0000",last,inicial);
                 afnKleene.adicionarTransicao(transicao);
             });
         });
@@ -253,7 +256,7 @@ public class AFN extends Automato implements Cloneable {
     @Override
     public void definicaoFormal() {
         if(this.getTransicoes().stream().anyMatch(transicao -> {
-                    return transicao.getCaracter().equals("λ");
+                    return transicao.getCaracter().equals("\u0000");
                 })){
             System.out.println("========AFN \u03BB========:");
         } else {System.out.println("========AFN========:");}
